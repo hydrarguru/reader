@@ -57,6 +57,14 @@ export default function init_db(seq: Sequelize) {
                 key: 'user_id'
             }
         },
+        post_community: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'community',
+                key: 'community_id'
+            }
+        },
     })
     seq.define('community', {
         community_id: {
@@ -78,7 +86,7 @@ export default function init_db(seq: Sequelize) {
             allowNull: true,
             references: {
                 model: 'posts',
-                key: 'post_id'
+                key: 'post_id',
             }
         },
     })
