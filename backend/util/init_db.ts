@@ -1,51 +1,46 @@
-import { create } from 'domain';
 import { Sequelize, DataTypes } from 'sequelize';
 
-
-export default function init_db(seq: Sequelize) {
-    seq.query('PRAGMA foreign_keys = ON');
-
-    seq.define('users', {
+export default function defineTables(seq: Sequelize) {
+    const Users = seq.define('Users', {
         user_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: false,
-            allowNull: false
+            type: DataTypes.UUIDV4,
+            autoIncrement: true,
+            primaryKey: true
         },
-        user_name: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        user_email: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        user_password: {
+        email: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        user_posts: {
+        posts: {
             type: DataTypes.ARRAY(DataTypes.UUIDV4),
             allowNull: true,
             references: {
-                model: 'posts',
+                model: 'Posts',
                 key: 'post_id'
+            
             }
-        },
-    })
+        }
+    });
 
-    seq.define('posts', {
+    const Posts = seq.define('Posts', {
         post_id: {
             type: DataTypes.UUIDV4,
-            primaryKey: true,
-            autoIncrement: false,
-            allowNull: false
+            autoIncrement: true,
+            primaryKey: true
         },
-        post_title: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        post_content: {
+        content: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -53,43 +48,41 @@ export default function init_db(seq: Sequelize) {
             type: DataTypes.UUIDV4,
             allowNull: false,
             references: {
-                model: 'users',
+                model: 'Users',
                 key: 'user_id'
-            }
+            },
         },
-        post_community: {
-            type: DataTypes.INTEGER,
+        community: {
+            type: DataTypes.UUIDV4,
             allowNull: false,
             references: {
-                model: 'community',
+                model: 'Communties',
                 key: 'community_id'
             }
-        },
-    })
-    seq.define('community', {
+        }
+    });
+
+    const Communties = seq.define('Communities', {
         community_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: false,
-            allowNull: false
+            type: DataTypes.UUIDV4,
+            autoIncrement: true,
+            primaryKey: true
         },
-        community_name: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        community_description: {
+        description: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
-        communty_posts: {
+        posts: {
             type: DataTypes.ARRAY(DataTypes.UUIDV4),
             allowNull: true,
             references: {
-                model: 'posts',
-                key: 'post_id',
+                model: 'Posts',
+                key: 'post_id'
             }
-        },
-    })
-
-    seq.sync({ force: true });
+        }
+    });
 }
