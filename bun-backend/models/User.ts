@@ -1,22 +1,23 @@
 import { DataTypes } from 'sequelize';
+import { Client } from '../db';
+import { Post } from './Post';
 
-export const User = {
+
+export const User = Client.define('User', {
     user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -30,4 +31,4 @@ export const User = {
         allowNull: false,
         defaultValue: DataTypes.NOW
     }
-}
+});

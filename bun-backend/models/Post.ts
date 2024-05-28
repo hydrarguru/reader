@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
+import { Client } from '../db';
 
-export const Post = {
+export const Post = Client.define('Post', {
     post_id: {
         type: DataTypes.UUID,
         allowNull: false,
@@ -24,4 +25,4 @@ export const Post = {
         allowNull: false,
         defaultValue: DataTypes.NOW
     }
-}
+});

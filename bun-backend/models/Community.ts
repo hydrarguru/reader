@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
+import { Client } from '../db';
+import { Post } from './Post';
 
-export const Community = {
+export const Community = Client.define('Community', {
     community_id: {
         type: DataTypes.UUID,
         allowNull: false,
@@ -15,4 +17,4 @@ export const Community = {
         type: DataTypes.STRING,
         allowNull: true,
     }
-}
+});
