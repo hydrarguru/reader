@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
-import { Community, Post, User } from "./schema";
 
-export const client = new Sequelize({
+export const Client = new Sequelize({
     dialect: "mysql",
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
