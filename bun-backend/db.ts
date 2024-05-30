@@ -36,8 +36,8 @@ export async function getAll(table: string) {
     return results;
 }
 
-export async function getOne(table: string, column: string, value: string | number) : Promise<object | null> {
-    const results= await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
+export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
+    const results = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
         type: QueryTypes.SELECT,
         replacements: { value }
     });

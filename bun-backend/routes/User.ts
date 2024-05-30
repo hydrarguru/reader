@@ -1,7 +1,6 @@
 import express from "express";
 import { validateUUID } from "../util/validate";
 import { getAll, getOne } from "../db";
-
 export const UserRouter = express.Router();
 
 UserRouter.get("/users", async (req, res) => {
