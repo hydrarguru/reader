@@ -1,10 +1,10 @@
 import express from "express";
-import { createTables } from "./schema";
+import { Client, createTables } from "./db";
 
-const app = express();
 const port = 8080;
+const app = express();
 
-createTables();
+await createTables();
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}.`);
