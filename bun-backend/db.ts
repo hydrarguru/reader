@@ -32,16 +32,19 @@ export async function createTables() {
 
 export async function getAll(table: string) {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table}`);
-    console.log(metadata);
+    console.log('Metadata: ' + metadata);
+    console.log('Results: ' + JSON.stringify(results));
     return results;
 }
 
 export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
-    const results = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
+    const [results, metadata] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
         type: QueryTypes.SELECT,
-        replacements: { value }
+        replacements: { value: value }
     });
-    if (results.length === 0) {
+    console.log('Metadata: ' + metadata);
+    console.log('Results: ' + JSON.stringify(results));
+    if (results === undefined || results === null) {
         return null;
     }
     else {
