@@ -1,6 +1,7 @@
 import express from "express";
 import { createTables } from "./db";
 import { UserRouter } from "./routes/User"
+import { PostRouter } from "./routes/Post";
 import { CommunityRouter } from "./routes/Community";
 
 const shouldCreateTables = false;
@@ -9,8 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', UserRouter);
-app.use('/api', CommunityRouter);
+app.use(UserRouter);
+app.use(CommunityRouter);
+app.use(PostRouter);
 
 if (shouldCreateTables) {
   await createTables();
