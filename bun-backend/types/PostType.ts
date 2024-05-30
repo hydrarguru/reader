@@ -1,4 +1,4 @@
-export type PostType = {
+export type Post = {
     post_id: string,
     community_id: string,
     post_author: string,

@@ -1,4 +1,4 @@
-export type CommunityType = {
+export type Community = {
     community_id: string;
     community_name: string;
     community_image_url: string;
