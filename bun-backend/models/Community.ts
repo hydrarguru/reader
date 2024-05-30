@@ -1,20 +1,10 @@
-import { DataTypes } from "sequelize";
-import { Client } from '../db';
-import { Post } from './Post';
-
-export const Community = Client.define('Community', {
-    community_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    description: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    }
-});
+export const CommunityTable = `
+CREATE TABLE IF NOT EXISTS Communities (
+community_id VARCHAR(36) PRIMARY KEY,
+community_name VARCHAR(50) NOT NULL UNIQUE,
+community_image_url VARCHAR(255),
+community_desc VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+`;

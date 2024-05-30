@@ -1,34 +1,10 @@
-import { DataTypes } from 'sequelize';
-import { Client } from '../db';
-import { Post } from './Post';
-
-
-export const User = Client.define('User', {
-    user_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        primaryKey: true
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    modifedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    }
-});
+export const usersTable = `
+CREATE TABLE IF NOT EXISTS Users (
+  user_id VARCHAR(36) PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+`;
