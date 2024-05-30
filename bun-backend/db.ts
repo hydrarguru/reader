@@ -2,6 +2,9 @@ import { Sequelize, QueryTypes } from "sequelize";
 import { usersTable } from "./models/User";
 import { postsTable } from "./models/Post";
 import { communitiesTable } from "./models/Community";
+import type { User } from './types/UserType';
+import type { Post } from './types/PostType';
+import type { Community } from './types/CommunityType';
 
 const databaseSchema = [
     usersTable,
@@ -50,5 +53,11 @@ export async function getOne(table: string, column: string, value: string | numb
     else {
         return results;
     }
+}
+
+export async function insertOne(table: string, item: User | Post | Community): Promise<void> {
+    const columns = Object.keys(item).join(', ');
+    const values = Object.values(item).join("', '");
+    await Client.query(`INSERT INTO ${table} (${columns}) VALUES ('${values}')`);
 }
 
