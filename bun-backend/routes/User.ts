@@ -1,15 +1,16 @@
 import express from "express";
-import { validateUUID } from "../util/validate_uuid";
+import { validateUUID } from "../util/validate";
 import { getAll, getOne } from "../db";
 
-export const router = express.Router();
+export const UserRouter = express.Router();
 
-router.get("/users", async (req, res) => {
+UserRouter.get("/users", async (req, res) => {
     const users = await getAll("Users");
     res.send(users);
 });
-  
-router.get("/users/:id", async (req, res) => {
+
+
+UserRouter.get("/users/:id", async (req, res) => {
     if (!validateUUID(req.params.id)) {
       res.status(400).send("Invalid UUID.");
       return;
