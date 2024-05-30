@@ -1,11 +1,16 @@
 import express from "express";
 import { createTables } from "./db";
-import { router } from "./routes/User.get"
+import { UserRouter } from "./routes/User"
+import { CommunityRouter } from "./routes/Community";
 
 const shouldCreateTables = false;
 const port = 8080;
 const app = express();
-app.use('/api', router);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', UserRouter);
+app.use('/api', CommunityRouter);
 
 if (shouldCreateTables) {
   await createTables();
