@@ -1,6 +1,7 @@
 import express from "express";
-import { getAll, getOne } from "../db";
+import { getAll, getOne, insertOne } from "../db";
 import { validateUUID } from "../util/validate";
+import type { Post } from "../types/PostType";
 
 export const PostRouter = express.Router();
 
@@ -26,4 +27,26 @@ PostRouter.get("/post/:id", async (req, res) => {
             res.send({post: post});
         }
     }
+});
+
+PostRouter.post("/post/create", async (req, res) => {
+    const newPost : Post = {
+        post_id: crypto.randomUUID(),
+        community_id: req.body.community_id,
+        post_author: req.body.post_author,
+        post_title: req.body.post_title,
+        post_image_url: '',
+        post_content: req.body.post_content,
+        post_score: 0
+    };
+
+    await insertOne('Posts', newPost).catch((err) => {
+        console.error(err);
+        res.status(500).send({
+            message: 'Error creating post.',
+            error: err
+        });
+    }).finally(() => {
+        res.status(201).send('Post created.');
+    });
 });
