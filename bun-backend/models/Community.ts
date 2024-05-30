@@ -1,4 +1,4 @@
-export const CommunityTable = `
+export const communitiesTable = `
 CREATE TABLE IF NOT EXISTS Communities (
 community_id VARCHAR(36) PRIMARY KEY,
 community_name VARCHAR(50) NOT NULL UNIQUE,
