@@ -72,6 +72,12 @@ export async function deleteOne(table: string, column: string, value: string | n
     });
 };
 
+export async function updateOne(table: string, column: string, value: string | number, updatedColumn: string, updatedValue: string | number): Promise<void> {
+    await Client.query(`UPDATE ${table} SET ${updatedColumn} = :updatedValue WHERE ${column} = :value`, {
+        replacements: { value: value, updatedValue: updatedValue }
+    });
+};
+
 export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
         type: QueryTypes.SELECT,
