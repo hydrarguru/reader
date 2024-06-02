@@ -46,6 +46,19 @@ export async function checkForDuplicate(table: string, column: string, value: st
     }
 };
 
+export async function checkIfExists(table: string, column: string, value: string | number): Promise<boolean> {
+    const [results] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
+        type: QueryTypes.SELECT,
+        replacements: { value: value }
+    });
+    if (results === undefined || results === null) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
 export async function getAll(table: string) {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table}`);
     console.log('Metadata: ' + metadata);
