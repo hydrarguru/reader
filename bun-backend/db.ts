@@ -53,6 +53,12 @@ export async function getAll(table: string) {
     return results;
 }
 
+export async function deleteOne(table: string, column: string, value: string | number): Promise<void> {
+    await Client.query(`DELETE FROM ${table} WHERE ${column} = :value`, {
+        replacements: { value: value }
+    });
+};
+
 export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
         type: QueryTypes.SELECT,
