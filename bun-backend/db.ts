@@ -72,11 +72,29 @@ export async function deleteOne(table: string, column: string, value: string | n
     });
 };
 
-export async function updateOne(table: string, column: string, value: string | number, updatedColumn: string, updatedValue: string | number): Promise<void> {
-    await Client.query(`UPDATE ${table} SET ${updatedColumn} = :updatedValue WHERE ${column} = :value`, {
-        replacements: { value: value, updatedValue: updatedValue }
-    });
-};
+/**
+ * Updates a single row in the specified table with the given column value.
+ * 
+ * @param table - The name of the table to update.
+ * @param tableIdColumnName - The name of the column that represents the table's ID.
+ * @param tableIdValue - The value of the table's ID.
+ * @param columnToUpdate - The name of the column to update.
+ * @param updatedColumnValue - The new value for the column to be updated.
+ * @returns A promise that resolves with void when the update is complete.
+ */
+export async function updateOne(table: string, tableIdColumnName: string, tableIdValue: string, columnToUpdate: string, updatedColumnValue: string | number): Promise<void> {
+    if(await checkIfExists(table, tableIdColumnName, tableIdValue)) {
+        await Client.query(`UPDATE ${table} SET ${columnToUpdate} = :newValue WHERE ${tableIdColumnName} = :targetId`, {
+            type: QueryTypes.UPDATE,
+            replacements: { newValue: updatedColumnValue, targetId: tableIdValue }
+        });
+    }
+    else {
+        console.error('Could not update row.');
+    }
+}
+
+ 
 
 export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
