@@ -1,7 +1,8 @@
-import {useState } from 'react';
+//import {useState } from 'react';
 import { Container, Header, Content} from 'rsuite';
 import SiteHeader from './components/SiteHeader/SiteHeader';
-import LoginModal from './components/LoginModal';
+import LoginModal from './components/Modals/LoginModal';
+import RegisterModal from './components/Modals/RegisterModal';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       </Header>
       <Content>
         <LoginModal />
+        <RegisterModal />
       </Content>
     </Container>
   </div>

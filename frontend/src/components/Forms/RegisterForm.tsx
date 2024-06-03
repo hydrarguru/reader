@@ -27,8 +27,8 @@ function RegisterForm () {
 
       <Form.Group>
         <ButtonToolbar>
-          <Button appearance="primary">Submit</Button>
-          <Button appearance="default">Cancel</Button>
+          <Button color="green" appearance="primary">Submit</Button>
+          <Button color="red" appearance="primary">Cancel</Button>
         </ButtonToolbar>
       </Form.Group>
       
