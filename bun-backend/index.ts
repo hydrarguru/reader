@@ -1,5 +1,5 @@
 import express from "express";
-import { createTables } from "./db";
+import { generateTables } from "./db";
 import { UserRouter } from "./routes/User"
 import { PostRouter } from "./routes/Post";
 import { CommunityRouter } from "./routes/Community";
