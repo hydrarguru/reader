@@ -18,10 +18,10 @@ async function addForeignKey(targetTable: string, targetColumn: string, referenc
 
 export const Client = new Sequelize({
     dialect: "mysql",
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_NAME || 'fullstack',
+    username: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'password',
     logging: console.log
 });
 
