@@ -1,9 +1,8 @@
 nav {
-    display: flex;
-    justify-content: space-between;
+    display: flex;;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #333;
+    padding: 2rem;
+    background-color: #2a3236;
     color: #fff;
 }
 
@@ -19,4 +18,22 @@ a:hover {
 
 .header-logo {
     font-size: 1.5rem;
+}
+
+.header-button-primary {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background-color: #d93900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.header-button-secondary {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    border-radius: 5px;
 }
