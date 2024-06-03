@@ -1,7 +1,12 @@
+import Header from "./components/Header/Header"
+
 function App() {
   return (
     <>
-      <h1>Not Reddit</h1>
+      <Header />
+      <main>
+        <h1>Not Reddit</h1>
+      </main>
     </>
   )
 }
