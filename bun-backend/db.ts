@@ -25,7 +25,7 @@ export const Client = new Sequelize({
     logging: console.log
 });
 
-export async function createTables() {
+export async function generateTables() {
     for (const table of databaseSchema) {
         await Client.query(table);
     }

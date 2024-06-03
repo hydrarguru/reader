@@ -15,11 +15,11 @@ app.use(CommunityRouter);
 app.use(PostRouter);
 
 if (shouldCreateTables) {
-  await createTables();
-  console.log("Tables created.");
+  await generateTables();
+  console.info("Tables generated.");
 }
 else {
-  console.log("Tables not created.");
+  console.warn("Tables not generated.");
 }
 
 app.get("/", (req, res) => {
