@@ -5,8 +5,8 @@ function Header() {
     <nav>
         <ul>
             <li className='header-logo'><a href="/">Not Reddit</a></li>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+            <li><a href="/">Login</a></li>
+            <li><a href="/about">Sign Up</a></li>
         </ul>
     </nav>
   )
