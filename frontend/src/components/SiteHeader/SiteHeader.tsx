@@ -6,7 +6,7 @@ import OperatePeopleIcon from '@rsuite/icons/OperatePeople';
 function SiteHeader() {
   return (
     <Navbar>
-    <Navbar.Brand href="#">Not Reddit</Navbar.Brand>
+    <Navbar.Brand href="/">Not Reddit</Navbar.Brand>
     <Nav pullRight>
       <Nav.Menu title="Login / Signup">
         <Nav.Item icon={<PeoplesCostomizeIcon />}>Login</Nav.Item>

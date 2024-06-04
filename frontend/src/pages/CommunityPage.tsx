@@ -1,14 +1,20 @@
 import { useLocation } from "react-router-dom";
+import { Container, Header, Content} from 'rsuite';
+import SiteHeader from '../components/SiteHeader/SiteHeader';
 
 
 const CommunityPage = () => {
     const communityName = useLocation().pathname.replace(/\/c\//, '');
 
     return (
-        <div>
-            <h1>Community Page</h1>
-            <p>Community Name: {communityName}</p>
-        </div>
+        <Container>
+            <Header>
+                <SiteHeader />
+            </Header>
+            <Content>
+                <h1>{communityName}</h1>
+            </Content>
+        </Container>
     );
 };
 
