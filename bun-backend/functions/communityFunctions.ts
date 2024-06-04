@@ -6,8 +6,15 @@ export async function createCommunity(newCommunity: Community) {
         console.error('Community name already exists');
     }
     else {
+        if(newCommunity.community_id === '') {
+            newCommunity.community_id = crypto.randomUUID();
+            await createCommunity(newCommunity);
+            console.log('Community created, id supplied by backend.');
+        }
+
+
         await insertOne('Communities', newCommunity);
-        console.log('Community created');
+        console.log('Community created, id supplied by user');
         console.table(newCommunity);
     }    
 }
