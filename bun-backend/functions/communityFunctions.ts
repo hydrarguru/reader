@@ -1,21 +1,16 @@
 import type { Community } from '../types/CommunityType'
 import { insertOne, checkForDuplicate, deleteOne } from '../db'
 
-export async function createCommunity(newCommunity: Community) {
+export async function createCommunity(newCommunity: Community): Promise<boolean> {
     if (await checkForDuplicate('Communities', 'community_name', newCommunity.community_name)) {
         console.error('Community name already exists');
+        return false;
     }
     else {
-        if(newCommunity.community_id === '') {
-            newCommunity.community_id = crypto.randomUUID();
-            await createCommunity(newCommunity);
-            console.log('Community created, id supplied by backend.');
-        }
-
-
         await insertOne('Communities', newCommunity);
-        console.log('Community created, id supplied by user');
+        console.log('Community created');
         console.table(newCommunity);
+        return true;
     }    
 }
 
