@@ -1,4 +1,4 @@
-import 'rsuite/dist/rsuite.min.css';
+import './assets/main.css';
 import { CustomProvider } from 'rsuite';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
