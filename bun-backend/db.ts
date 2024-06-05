@@ -60,8 +60,7 @@ export async function checkIfExists(table: string, column: string, value: string
 };
 
 export async function getAll(table: string) {
-    const [results, metadata] = await Client.query(`SELECT * FROM ${table}`);
-    console.log('Metadata: ' + metadata);
+    const [results] = await Client.query(`SELECT * FROM ${table} LIMIT 100`);
     console.log('Results: ' + JSON.stringify(results));
     return results;
 }
@@ -94,7 +93,19 @@ export async function updateOne(table: string, tableIdColumnName: string, tableI
     }
 }
 
- 
+//export async function getCommunityPosts(community_id: string): Promise<object | null | any> {
+//    const [results] = await Client.query(`SELECT post_id FROM Posts WHERE community_id = :community_id`, {
+//        type: QueryTypes.SELECT,
+//        replacements: { community_id: community_id }
+//    });
+//    console.log('Results: ' + JSON.stringify(results));
+//    if (results === undefined || results === null) {
+//        return null;
+//    }
+//    else {
+//        return results;
+//    }
+//}
 
 export async function getOne(table: string, column: string, value: string | number): Promise<object | null> {
     const [results, metadata] = await Client.query(`SELECT * FROM ${table} WHERE ${column} = :value`, {
