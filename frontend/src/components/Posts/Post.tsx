@@ -12,7 +12,7 @@ const CommunityPost = (post: { title: string, content: string, score: number, au
           <Heading level={2}>{post.title}</Heading>
           <ButtonToolbar>
             <IconButton appearance="primary" color='green' icon={<SortUpIcon />} />
-            <Button disabled>{post.score}</Button>
+            <Button appearance='subtle'>{post.score}</Button>
             <IconButton appearance="primary" color='red' icon={<SortDownIcon />} />
           </ButtonToolbar>
         </Stack>
