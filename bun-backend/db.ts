@@ -116,4 +116,3 @@ export async function insertOne(table: string, item: User | Post | Community): P
     const values = Object.values(item).join("', '");
     await Client.query(`INSERT INTO ${table} (${columns}) VALUES ('${values}')`);
 }
-

@@ -2,6 +2,7 @@ import express from "express";
 import { getAll, getOne, insertOne } from "../db";
 import { validateUUID } from "../util/validate";
 import type { Post } from "../types/PostType";
+import { createPostByCommunityName } from "../functions/postFunctions";
 
 export const PostRouter = express.Router();
 
@@ -49,4 +50,17 @@ PostRouter.post("/post/create", async (req, res) => {
     }).finally(() => {
         res.status(201).send('Post created.');
     });
+});
+
+PostRouter.post("/c/:community_name/create", async (req, res) => {
+    const newPost : Post = {
+        post_id: crypto.randomUUID(),
+        post_author: req.body.post_author,
+        post_title: req.body.post_title,
+        post_image_url: '',
+        post_content: req.body.post_content,
+        post_score: 0
+    };
+    await createPostByCommunityName('Posts', req.params.community_name, newPost);
+    res.send({ message: 'Post created.', post: newPost });
 });

@@ -1,10 +1,18 @@
 import type { Post } from '../types/PostType'
-import { insertOne, deleteOne, checkIfExists, updateOne } from '../db'
+import { insertOne, deleteOne, checkIfExists, updateOne, Client } from '../db'
 
 export async function createPost(newPost: Post) {
     await insertOne('Posts', newPost);
     console.log('Post created');
     console.table(newPost);    
+}
+
+export async function createPostByCommunityName(table: string, communityName: string, newPost: Post) {
+    const columns = Object.keys(newPost).join(', ');
+    const values = Object.values(newPost).join("', '");
+    console.log(Client.query(`INSERT INTO ${table} (${columns}) VALUES ('${values}' WHERE community_name = :communityName`, {
+        replacements: { communityName: communityName}
+    }));
 }
 
 export async function deletePost(postId: string) {
