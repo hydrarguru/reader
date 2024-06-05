@@ -3,22 +3,26 @@ import { Heading, Text } from 'rsuite';
 import SortUpIcon from '@rsuite/icons/SortUp';
 import SortDownIcon from '@rsuite/icons/SortDown';
 
-const CommunityPost = (postInfo: { title: string, content: string, score: number }) => {
+const CommunityPost = (post: { title: string, content: string, score: number, author: string, created: string }) => {
     return (
       <Panel
       bordered
       header={
         <Stack justifyContent="space-between">
-          <Heading level={2}>{postInfo.title}</Heading>
+          <Heading level={2}>{post.title}</Heading>
           <ButtonToolbar>
             <IconButton appearance="primary" color='green' icon={<SortUpIcon />} />
-            <Button disabled>{postInfo.score}</Button>
+            <Button disabled>{post.score}</Button>
             <IconButton appearance="primary" color='red' icon={<SortDownIcon />} />
           </ButtonToolbar>
         </Stack>
       }
     >
-      <Text>{postInfo.content}</Text>
+      <Text size='lg' as='i'>{post.content}</Text>
+      <Stack justifyContent="space-between">
+        <Text size='sm'>Author: {post.author}</Text>
+        <Text size='sm'>Posted: {post.created}</Text>
+      </Stack>
     </Panel>
     );
 };

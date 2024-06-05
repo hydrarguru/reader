@@ -183,8 +183,8 @@ function App() {
             <Content>
               {
                 jsonData.posts.map((post: any) => (
-                  <div key={post.post_id}>
-                    <CommunityPost title={post.post_title} content={post.post_content} score={post.post_score} />
+                  <div style={{ padding: '10px' }} key={post.post_id}>
+                    <CommunityPost title={post.post_title} content={post.post_content} score={post.post_score} author={post.post_author} created={post.created_at} />
                   </div>
                 ))
               }
