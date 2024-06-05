@@ -25,6 +25,17 @@ export async function deletePost(postId: string) {
     }
 }
 
+export async function setPostScore(postId: string, score: number): Promise<boolean> {
+    if (await checkIfExists('Posts', 'post_id', postId)) {
+        await updateOne('Posts', 'post_id', postId, 'post_score', score);
+        return true;
+    }
+    else {
+        console.error('Could not update post score.');
+        return false;
+    }
+}
+
 export async function editPost(postId: string, editedPost: Post) {
     if (await checkIfExists('Posts', 'post_id', postId)) {
         await updateOne('Posts', 'post_id', postId, 'post_title', editedPost.post_title);
