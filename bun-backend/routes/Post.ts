@@ -6,11 +6,13 @@ import { createPostByCommunityName } from "../functions/postFunctions";
 
 export const PostRouter = express.Router();
 
+//Get all posts
 PostRouter.get("/posts", async (req, res) => {
     const posts = await getAll("Posts");
     res.send(posts);
 });
 
+//Get post by ID
 PostRouter.get("/post/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -28,6 +30,14 @@ PostRouter.get("/post/:id", async (req, res) => {
             res.send({post: post});
         }
     }
+});
+
+//Get all community specific posts
+PostRouter.get('/c/:community_id/posts', async (req, res) => {
+    const community_id = req.params.community_id;
+    const posts = await getAll('Posts') as Post[];
+    const communityPosts = posts.filter((post) => post.community_id === community_id); 
+    res.status(201).send(communityPosts);
 });
 
 PostRouter.post("/post/create", async (req, res) => {
@@ -48,7 +58,7 @@ PostRouter.post("/post/create", async (req, res) => {
             error: err
         });
     }).finally(() => {
-        res.status(201).send('Post created.');
+        res.status(201).send({ message: 'Post created.', post: newPost });
     });
 });
 
