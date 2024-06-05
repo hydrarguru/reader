@@ -4,7 +4,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.tsx'
-import CommunityPage from './pages/CommunityPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -12,9 +11,9 @@ const router = createBrowserRouter([
     element: <App />
   },
   {
-    path: '/c/:category',
-    element: <CommunityPage />
-  },
+    path: '/c/:community',
+    element: <App />
+  }
 ])
 
 
