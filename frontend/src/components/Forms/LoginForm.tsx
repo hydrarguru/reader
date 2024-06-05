@@ -5,7 +5,7 @@ function LoginForm () {
     <Form fluid>
       <Form.Group controlId="username">
         <Form.ControlLabel>Username</Form.ControlLabel>
-        <Form.Control name="username" />
+        <Form.Control name="username" autoComplete="off" />
         <Form.HelpText>Required</Form.HelpText>
       </Form.Group>
 
@@ -16,8 +16,8 @@ function LoginForm () {
 
       <Form.Group>
         <ButtonToolbar>
-          <Button color="green" appearance="primary">Submit</Button>
-          <Button color="red" appearance="primary">Cancel</Button>
+        <Button appearance="primary">Login</Button>
+        <Button appearance="default">Cancel</Button>
         </ButtonToolbar>
       </Form.Group>
     </Form>
