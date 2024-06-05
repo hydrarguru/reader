@@ -2,7 +2,6 @@ import {
     Container,
     Header,
     Content,
-    Footer,
     FlexboxGrid,
     Panel
 } from 'rsuite';
@@ -25,7 +24,6 @@ const RegisterPage = () => {
               </FlexboxGrid.Item>
             </FlexboxGrid>
           </Content>
-          <Footer>Footer</Footer>
         </Container>
     </div>
     );
