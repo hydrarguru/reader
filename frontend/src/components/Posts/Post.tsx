@@ -3,7 +3,7 @@ import { Heading, Text } from 'rsuite';
 import SortUpIcon from '@rsuite/icons/SortUp';
 import SortDownIcon from '@rsuite/icons/SortDown';
 
-const Post = (postInfo: { title: string, content: string, score: number }) => {
+const CommunityPost = (postInfo: { title: string, content: string, score: number }) => {
     return (
       <Panel
       bordered
@@ -24,4 +24,4 @@ const Post = (postInfo: { title: string, content: string, score: number }) => {
 };
 
 
-export default Post;
+export default CommunityPost;
