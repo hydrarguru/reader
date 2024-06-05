@@ -5,3 +5,10 @@ export function validateUUID(uuid: string): boolean {
 export function validateCommunityName(name: string): boolean {
     return /^[a-zA-Z_]{1,20}$/.test(name);
 }
+
+export function validateScore(score: number): boolean {
+    if (Number.isSafeInteger(score) && score >= 0) {
+        return true;
+    }
+    return false;
+}
