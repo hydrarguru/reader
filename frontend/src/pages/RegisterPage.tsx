@@ -12,7 +12,7 @@ const RegisterPage = () => {
     return (
     <div>
         <Container>
-          <Header>
+          <Header style={{ paddingBottom: '2rem' }}>
             <SiteHeader />
           </Header>
           <Content>

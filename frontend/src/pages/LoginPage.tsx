@@ -6,20 +6,20 @@ import {
     Panel
 } from 'rsuite';
 import SiteHeader from '../components/SiteHeader/SiteHeader';
-import LoginForm from '../components/Forms/RegisterForm';
+import LoginForm from '../components/Forms/LoginForm';
 
 const LoginPage = () => {
     return (
     <div>
         <Container>
-          <Header>
+          <Header style={{ paddingBottom: '2rem' }}>
             <SiteHeader />
           </Header>
           <Content>
             <FlexboxGrid justify="center">
               <FlexboxGrid.Item colspan={12}>
                 <Panel header='Login' bordered>
-                <LoginForm />
+                    <LoginForm />
                 </Panel>
               </FlexboxGrid.Item>
             </FlexboxGrid>
