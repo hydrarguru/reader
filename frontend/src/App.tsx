@@ -20,22 +20,7 @@ async function getCommunities() {
       return result;
     }
 }
-
-async function fetchCommunityPosts(community_id: string) {
-  const result = await fetch(`http://localhost:8080/c/${community_id}/posts`)
-    .then(res => res.json())
-    .catch(err => console.error(err));
-    if (result === undefined || result === null) {
-      return [];
-    }
-    else {
-      return result;
-    }
-}
-
 const allCommunities = await getCommunities();
-
-
 
 const jsonData = {
   "posts": [
@@ -154,16 +139,6 @@ const jsonData = {
 
 function App() {
   //const currentCommunity = useLocation().pathname.replace(/\/c\//, '');
-  //const [posts, setPosts] = useState<[]>([]);
-  //useEffect(() => {
-  //  fetchCommunityPosts('2723f65c-010d-4687-87c6-e5f501952c6d').then((result) => {
-  //    setPosts(result);
-  //  });
-  //}, []);
-  //const currentCommunity = useLocation().pathname.replace(/\/c\//, '');
-  //if(currentCommunity != 'all') {
-  //  alert(currentCommunity);
-  //}
 
   return (
     <div>
