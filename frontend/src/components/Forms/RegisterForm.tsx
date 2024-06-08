@@ -19,24 +19,24 @@ const RegisterForm = () => {
     <Form fluid onSubmit={formik.handleSubmit}>
       <Form.Group controlId="username">
         <Form.ControlLabel>Username</Form.ControlLabel>
-        <Form.Control id='username' name="username" autoComplete="off" onChange={formik.handleChange} value={formik.values.username}/>
+        <Form.Control id='username' name="username" autoComplete="off" onChange={formik.handleChange}/>
         <Form.HelpText>Required</Form.HelpText>
       </Form.Group>
 
       <Form.Group controlId="email">
         <Form.ControlLabel>Email</Form.ControlLabel>
-        <Form.Control id='email' name="email" type="email" autoComplete="off" value={formik.values.email} onChange={formik.handleChange}/>
+        <Form.Control id='email' name="email" type="email" autoComplete="off" onChange={formik.handleChange}/>
         <Form.HelpText>Required</Form.HelpText>
       </Form.Group>
 
       <Form.Group controlId="password">
         <Form.ControlLabel>Password</Form.ControlLabel>
-        <Form.Control id='password' name="password" type="password" autoComplete="off" value={formik.values.password} onChange={formik.handleChange}/>
+        <Form.Control id='password' name="password" type="password" autoComplete="off" onChange={formik.handleChange}/>
       </Form.Group>
 
       <Form.Group controlId="password-confirm">
         <Form.ControlLabel>Confirm Password</Form.ControlLabel>
-        <Form.Control id='password-confirm' name="password-confirm" type="password" autoComplete="off" value={formik.values.passwordConfirm} onChange={formik.handleChange}/>
+        <Form.Control id='password-confirm' name="password-confirm" type="password" autoComplete="off" onChange={formik.handleChange}/>
       </Form.Group>
 
       <Form.Group>
