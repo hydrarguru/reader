@@ -10,7 +10,7 @@ import LoginPage from './pages/LoginPage.tsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <App />,
   },
   {
     path: '/c/:community',
@@ -25,7 +25,6 @@ const router = createBrowserRouter([
     element: <LoginPage />
   }
 ])
-
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
