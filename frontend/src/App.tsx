@@ -35,32 +35,39 @@ async function getCommunityPosts(community_id: string) {
 
 const allCommunities = await getCommunities();
 
-const PostContainer = (posts?: any) => {
-  return (
-    <div>
-      {
-        posts?.map((post: any) => (
-          <div style={{ margin: '1rem' }} key={post.post_id}>
-            <CommunityPost
+const PostContainer = () => {
+  const gamingPosts: Post[] = Promise.resolve(getCommunityPosts('2723f65c-010d-4687-87c6-e5f501952c6d')).then(data => {
+    return data as Post[];
+  });
+
+  if (gamingPosts === null || gamingPosts === undefined) {
+    return <p>No posts</p>
+  }
+  else {
+    return (
+      <div>
+        {
+          gamingPosts.map((post: Post) => (
+            <div key={post.post_id} style={{ margin: '1rem' }}>
+            <CommunityPost 
               title={post.post_title}
               author={post.post_author}
               content={post.post_content}
-              created={post.created_at}
-              score={post.post_score} />
-          </div>
-        ))
-      }
-    </div>
-  );
+              score={post.post_score}
+              created={post.created_at.toISOString()}
+            />
+            </div>
+          ))
+        }
+      </div>
+    )
+  }
 }
-
 
 function App() {
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
   console.table(activeCommunity);
-  
-
 
   return (
     <div>
@@ -108,7 +115,7 @@ function App() {
                     <CreatePost />
                   </div>
                   <div>
-
+                    <PostContainer />
                   </div>
                 </div>
                 :
