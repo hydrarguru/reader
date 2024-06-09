@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Container, Content, Sidenav, Sidebar, Nav } from 'rsuite';
+import { Loader, Placeholder } from 'rsuite';
 
 import type { Community } from './types/CommunityType';
 import type { Post } from './types/PostType';
+
 import SiteHeader from './components/SiteHeader/SiteHeader';
 import CommunityPost from './components/Posts/Post';
 import { CommunityHeaderInfo, CommunityHeaderNoInfo } from './components/CommunityInformation';
-
 import CreatePost from './components/Modals/CreatePost';
 
 async function getCommunities() {
@@ -35,38 +36,10 @@ async function getCommunityPosts(community_id: string) {
 
 const allCommunities = await getCommunities();
 
-const PostContainer = () => {
-  const gamingPosts: Post[] = Promise.resolve(getCommunityPosts('2723f65c-010d-4687-87c6-e5f501952c6d')).then(data => {
-    return data as Post[];
-  });
-
-  if (gamingPosts === null || gamingPosts === undefined) {
-    return <p>No posts</p>
-  }
-  else {
-    return (
-      <div>
-        {
-          gamingPosts.map((post: Post) => (
-            <div key={post.post_id} style={{ margin: '1rem' }}>
-            <CommunityPost 
-              title={post.post_title}
-              author={post.post_author}
-              content={post.post_content}
-              score={post.post_score}
-              created={post.created_at.toISOString()}
-            />
-            </div>
-          ))
-        }
-      </div>
-    )
-  }
-}
-
 function App() {
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   console.table(activeCommunity);
 
   return (
@@ -94,9 +67,6 @@ function App() {
                       ))
                     }
                   </Nav.Menu>
-                  <Nav.Menu title="Settings">
-                    <Nav.Item>User Settings</Nav.Item>
-                  </Nav.Menu>
                 </Nav>
               </Sidenav.Body>
             </Sidenav>
@@ -118,7 +88,10 @@ function App() {
                 :
                 <div>
                   <CommunityHeaderNoInfo />
-                  <p>Select a community to view posts</p>
+                  <div style={{ padding: '1rem' }}>
+                    <Placeholder.Paragraph rows={16} />
+                    <Loader center content="Loading"/>
+                  </div>
                 </div>
               }
             </Content>
