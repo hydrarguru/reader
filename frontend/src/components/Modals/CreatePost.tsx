@@ -1,19 +1,7 @@
-import { useState, forwardRef} from 'react';
-import { Form, Button, IconButton, Input, Modal, InputPicker, Toggle } from 'rsuite';
+import { useState } from 'react';
+import { Form, Schema, Button, IconButton, Input, Modal, InputPicker, Toggle } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { Post } from '../../types/PostType';
-
-const Textarea = forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
-
-interface IPostFormInputs {
-  selectedCommunity: string;
-  postImageUrl: string;
-  postTitle: string;
-  postContent: string;
-  postAuthor: string;
-} 
 
 async function getCommunities() {
   const result = await fetch('http://localhost:8080/community')
@@ -27,10 +15,18 @@ async function getCommunities() {
     }
 }
 
+const { StringType } = Schema.Types;
+const createPostModel = Schema.Model({
+  communityId: StringType().isRequired('Community is required.'),
+  postTitle: StringType().isRequired('Post title is required.'),
+  postContent: StringType().isRequired('Post content is required.'),
+  postImageUrl: StringType().isRequired('Post image URL is required.')
+});
+
 const communities: Community[] = await getCommunities();
 
 const createNewPost = async () => {
-  const request = await fetch('http://localhost:8080/post/create', {
+    await fetch('http://localhost:8080/post/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -49,43 +45,23 @@ const createNewPost = async () => {
 
 const CreatePost = () => {
     const [openModal, setOpenModal] = useState(false);
-    const [communityOptions, setCommunityOptions] = useState(communities.map((community) => {
-        return {
-            label: community.community_name,
-            value: community.community_id
-        }
-    }));
     const [imagePost, setImagePost] = useState<boolean>(false);
 
     const handleOpenModal = (change: boolean) => {
         setOpenModal(change);
     }
 
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<IPostFormInputs>();
-    const onSubmit: SubmitHandler<IPostFormInputs> = data => alert(JSON.stringify(data, null, 2));
-
-
-
     return (
         <>
-        <Modal open={openModal} onClose={() => handleOpenModal(false)} size="md">
+        <Modal open={openModal} onClose={() => handleOpenModal(false)} size="sm">
           <Modal.Header>
             <Modal.Title>Create Post</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form id='create-post-form' onSubmit={handleSubmit(onSubmit)} fluid>
+            <Form id='create-post-form' model={createPostModel} fluid>
               <Form.Group controlId='selected-community'>
                 <Form.ControlLabel>Community:</Form.ControlLabel>
-                <Form.Control
-                  {...register('selectedCommunity')}
-                  accepter={InputPicker}
-                  data={communityOptions}
-                  />
-                <Form.HelpText>Choose a community to post in.</Form.HelpText>
+                <InputPicker data={communities} labelKey='community_name' valueKey='community_id' block />
               </Form.Group>
 
               <Form.Group controlId="imagePost">
@@ -98,32 +74,18 @@ const CreatePost = () => {
                 onChange={(value) => setImagePost(value)}
               />
               </Form.Group>
-
               {
                 imagePost && 
                 <Form.Group controlId="postImageUrl">
                   <Form.ControlLabel>Post image URL:</Form.ControlLabel>
-                  <Form.Control disabled={!imagePost} defaultValue='' {...register('postImageUrl')}/>
+                  <Form.Control name='post image url' disabled={!imagePost}/>
                   <Form.HelpText>Post image URL is required.</Form.HelpText>
                 </Form.Group>
               }
-
-              <Form.Group controlId="postTitle">
-                <Form.ControlLabel>Post title:</Form.ControlLabel>
-                <Form.Control defaultValue='' {...register('postTitle')}/>
-                <Form.HelpText>Post title is required.</Form.HelpText>
-              </Form.Group>
-
-              <Form.Group controlId="post-content">
-                <Form.ControlLabel>Post content:</Form.ControlLabel>
-                <Form.Control defaultValue='' {...register('postContent')} accepter={Textarea} />
-                <Form.HelpText>Post content is required.</Form.HelpText>
-              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button form='create-post-form' type='submit' appearance="primary">Confirm</Button>
-            <Button type='button' appearance="primary" onClick={() => createNewPost()}>Test</Button>
             <Button type='button' onClick={() => handleOpenModal(false)} appearance="subtle">Cancel</Button>
           </Modal.Footer>
         </Modal>
