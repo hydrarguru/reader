@@ -3,6 +3,7 @@ import { Form, Button, IconButton, Input, Modal, InputPicker, Toggle } from 'rsu
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { Post } from '../../types/PostType';
 
 const Textarea = forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
@@ -11,6 +12,7 @@ interface IPostFormInputs {
   postImageUrl: string;
   postTitle: string;
   postContent: string;
+  postAuthor: string;
 } 
 
 async function getCommunities() {
@@ -27,7 +29,23 @@ async function getCommunities() {
 
 const communities: Community[] = await getCommunities();
 
-
+const createNewPost = async () => {
+  const request = await fetch('http://localhost:8080/post/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      community_id: '2723f65c-010d-4687-87c6-e5f501952c6d', // gaming uuid
+      post_title: 'Post request from frontend test.',
+      post_content: 'Test post content.',
+      post_image_url: '',
+      post_author: '02962896-582f-4865-8439-5dea7381cdde' // admin uuid
+    })
+  }).then(res => {
+    console.log(res);
+  })
+}
 
 const CreatePost = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -105,6 +123,7 @@ const CreatePost = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button form='create-post-form' type='submit' appearance="primary">Confirm</Button>
+            <Button type='button' appearance="primary" onClick={() => createNewPost()}>Test</Button>
             <Button type='button' onClick={() => handleOpenModal(false)} appearance="subtle">Cancel</Button>
           </Modal.Footer>
         </Modal>

@@ -114,9 +114,6 @@ function App() {
                   <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '1rem' }}>
                     <CreatePost />
                   </div>
-                  <div>
-                    <PostContainer />
-                  </div>
                 </div>
                 :
                 <div>

@@ -48,7 +48,7 @@ PostRouter.post("/post/create", async (req, res) => {
         community_id: req.body.community_id,
         post_author: req.body.post_author,
         post_title: req.body.post_title,
-        post_image_url: '',
+        post_image_url: req.body.post_image_url,
         post_content: req.body.post_content,
         post_score: 0
     };
