@@ -4,8 +4,21 @@ import SortUpIcon from '@rsuite/icons/SortUp';
 import SortDownIcon from '@rsuite/icons/SortDown';
 import { useState } from 'react';
 
+type voteType = 'up' | 'down';
+
 const CommunityPost = (post: { title: string, content: string, score: number, author: string }) => {
     const [score, setScore] = useState(post.score);
+    const [postVoted, setPostVoted] = useState(false);
+    function handlePostVote(voteType: voteType) {
+      if (voteType === 'up') {
+        setScore(score + 1);
+        setPostVoted(true);
+      } else {
+        setScore(score - 1);
+        setPostVoted(true);
+      }
+    }
+
     return (
       <Panel
       style={{
@@ -16,9 +29,9 @@ const CommunityPost = (post: { title: string, content: string, score: number, au
         <Stack justifyContent="space-between">
           <Heading level={2}>{post.title}</Heading>
           <ButtonToolbar>
-            <IconButton ripple={ false } appearance="primary" icon={<SortUpIcon />} onClick={() => setScore(score + 1)}/>
+            <IconButton disabled={postVoted} ripple={ false } appearance="primary" icon={<SortUpIcon />} onClick={() => handlePostVote('up')}/>
             <Button appearance='subtle'>{score}</Button>
-            <IconButton ripple={ false } appearance="default" icon={<SortDownIcon />} onClick={() => setScore(score - 1)}/>
+            <IconButton disabled={postVoted} ripple={ false } appearance="default" icon={<SortDownIcon />} onClick={() => handlePostVote('down')}/>
           </ButtonToolbar>
         </Stack>
       }
