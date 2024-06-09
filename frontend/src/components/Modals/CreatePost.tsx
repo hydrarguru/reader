@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Schema, Button, IconButton, Input, Modal, InputPicker, Toggle } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
+import { Post } from '../../types/PostType';
 
 async function getCommunities() {
   const result = await fetch('http://localhost:8080/community')
@@ -25,18 +26,17 @@ const createPostModel = Schema.Model({
 
 const communities: Community[] = await getCommunities();
 
-const createNewPost = async () => {
+async function createNewPost(newPost: Post) {
     await fetch('http://localhost:8080/post/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      community_id: '2723f65c-010d-4687-87c6-e5f501952c6d', // gaming uuid
-      post_title: 'Post request from frontend test.',
-      post_content: 'Test post content.',
-      post_image_url: '',
-      post_author: '02962896-582f-4865-8439-5dea7381cdde' // admin uuid
+      community_id: newPost.community_id,
+      post_title: newPost.post_title,
+      post_content: newPost.post_content,
+      post_author: newPost.post_author
     })
   }).then(res => {
     console.log(res);
