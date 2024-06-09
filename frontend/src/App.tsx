@@ -1,11 +1,12 @@
-//import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Content, Sidenav, Sidebar, Nav } from 'rsuite';
-import { Link, useLocation } from "react-router-dom";
 
-import SiteHeader from './components/SiteHeader/SiteHeader';
 import type { Community } from './types/CommunityType';
+import type { Post } from './types/PostType';
+import SiteHeader from './components/SiteHeader/SiteHeader';
 import CommunityPost from './components/Posts/Post';
-import CommunityInformation from './components/CommunityInformation';
+import { CommunityHeaderInfo, CommunityHeaderNoInfo } from './components/CommunityInformation';
+
 import CreatePost from './components/Modals/CreatePost';
 
 async function getCommunities() {
@@ -33,10 +34,33 @@ async function getCommunityPosts(community_id: string) {
 }
 
 const allCommunities = await getCommunities();
-const communityPosts = await getCommunityPosts('2723f65c-010d-4687-87c6-e5f501952c6d');
+
+const PostContainer = (posts?: any) => {
+  return (
+    <div>
+      {
+        posts?.map((post: any) => (
+          <div style={{ margin: '1rem' }} key={post.post_id}>
+            <CommunityPost
+              title={post.post_title}
+              author={post.post_author}
+              content={post.post_content}
+              created={post.created_at}
+              score={post.post_score} />
+          </div>
+        ))
+      }
+    </div>
+  );
+}
+
 
 function App() {
-  //const currentCommunity = useLocation().pathname.replace(/\/c\//, '');
+  const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
+  const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
+  console.table(activeCommunity);
+  
+
 
   return (
     <div>
@@ -49,7 +73,17 @@ function App() {
                   <Nav.Menu title="Communities">
                     {
                       allCommunities.map((community: Community) => (
-                        <Nav.Item key={community.community_id}><Link to={'/c/' + community.community_name}>{community.community_name.charAt(0).toUpperCase() + community.community_name.slice(1)}</Link></Nav.Item>
+                          <Nav.Item key={community.community_id} 
+                            onClick={() => setActiveCommunity(
+                              {
+                                community_id: community.community_id,
+                                community_name: community.community_name,
+                                community_desc: community.community_desc,
+                                community_image_url: community.community_image_url
+                              }
+                            )}>
+                            {community.community_name.charAt(0).toUpperCase() + community.community_name.slice(1)}
+                          </Nav.Item>
                       ))
                     }
                   </Nav.Menu>
@@ -62,22 +96,27 @@ function App() {
           </Sidebar>
           <Container>
             <Content>
-              <CommunityInformation communityName='All' communityDesc='All' communityImageUrl='https://images.unsplash.com/photo-1715174539960-6b2f5f279ee5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'/>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '1rem' }}>
-                  <CreatePost />
+              {
+                activeCommunity !== null ?
+                <div>
+                  <CommunityHeaderInfo 
+                  communityName={activeCommunity.community_name}
+                  communityDesc={activeCommunity.community_desc}
+                  communityImageUrl={activeCommunity.community_image_url}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '1rem' }}>
+                    <CreatePost />
+                  </div>
+                  <div>
+
+                  </div>
                 </div>
-                {
-                  communityPosts?.map((post: any) => (
-                    <div style={{ margin: '1rem' }} key={post.post_id}>
-                      <CommunityPost
-                        title={post.post_title}
-                        author={post.post_author}
-                        content={post.post_content}
-                        created={post.created_at}
-                        score={post.post_score} />
-                    </div>
-                  ))
-                }
+                :
+                <div>
+                  <CommunityHeaderNoInfo />
+                  <p>Select a community to view posts</p>
+                </div>
+              }
             </Content>
           </Container>
         </Container>
