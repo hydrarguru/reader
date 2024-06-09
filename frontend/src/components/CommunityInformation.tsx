@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Heading, Text } from 'rsuite';
 
-const CommunityInformation = (community: {communityName: string, communityDesc: string, communityImageUrl: string}) => {
+const CommunityInformation = (community: {communityName?: string, communityDesc?: string, communityImageUrl?: string}) => {
     const [communityInfo, setCommunityInfo] = useState(community);
 
     return (
@@ -16,7 +16,7 @@ const CommunityInformation = (community: {communityName: string, communityDesc: 
                 textShadow: '2px 2px 4px #000000',
             }}>
                 <Heading level={1}>{communityInfo.communityName}</Heading>
-                <Text>{communityInfo.communityDesc}</Text>
+                <Text>{communityInfo?.communityDesc}</Text>
             </div>
         </div>
     );
