@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container, Content, Sidenav, Sidebar, Nav } from 'rsuite';
-import { Loader, Placeholder } from 'rsuite';
+import { Placeholder } from 'rsuite';
 
 import type { Community } from './types/CommunityType';
 import type { Post } from './types/PostType';
@@ -39,7 +39,16 @@ const allCommunities = await getCommunities();
 function App() {
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
-  console.table(activeCommunity);
+  useEffect(() => {
+    if (activeCommunity !== null) {
+      getCommunityPosts(activeCommunity.community_id)
+      .then((posts) => {
+        if (posts !== undefined) {
+          setCommunityPosts(posts);
+        }
+      });
+    }
+  }, [activeCommunity]);
 
   return (
     <div>
@@ -84,11 +93,18 @@ function App() {
                     <CreatePost />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
-                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
-                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
-                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
-                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
-                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                    {
+                      communityPosts?.map((post: Post) => (
+                        <div key={post.post_id}>
+                          <CommunityPost 
+                            title={post.post_title}
+                            content={post.post_content}
+                            score={post.post_score}
+                            author={post.post_author}
+                          />
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
                 :
