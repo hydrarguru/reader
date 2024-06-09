@@ -39,14 +39,13 @@ const allCommunities = await getCommunities();
 function App() {
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   console.table(activeCommunity);
 
   return (
     <div>
       <SiteHeader />
         <Container>
-          <Sidebar style={{width: 250 }}>
+          <Sidebar>
             <Sidenav style={{ minHeight: '100vh', display: 'flex' }}>
               <Sidenav.Body>
                 <Nav>
@@ -84,13 +83,19 @@ function App() {
                   <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '1rem' }}>
                     <CreatePost />
                   </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
+                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                    <CommunityPost title='Post Title' content='Post Content' author='Post Author' score={1} created='2024-06-09' />
+                  </div>
                 </div>
                 :
                 <div>
                   <CommunityHeaderNoInfo />
                   <div style={{ padding: '1rem' }}>
                     <Placeholder.Paragraph rows={16} />
-                    <Loader center content="Loading"/>
                   </div>
                 </div>
               }
