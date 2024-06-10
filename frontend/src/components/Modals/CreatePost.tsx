@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Form, Schema, Button, IconButton, Input, Modal, InputPicker, Toggle } from 'rsuite';
+import { useState, useRef } from 'react';
+import { Form, Schema, Button, IconButton, Input, Modal, InputPicker } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
 import { Post } from '../../types/PostType';
@@ -44,54 +44,69 @@ async function createNewPost(newPost: Post) {
 }
 
 const CreatePost = () => {
-    const [openModal, setOpenModal] = useState(false);
-    const [imagePost, setImagePost] = useState<boolean>(false);
-
-    const handleOpenModal = (change: boolean) => {
-        setOpenModal(change);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = (change: boolean) => {
+      setOpenModal(change);
+  }
+  const formRef = useRef();
+  const [formError, setFormError] = useState({});
+  const [formValue, setFormValue] = useState({
+  postTitle: '',
+  postContent: '',
+  communityId: '',
+  });
+  
+  const handleSubmit = () => {
+    if (!formRef.current.check()) {
+      console.error('Form Error');
+      return;
     }
+    console.log(formValue, 'Form Value');
+  };
 
-    return (
-        <>
-        <Modal open={openModal} onClose={() => handleOpenModal(false)} size="sm">
-          <Modal.Header>
-            <Modal.Title>Create Post</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form id='create-post-form' model={createPostModel} fluid>
-              <Form.Group controlId='selected-community'>
-                <Form.ControlLabel>Community:</Form.ControlLabel>
-                <InputPicker data={communities} labelKey='community_name' valueKey='community_id' block />
-              </Form.Group>
+  return (
+      <>
+      <Modal open={openModal} onClose={() => handleOpenModal(false)} size="sm">
+        <Modal.Header>
+          <Modal.Title>Create Post</Modal.Title>
+        </Modal.Header>
 
-              <Form.Group controlId="imagePost">
-              <Form.ControlLabel>Image Post</Form.ControlLabel>
-              <Form.Control
-                name="enable"
-                accepter={Toggle}
-                unCheckedChildren="No"
-                checkedChildren="Yes"
-                onChange={(value) => setImagePost(value)}
-              />
-              </Form.Group>
-              {
-                imagePost && 
-                <Form.Group controlId="postImageUrl">
-                  <Form.ControlLabel>Post image URL:</Form.ControlLabel>
-                  <Form.Control name='post image url' disabled={!imagePost}/>
-                  <Form.HelpText>Post image URL is required.</Form.HelpText>
-                </Form.Group>
-              }
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button form='create-post-form' type='submit' appearance="primary">Confirm</Button>
-            <Button type='button' onClick={() => handleOpenModal(false)} appearance="subtle">Cancel</Button>
-          </Modal.Footer>
-        </Modal>
-        <IconButton icon={<PlusIcon />} appearance='primary' color='green' onClick={() => handleOpenModal(true)}>Create Post</IconButton>
-      </>
-    )
+        <Modal.Body>
+          <Form 
+            fluid
+            ref={formRef}
+            onChange={setFormValue}
+            onCheck={setFormError}
+            formValue={formValue}
+            model={createPostModel}
+            id='create-post-form'
+           >
+            <Form.Group controlId='selected-community'>
+              <Form.ControlLabel>Community:</Form.ControlLabel>
+              <InputPicker data={communities} labelKey='community_name' valueKey='community_id' block />
+            </Form.Group>
+
+            <Form.Group controlId='postTitle'>
+              <Form.ControlLabel>Post Title:</Form.ControlLabel>
+                <Input name='postTitle' />
+            </Form.Group>
+
+            <Form.Group controlId='postContent'>
+              <Form.ControlLabel>Post Content:</Form.ControlLabel>
+              <Input name='postContent' as="textarea" rows={3} placeholder="Post Description." />
+            </Form.Group>
+
+          </Form>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button form='create-post-form' type='submit' appearance="primary" color='green' onClick={handleSubmit}>Confirm</Button>
+          <Button type='button' onClick={() => handleOpenModal(false)} appearance="default">Cancel</Button>
+        </Modal.Footer>
+      </Modal>
+      <IconButton icon={<PlusIcon />} appearance='primary' color='green' onClick={() => handleOpenModal(true)}>Create Post</IconButton>
+    </>
+  )
 };
 
 export default CreatePost;
