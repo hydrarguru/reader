@@ -9,6 +9,7 @@ import SiteHeader from './components/SiteHeader/SiteHeader';
 import CommunityPost from './components/Posts/Post';
 import { CommunityHeaderInfo, CommunityHeaderNoInfo } from './components/CommunityInformation';
 import CreatePost from './components/Modals/CreatePost';
+import CreateCommunity from './components/Modals/CreateCommunity';
 
 async function getCommunities() {
   const result = await fetch('http://localhost:8080/community')
@@ -89,7 +90,8 @@ function App() {
                   communityDesc={activeCommunity.community_desc}
                   communityImageUrl={activeCommunity.community_image_url}
                   />
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '1rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
+                    <CreateCommunity />
                     <CreatePost />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
@@ -110,6 +112,10 @@ function App() {
                 :
                 <div>
                   <CommunityHeaderNoInfo />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem'}}>
+                    <CreateCommunity />
+                    <CreatePost />
+                  </div>
                   <div style={{ padding: '1rem' }}>
                     <Placeholder.Paragraph rows={16} />
                   </div>
