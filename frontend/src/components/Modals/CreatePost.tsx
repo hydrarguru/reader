@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, IconButton, Input, Modal } from 'rsuite';
+import { Form, Button, IconButton, Modal } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
 import type { Post } from '../../types/PostType';
