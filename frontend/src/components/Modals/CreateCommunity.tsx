@@ -3,8 +3,27 @@ import { Form, Button, IconButton, Modal } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import { useFormik } from 'formik';
 
+type NewCommunity = {
+  community_name: string,
+  community_desc: string,
+  community_image_url: string,
+}
 
-
+async function createCommunity(newCommunity: NewCommunity) {
+  await fetch('http://localhost:8080/community/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      community_name: newCommunity.community_name,
+      community_desc: newCommunity.community_desc,
+      community_image_url: newCommunity.community_image_url,
+    })
+  }).then(res => {
+    console.log(res);
+  })
+}
 
 const CreateCommunity = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -18,7 +37,7 @@ const CreateCommunity = () => {
       community_image_url: '',
     },
     onSubmit: values => {
-      console.log(values);
+      createCommunity(values);
       communityForm.setValues({
         community_name: '',
         community_desc: '',
