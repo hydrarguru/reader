@@ -1,36 +1,31 @@
-import { useState, useRef } from 'react';
-import { Form, Schema, Button, IconButton, Input, Modal, InputPicker } from 'rsuite';
+import { useState } from 'react';
+import { Form, Button, IconButton, Modal } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
+import { useFormik } from 'formik';
 
 
-const { StringType } = Schema.Types;
-const createPostModel = Schema.Model({
-  communityId: StringType().isRequired('Community is required.'),
-  postTitle: StringType().isRequired('Post title is required.'),
-  postContent: StringType().isRequired('Post content is required.'),
-  postImageUrl: StringType().isRequired('Post image URL is required.')
-});
+
 
 const CreateCommunity = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = (change: boolean) => {
       setOpenModal(change);
   }
-  const formRef = useRef();
-  const [formError, setFormError] = useState({});
-  const [formValue, setFormValue] = useState({
-  postTitle: '',
-  postContent: '',
-  communityId: '',
+  const communityForm = useFormik({
+    initialValues: {
+      community_name: '',
+      community_desc: '',
+      community_image_url: '',
+    },
+    onSubmit: values => {
+      console.log(values);
+      communityForm.setValues({
+        community_name: '',
+        community_desc: '',
+        community_image_url: '',
+      })
+    },
   });
-  
-  const handleSubmit = () => {
-    if (!formRef.current.check()) {
-      console.error('Form Error');
-      return;
-    }
-    console.log(formValue, 'Form Value');
-  };
 
   return (
       <>
@@ -42,32 +37,70 @@ const CreateCommunity = () => {
         <Modal.Body>
           <Form 
             fluid
-            ref={formRef}
-            onChange={setFormValue}
-            onCheck={setFormError}
-            formValue={formValue}
-            model={createPostModel}
-            id='create-post-form'
+            id='create-community-form'
+            onSubmit={() => {communityForm.handleSubmit()}}
            >
-            <Form.Group controlId='communityName'>
-              <Form.ControlLabel>Community name:</Form.ControlLabel>
-                <Input name='communityName' />
-            </Form.Group>
+            <div style={
+              {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+              }
+            }>
+                <label htmlFor='community_name'>Community Name:</label>
+                <input
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }}
+                  autoComplete='off'
+                  id='community_name'
+                  name='community_name'
+                  type='text'
+                  value={communityForm.values.community_name}
+                  onChange={communityForm.handleChange}
+                />
 
-            <Form.Group controlId='communityImageUrl'>
-              <Form.ControlLabel>Community name:</Form.ControlLabel>
-                <Input name='communityImageUrl' />
-            </Form.Group>
+                <label htmlFor='community_desc'>Community Description:</label>
+                <textarea
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }}
+                  autoComplete='off'
+                  id='community_desc'
+                  name='community_desc'
+                  value={communityForm.values.community_desc}
+                  onChange={communityForm.handleChange}
+                />
 
-            <Form.Group controlId='communityDesc'>
-              <Input name='communityDesc' as="textarea" rows={3} placeholder="Community description:" />
-            </Form.Group>
+                <label htmlFor='community_image_url'>Community Image URL:</label>
+                <input
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }}
+                  autoComplete='off'
+                  id='community_image_url'
+                  name='community_image_url'
+                  type='text'
+                  value={communityForm.values.community_image_url}
+                  onChange={communityForm.handleChange}
+                />
+
+            </div>
 
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button form='create-post-form' type='submit' appearance="primary" color='orange' onClick={handleSubmit}>Confirm</Button>
+          <Button form='create-community-form' type='submit' appearance="primary" color='orange'>Confirm</Button>
           <Button type='button' onClick={() => handleOpenModal(false)} appearance="default">Cancel</Button>
         </Modal.Footer>
       </Modal>
