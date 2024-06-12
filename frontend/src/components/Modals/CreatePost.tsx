@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react';
-import { Form, Schema, Button, IconButton, Input, Modal, InputPicker } from 'rsuite';
+import { useState } from 'react';
+import { Form, Button, IconButton, Input, Modal } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
-import { Post } from '../../types/PostType';
+import type { Post } from '../../types/PostType';
+import { useFormik } from 'formik';
 
 async function getCommunities() {
   const result = await fetch('http://localhost:8080/community')
@@ -15,14 +16,6 @@ async function getCommunities() {
       return result;
     }
 }
-
-const { StringType } = Schema.Types;
-const createPostModel = Schema.Model({
-  communityId: StringType().isRequired('Community is required.'),
-  postTitle: StringType().isRequired('Post title is required.'),
-  postContent: StringType().isRequired('Post content is required.'),
-  postImageUrl: StringType().isRequired('Post image URL is required.')
-});
 
 const communities: Community[] = await getCommunities();
 
@@ -48,21 +41,21 @@ const CreatePost = () => {
   const handleOpenModal = (change: boolean) => {
       setOpenModal(change);
   }
-  const formRef = useRef();
-  const [formError, setFormError] = useState({});
-  const [formValue, setFormValue] = useState({
-  postTitle: '',
-  postContent: '',
-  communityId: '',
+  const postForm = useFormik({
+    initialValues: {
+      community_id: '',
+      post_title: '',
+      post_content: '',
+    },
+    onSubmit: values => {
+      console.log(values);
+      postForm.setValues({
+        community_id: '',
+        post_title: '',
+        post_content: '',
+      })
+    },
   });
-  
-  const handleSubmit = () => {
-    if (!formRef.current.check()) {
-      console.error('Form Error');
-      return;
-    }
-    console.log(formValue, 'Form Value');
-  };
 
   return (
       <>
@@ -72,36 +65,77 @@ const CreatePost = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <Form 
+          <Form
             fluid
-            ref={formRef}
-            onChange={setFormValue}
-            onCheck={setFormError}
-            formValue={formValue}
-            model={createPostModel}
             id='create-post-form'
+            onSubmit={() => {postForm.handleSubmit()}}
            >
-            <Form.Group controlId='selected-community'>
-              <Form.ControlLabel>Community:</Form.ControlLabel>
-              <InputPicker data={communities} labelKey='community_name' valueKey='community_id' block />
-            </Form.Group>
+            <div style={
+              {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+              }
+            }>
+                <label htmlFor='community_id'>Community:</label>
+                <select
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }}
+                  id='community_id'
+                  name='community_id'
+                  onChange={postForm.handleChange}
+                  value={postForm.values.community_id}
+                  >
+                    {
+                      communities.map((community) => (
+                        <option key={community.community_id} value={community.community_id}>{community.community_name}</option>
+                      ))
+                    }
+                </select>
 
-            <Form.Group controlId='postTitle'>
-              <Form.ControlLabel>Post Title:</Form.ControlLabel>
-                <Input name='postTitle' />
-            </Form.Group>
+                <label htmlFor='post_title'>Post Title:</label>
+                <input
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }}
+                  autoComplete='off'
+                  id='post_title'
+                  name='post_title'
+                  type='text'
+                  value={postForm.values.post_title}
+                  onChange={postForm.handleChange}
+                />
 
-            <Form.Group controlId='postContent'>
-              <Form.ControlLabel>Post Content:</Form.ControlLabel>
-              <Input name='postContent' as="textarea" rows={3} placeholder="Post Description." />
-            </Form.Group>
+                <label htmlFor='post_content'>Post Content:</label>
+                <textarea
+                  style={{
+                    color: 'black',
+                    border: '1px solid black',
+                    borderRadius: '2px',
+                    padding: '0.15rem',
+                  }} 
+                  autoComplete='off'
+                  id='post_content'
+                  name='post_content'
+                  value={postForm.values.post_content}
+                  onChange={postForm.handleChange}
+                />
+            </div>
+
 
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button form='create-post-form' type='submit' appearance="primary" color='green' onClick={handleSubmit}>Confirm</Button>
-          <Button type='button' onClick={() => handleOpenModal(false)} appearance="default">Cancel</Button>
+          <Button form='create-post-form' type='submit' appearance="primary" color='green'>Confirm</Button>
+          <Button type='button' onClick={() => postForm.handleReset} appearance="default">Cancel</Button>
         </Modal.Footer>
       </Modal>
       <IconButton icon={<PlusIcon />} appearance='primary' color='green' onClick={() => handleOpenModal(true)}>Create Post</IconButton>
