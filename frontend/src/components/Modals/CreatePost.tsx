@@ -5,6 +5,14 @@ import type { Community } from '../../types/CommunityType';
 import type { Post } from '../../types/PostType';
 import { useFormik } from 'formik';
 
+type newPost = {
+  community_id: string;
+  post_author: string;
+  post_title: string;
+  post_image_url: string;
+  post_content: string;
+}
+
 async function getCommunities() {
   const result = await fetch('http://localhost:8080/community')
     .then(res => res.json())
@@ -19,21 +27,20 @@ async function getCommunities() {
 
 const communities: Community[] = await getCommunities();
 
-async function createNewPost(newPost: Post) {
-    await fetch('http://localhost:8080/post/create', {
+async function createNewPost(post: newPost) {
+  await fetch('http://localhost:8080/post/create', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      community_id: newPost.community_id,
-      post_title: newPost.post_title,
-      post_content: newPost.post_content,
-      post_author: newPost.post_author
-    })
-  }).then(res => {
-    console.log(res);
-  })
+      community_id: post.community_id,
+      post_author: post.post_author,
+      post_title: post.post_title,
+      post_image_url: post.post_image_url,
+      post_content: post.post_content,
+    }),
+  }).then(res => console.log(res));
 }
 
 const CreatePost = () => {
@@ -48,7 +55,13 @@ const CreatePost = () => {
       post_content: '',
     },
     onSubmit: values => {
-      console.log(values);
+      createNewPost({
+        community_id: values.community_id,
+        post_author: '02962896-582f-4865-8439-5dea7381cdde', // placeholder for admin UUID
+        post_title: values.post_title,
+        post_image_url: '',
+        post_content: values.post_content,
+      })
       postForm.setValues({
         community_id: '',
         post_title: '',
