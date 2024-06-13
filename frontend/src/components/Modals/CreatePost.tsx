@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Form, Button, IconButton, Modal } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
 import type { Community } from '../../types/CommunityType';
-import type { Post } from '../../types/PostType';
 import { useFormik } from 'formik';
 
 type newPost = {
