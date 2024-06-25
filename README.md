@@ -3,4 +3,5 @@ A project that takes inspiration from Reddit. Create or join a community and sha
 
 # Tech Stack:
 Frontend: React
+
 Backend: Bun + Express with MySQL Database.
