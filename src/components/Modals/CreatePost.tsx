@@ -13,7 +13,7 @@ type newPost = {
 }
 
 async function getCommunities() {
-  const result = await fetch('http://localhost:8080/community')
+  const result = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community`)
     .then(res => res.json())
     .catch(err => console.error(err));
     if (result === undefined || result === null) {
@@ -27,7 +27,7 @@ async function getCommunities() {
 const communities: Community[] = await getCommunities();
 
 async function createNewPost(post: newPost) {
-  await fetch('http://localhost:8080/post/create', {
+  await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/post/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

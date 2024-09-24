@@ -10,7 +10,7 @@ type NewCommunity = {
 }
 
 async function createCommunity(newCommunity: NewCommunity) {
-  await fetch('http://localhost:8080/community/create', {
+  await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
