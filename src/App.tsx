@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Container, Content, Sidenav, Sidebar, Nav } from 'rsuite';
-import { Placeholder } from 'rsuite';
-
 import type { Community } from './types/CommunityType';
 import type { Post } from './types/PostType';
 
@@ -11,8 +9,9 @@ import { CommunityHeaderInfo, CommunityHeaderNoInfo } from './components/Communi
 import CreatePost from './components/Modals/CreatePost';
 import CreateCommunity from './components/Modals/CreateCommunity';
 
+
 async function getCommunities() {
-  const result = await fetch('http://localhost:8080/community')
+  const result = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community`)
     .then(res => res.json())
     .catch(err => console.error(err));
     if (result === undefined || result === null) {
@@ -24,7 +23,20 @@ async function getCommunities() {
 }
 
 async function getCommunityPosts(community_id: string) {
-  const data = await fetch(`http://localhost:8080/c/${community_id}/posts`)
+  const data = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/c/${community_id}/posts`)
+  .then(res => res.json())
+  .catch(err => console.error(err));
+  if (data === undefined || data === null) {
+    return;
+  }
+  else {
+    return data as Post[];
+  }
+}
+const allCommunities = await getCommunities();
+
+async function getPosts() {
+  const data = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/posts`)
   .then(res => res.json())
   .catch(err => console.error(err));
   if (data === undefined || data === null) {
@@ -35,11 +47,20 @@ async function getCommunityPosts(community_id: string) {
   }
 }
 
-const allCommunities = await getCommunities();
-
 function App() {
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
+  const [allPosts, setAllPosts] = useState<Post[] | null>(null);
+
+  useEffect(() => {
+    getPosts()
+    .then((posts) => {
+      if (posts !== undefined) {
+        setAllPosts(posts);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     if (activeCommunity !== null) {
       getCommunityPosts(activeCommunity.community_id)
@@ -111,13 +132,26 @@ function App() {
                 </div>
                 :
                 <div>
-                  <CommunityHeaderNoInfo />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem'}}>
+                  <CommunityHeaderNoInfo communityHeader='All Posts Index' communityDesc='This is where you will find all posts.' />
+                  {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem'}}>
                     <CreateCommunity />
                     <CreatePost />
-                  </div>
+                  </div> */}
                   <div style={{ padding: '1rem' }}>
-                    <Placeholder.Paragraph rows={16} />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
+                    {
+                      allPosts?.map((post: Post) => (
+                        <div key={post.post_id}>
+                          <CommunityPost 
+                            title={post.post_title}
+                            content={post.post_content}
+                            score={post.post_score}
+                            author={post.post_author}
+                          />
+                        </div>
+                      ))
+                    }
+                  </div>
                   </div>
                 </div>
               }
