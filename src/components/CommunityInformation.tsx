@@ -20,7 +20,7 @@ const CommunityHeaderInfo = (community: {communityName: string, communityDesc: s
     );
 };
 
-const CommunityHeaderNoInfo = () => {
+const CommunityHeaderNoInfo = (community: {communityHeader: string, communityDesc: string}) => {
     return (
         <div style={{
             padding: '2rem',
@@ -33,8 +33,8 @@ const CommunityHeaderNoInfo = () => {
                 margin: 'auto',
                 textShadow: '2px 2px 4px #000000',
             }}>
-                <Heading level={1}>Placeholder Community Name</Heading>
-                <Text>Placeholder Community Description.</Text>
+                <Heading level={1}>{community.communityHeader}</Heading>
+                <Text>{community.communityDesc}</Text>
             </div>
         </div>
     );
