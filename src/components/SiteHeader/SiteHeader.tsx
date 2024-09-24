@@ -8,8 +8,8 @@ function SiteHeader() {
     <Navbar>
     <Navbar.Brand href="/">Reader</Navbar.Brand>
     <Nav pullRight>
-        <Nav.Item icon={<PeoplesCostomizeIcon />} href='/login'>Login</Nav.Item>
-        <Nav.Item icon={<OperatePeopleIcon />} href='/register'>Register</Nav.Item>
+        <Nav.Item icon={<PeoplesCostomizeIcon />} href='#'>Login</Nav.Item>
+        <Nav.Item icon={<OperatePeopleIcon />} href='#'>Register</Nav.Item>
     </Nav>
   </Navbar>
   )
