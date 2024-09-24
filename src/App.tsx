@@ -33,7 +33,6 @@ async function getCommunityPosts(community_id: string) {
     return data as Post[];
   }
 }
-const allCommunities = await getCommunities();
 
 async function getPosts() {
   const data = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/posts`)
@@ -48,9 +47,21 @@ async function getPosts() {
 }
 
 function App() {
-  const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
+  const [communities, setCommunities] = useState<Community[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
+  const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
   const [allPosts, setAllPosts] = useState<Post[] | null>(null);
+
+  useEffect(() => {
+    if (communities === null) {
+      getCommunities()
+      .then((communities) => {
+        if (communities !== undefined) {
+          setCommunities(communities);
+        }
+      });
+    }
+  }, [communities]);
 
   useEffect(() => {
     getPosts()
@@ -59,7 +70,7 @@ function App() {
         setAllPosts(posts);
       }
     });
-  }, []);
+  }, [allPosts]);
 
   useEffect(() => {
     if (activeCommunity !== null) {
@@ -79,24 +90,19 @@ function App() {
           <Sidebar>
             <Sidenav style={{ minHeight: '100vh', display: 'flex' }}>
               <Sidenav.Body>
-                <Nav>
-                  <Nav.Menu title="Communities">
-                    {
-                      allCommunities.map((community: Community) => (
-                          <Nav.Item key={community.community_id} 
-                            onClick={() => setActiveCommunity(
-                              {
-                                community_id: community.community_id,
-                                community_name: community.community_name,
-                                community_desc: community.community_desc,
-                                community_image_url: community.community_image_url
-                              }
-                            )}>
-                            {community.community_name.charAt(0).toUpperCase() + community.community_name.slice(1)}
-                          </Nav.Item>
-                      ))
-                    }
-                  </Nav.Menu>
+                <Nav activeKey={communities}>
+                  {
+                    communities?.map((community: Community) => (
+                      <Nav.Item key={community.community_id} onClick={() => setActiveCommunity(
+                        {
+                          community_id: community.community_id,
+                          community_name: community.community_name,
+                          community_desc: community.community_desc,
+                          community_image_url: community.community_image_url
+                        }
+                      )}>{community.community_name.charAt(0).toUpperCase() + community.community_name.slice(1)}</Nav.Item>
+                    ))
+                  }
                 </Nav>
               </Sidenav.Body>
             </Sidenav>
