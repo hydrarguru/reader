@@ -61,6 +61,7 @@ function App() {
         }
       });
     }
+
   }, [communities]);
 
   useEffect(() => {
@@ -125,7 +126,8 @@ function App() {
                     {
                       communityPosts?.map((post: Post) => (
                         <div key={post.post_id}>
-                          <CommunityPost 
+                          <CommunityPost
+                            id={String(post.post_id)}
                             title={post.post_title}
                             content={post.post_content}
                             score={post.post_score}
@@ -139,8 +141,7 @@ function App() {
                 :
                 <div>
                   <CommunityHeaderNoInfo communityHeader='All Posts Index' communityDesc='This is where you will find all posts.' />
-                  <div style={{ padding: '1rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
                       <CreateCommunity />
                       <CreatePost />
                     </div>
@@ -148,7 +149,8 @@ function App() {
                       {
                         allPosts?.map((post: Post) => (
                           <div key={post.post_id}>
-                            <CommunityPost 
+                            <CommunityPost
+                              id={String(post.post_id)}
                               title={post.post_title}
                               content={post.post_content}
                               score={post.post_score}
@@ -158,7 +160,6 @@ function App() {
                         ))
                       }
                     </div>
-                  </div>
                 </div>
               }
             </Content>

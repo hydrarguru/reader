@@ -1,21 +1,36 @@
+import { useState } from 'react';
 import { Panel, Stack, Button, IconButton, ButtonToolbar} from 'rsuite';
 import { Heading, Text } from 'rsuite';
 import SortUpIcon from '@rsuite/icons/SortUp';
 import SortDownIcon from '@rsuite/icons/SortDown';
-import { useState } from 'react';
 
 type voteType = 'up' | 'down';
 
-const CommunityPost = (post: { title: string, content: string, score: number, author: string }) => {
+
+async function updatePostScore(post_id: string, score: number) {
+  await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/post/${post_id}/${score}`, {
+    method: 'POST'
+  })
+  .then(res => res.json())
+  .catch(err => console.error(err));
+}
+
+const CommunityPost = (post: { id: string, title: string, content: string, score: number, author: string }) => {
     const [score, setScore] = useState(post.score);
-    const [postVoted, setPostVoted] = useState(false);
-    function handlePostVote(voteType: voteType) {
-      if (voteType === 'up') {
-        setScore(score + 1);
-        setPostVoted(true);
-      } else {
-        setScore(score - 1);
-        setPostVoted(true);
+    const [scoreUpdating, setScoreUpdating] = useState(false);
+    const postId = post.id;
+
+    function handlePostVote(post_id: string, voteType: voteType) {
+      if (post_id) {
+        setScoreUpdating(true);
+        if (voteType === 'up') {
+          setScore(score + 1);
+          updatePostScore(post_id, score + 1).then(() => console.log('Score updated:', score + 1));
+        } else if (voteType === 'down') {
+          setScore(score - 1);
+          updatePostScore(post_id, score - 1).then(() => console.log('Score updated: ', score - 1));
+        }
+        setScoreUpdating(false);
       }
     }
 
@@ -28,11 +43,11 @@ const CommunityPost = (post: { title: string, content: string, score: number, au
       header={
         <Stack justifyContent="space-between">
           <Heading level={2}>{post.title}</Heading>
-          <ButtonToolbar>
-            <IconButton disabled={postVoted} ripple={ false } appearance="primary" icon={<SortUpIcon />} onClick={() => handlePostVote('up')}/>
-            <Button appearance='subtle'>{score}</Button>
-            <IconButton disabled={postVoted} ripple={ false } appearance="default" icon={<SortDownIcon />} onClick={() => handlePostVote('down')}/>
-          </ButtonToolbar>
+            <ButtonToolbar>
+              <IconButton ripple={ false } appearance="primary" icon={<SortUpIcon />} onClick={() => handlePostVote(postId, 'up')}/>
+              <Button appearance='subtle'>{score}</Button>
+              <IconButton ripple={ false } appearance="default" icon={<SortDownIcon />} onClick={() => handlePostVote(postId, 'down')}/>
+            </ButtonToolbar>
         </Stack>
       }
     >
