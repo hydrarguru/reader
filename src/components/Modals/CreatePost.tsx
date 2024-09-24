@@ -47,6 +47,7 @@ const CreatePost = () => {
   const handleOpenModal = (change: boolean) => {
       setOpenModal(change);
   }
+  
   const postForm = useFormik({
     initialValues: {
       community_id: '',
@@ -66,6 +67,7 @@ const CreatePost = () => {
         post_title: '',
         post_content: '',
       })
+      handleOpenModal(false);
     },
   });
 
@@ -147,7 +149,7 @@ const CreatePost = () => {
 
         <Modal.Footer>
           <Button form='create-post-form' type='submit' appearance="primary" color='green'>Confirm</Button>
-          <Button type='button' onClick={() => postForm.handleReset} appearance="default">Cancel</Button>
+          <Button type='button' onClick={() => handleOpenModal(false)} appearance="default">Cancel</Button>
         </Modal.Footer>
       </Modal>
       <IconButton icon={<PlusIcon />} appearance='primary' color='green' onClick={() => handleOpenModal(true)}>Create Post</IconButton>
