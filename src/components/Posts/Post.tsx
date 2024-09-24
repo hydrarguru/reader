@@ -4,6 +4,7 @@ import { Heading, Text } from "rsuite";
 import SortUpIcon from "@rsuite/icons/SortUp";
 import SortDownIcon from "@rsuite/icons/SortDown";
 
+
 type voteType = "up" | "down";
 
 async function updatePostScore(post_id: string, score: number) {
@@ -17,6 +18,15 @@ async function updatePostScore(post_id: string, score: number) {
     .catch((err) => console.error(err));
 }
 
+//TODO: show author username instead of author id
+/*
+async function getAuthorUserName(post_author_id: string) {
+  const req = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/users/${post_author_id}`);
+  const res = await req.json();
+  return res.username;
+}
+*/
+
 const CommunityPost = (post: {
   id: string;
   title: string;
@@ -27,7 +37,7 @@ const CommunityPost = (post: {
   const [score, setScore] = useState(post.score);
   const [scoreUpdating, setScoreUpdating] = useState(false);
   const postId = post.id;
-
+  
   function handlePostVote(post_id: string, voteType: voteType) {
     if (post_id && !scoreUpdating) {
       setScoreUpdating(true);
