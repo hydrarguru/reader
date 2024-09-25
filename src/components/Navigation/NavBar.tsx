@@ -6,29 +6,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Book, User, Library } from 'lucide-react';
+import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
+import { NavBarSearch } from './NavBarSearch';
+import { Button } from '../ui/button';
+
 
 import { useEffect, useState } from 'react';
 import { Community } from '@/types/CommunityType';
 
 interface NavBarProps {
-  //communities: Community[] | null;
-  listOfCommunities: string[] | null;
+  listOfCommunities: string[] | null; //communities: Community[] | null;
 	isUserLoggedIn: boolean;
 }
-
-import { Book, User, Library } from 'lucide-react';
-import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 
 function NavBarLogo() {
   return (
     <div className='flex items-center space-x-2'>
-      <Book color='white' size={44} />
+      <Book color='white' size={40} />
       <span className='text-lg text-neutral-50'>Reader</span>
     </div>
   );
 }
 
-import { NavBarSearch } from './NavBarSearch';
 
 export function NavBar(NavBarProps: NavBarProps) {
 	const [communities, setCommunities] = useState<Community[] | null>(null);
@@ -40,7 +40,14 @@ export function NavBar(NavBarProps: NavBarProps) {
         <NavBarLogo />
 				<div className='flex pr-4 space-x-4'>
         <DropdownMenu>
-          <DropdownMenuTrigger><Library color='white' size={40} strokeWidth={'1.5px'} /></DropdownMenuTrigger>
+					{/*
+						<DropdownMenuTrigger><Library color='white' size={40} strokeWidth={'1.5px'} /></DropdownMenuTrigger>
+					*/}
+				<DropdownMenuTrigger asChild>
+					<Button variant='outline' size='icon'>
+						<Library color='grey' />
+					</Button>
+				</DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Browse communities</DropdownMenuLabel>
             <DropdownMenuSeparator />
