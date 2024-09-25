@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div>
-      <NavBar listOfCommunities={testCommunities}/>
+      <NavBar listOfCommunities={testCommunities} isUserLoggedIn={true}/>
     </div>
   );
 }

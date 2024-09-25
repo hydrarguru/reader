@@ -29,10 +29,14 @@ function NavBarLogo() {
   );
 }
 
-
+//TODO: fix nav width when width is 600px or lower.
 export function NavBar(NavBarProps: NavBarProps) {
 	const [communities, setCommunities] = useState<Community[] | null>(null);
-	const [userLoginState, setUserLoginState] = useState<boolean | null>(true);
+	const [userLoginState, setUserLoginState] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setUserLoginState(NavBarProps.isUserLoggedIn);
+  }, [NavBarProps.isUserLoggedIn]);
 
   return (
     <nav className='p-4 bg-violet-600'>
