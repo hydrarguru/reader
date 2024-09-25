@@ -13,7 +13,7 @@ import { Button } from '../ui/button';
 
 
 import { useEffect, useState } from 'react';
-import { Community } from '@/types/CommunityType';
+//import { Community } from '@/types/CommunityType';
 
 interface NavBarProps {
   listOfCommunities: string[] | null; //communities: Community[] | null;
@@ -31,7 +31,7 @@ function NavBarLogo() {
 
 //TODO: fix nav width when width is 600px or lower.
 export function NavBar(NavBarProps: NavBarProps) {
-	const [communities, setCommunities] = useState<Community[] | null>(null);
+	//const [communities, setCommunities] = useState<Community[] | null>(null);
 	const [userLoginState, setUserLoginState] = useState<boolean | null>(null);
 
   useEffect(() => {

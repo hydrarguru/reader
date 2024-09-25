@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import type { Community } from './types/CommunityType';
 import type { Post } from './types/PostType';
 import { NavBar } from './components/Navigation/NavBar';
-import { ThemeToggleButton } from './components/Theme/ThemeToggleButton';
 
 //import SiteHeader from './components/SiteHeader/SiteHeader';
 //import CommunityPost from './components/Posts/Post';
