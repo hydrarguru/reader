@@ -39,14 +39,11 @@ export function NavBar(NavBarProps: NavBarProps) {
   }, [NavBarProps.isUserLoggedIn]);
 
   return (
-    <nav className='p-4 bg-violet-600'>
+    <nav className='p-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 drop-shadow-2xl'>
       <ul className='flex justify-between'>
         <NavBarLogo />
 				<div className='flex pr-4 space-x-4'>
         <DropdownMenu>
-					{/*
-						<DropdownMenuTrigger><Library color='white' size={40} strokeWidth={'1.5px'} /></DropdownMenuTrigger>
-					*/}
 				<DropdownMenuTrigger asChild>
 					<Button variant='outline' size='icon'>
 						<Library color='grey' />
