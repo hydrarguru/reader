@@ -30,7 +30,7 @@ export function NavBar(NavBarProps: NavBarProps) {
   }, [NavBarProps.isUserLoggedIn]);
 
   return (
-    <nav className='p-4 rounded-xl bg-zinc-800'>
+    <nav className='p-4 rounded-xl bg-neutral-500 dark:bg-zinc-900'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
           <span className='text-3xl text-white font-extrabold'>Reader</span>
