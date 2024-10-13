@@ -20,14 +20,6 @@ interface NavBarProps {
 	isUserLoggedIn: boolean;
 }
 
-function NavBarLogo() {
-  return (
-    <div className='flex items-center space-x-2'>
-      <span className='text-3xl text-neutral-50'>Reader</span>
-    </div>
-  );
-}
-
 //TODO: fix nav width when width is 600px or lower.
 export function NavBar(NavBarProps: NavBarProps) {
 	//const [communities, setCommunities] = useState<Community[] | null>(null);
@@ -38,17 +30,19 @@ export function NavBar(NavBarProps: NavBarProps) {
   }, [NavBarProps.isUserLoggedIn]);
 
   return (
-    <nav className='p-4 bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl'>
+    <nav className='p-4 rounded-xl bg-zinc-800'>
       <ul className='flex justify-between'>
-        <NavBarLogo />
+        <div className='flex items-center space-x-2'>
+          <span className='text-3xl text-white font-extrabold'>Reader</span>
+        </div>
 				<div className='flex pr-4 space-x-4'>
         <DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant='outline' size='icon'>
-						<Library color='grey'/>
+						<Library className='text-black dark:text-white'/>
 					</Button>
 				</DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent align='center'>
             <DropdownMenuLabel>Browse communities</DropdownMenuLabel>
             <DropdownMenuSeparator />
 							{
@@ -62,9 +56,11 @@ export function NavBar(NavBarProps: NavBarProps) {
         <NavBarSearch />
         <ThemeToggleButton />
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <User color='white' size={40} />
-          </DropdownMenuTrigger>
+				<DropdownMenuTrigger asChild>
+					<Button variant='outline' size='icon'>
+						<User className='text-black dark:text-white'/>
+					</Button>
+				</DropdownMenuTrigger>
           <DropdownMenuContent align={'center'}>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
