@@ -17,7 +17,7 @@ import { Community } from '@/types/CommunityType';
 
 interface NavBarProps {
   communities: Community[];
-  onCommunityChange: (community: Community) => void;
+  onCommunityChange: (community: Community | null) => void;
 	isUserLoggedIn: boolean;
 }
 
@@ -33,7 +33,7 @@ export function NavBar(NavBarProps: NavBarProps) {
     <nav className='p-4 rounded-xl bg-neutral-500 dark:bg-zinc-900'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
-          <span className='text-3xl text-white font-extrabold'>Reader</span>
+          <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
         </div>
 				<div className='flex pr-4 space-x-4'>
         <DropdownMenu>
