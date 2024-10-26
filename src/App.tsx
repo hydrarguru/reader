@@ -94,7 +94,7 @@ function App() {
                   communityImageUrl={activeCommunity.community_image_url}
                   />
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
-                    <CreatePost />
+                    <CreatePost communityArray={communities as Community[]} />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
                     {
@@ -117,7 +117,6 @@ function App() {
                   <CommunityHeaderNoInfo communityHeader='All Posts Index' communityDesc='This is where you will find all posts.' />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
                       <CreateCommunity />
-                      <CreatePost />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '0.5rem' }}>
                       {
