@@ -13,16 +13,16 @@ import { Button } from '../ui/button';
 
 
 import { useEffect, useState } from 'react';
-//import { Community } from '@/types/CommunityType';
+import { Community } from '@/types/CommunityType';
 
 interface NavBarProps {
-  listOfCommunities: string[] | null; //communities: Community[] | null;
+  communities: Community[];
+  onCommunityChange: (community: Community) => void;
 	isUserLoggedIn: boolean;
 }
 
 //TODO: fix nav width when width is 600px or lower.
 export function NavBar(NavBarProps: NavBarProps) {
-	//const [communities, setCommunities] = useState<Community[] | null>(null);
 	const [userLoginState, setUserLoginState] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export function NavBar(NavBarProps: NavBarProps) {
             <DropdownMenuLabel>Browse communities</DropdownMenuLabel>
             <DropdownMenuSeparator />
 							{
-								NavBarProps.listOfCommunities?.map((community) => (
-									<DropdownMenuItem key={community}>{community}</DropdownMenuItem>
+								NavBarProps.communities?.map((community) => (
+									<DropdownMenuItem key={community.community_id} onClick={() =>NavBarProps.onCommunityChange(community)}>{community.community_name}</DropdownMenuItem>
 								))
 							}
           </DropdownMenuContent>
