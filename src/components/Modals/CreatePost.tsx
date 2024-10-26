@@ -12,22 +12,8 @@ type newPost = {
   post_content: string;
 }
 
-async function getCommunities() {
-  const result = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community`)
-    .then(res => res.json())
-    .catch(err => console.error(err));
-    if (result === undefined || result === null) {
-      return [];
-    }
-    else {
-      return result;
-    }
-}
-
-const communities: Community[] = await getCommunities();
-
 async function createNewPost(post: newPost) {
-  await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/post/create`, {
+  await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,12 +28,17 @@ async function createNewPost(post: newPost) {
   }).then(res => console.log(res));
 }
 
-const CreatePost = () => {
+interface CreatePostProps {
+  communityArray: Community[];
+}
+
+const CreatePost = (CreatePostProps: CreatePostProps) => {
   const [openModal, setOpenModal] = useState(false);
+  const [communities] = useState(CreatePostProps.communityArray);
   const handleOpenModal = (change: boolean) => {
       setOpenModal(change);
   }
-  
+
   const postForm = useFormik({
     initialValues: {
       community_id: '',
