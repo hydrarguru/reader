@@ -1,7 +1,7 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { Community } from '@/types/CommunityType';
-import { CommunityHeader } from './Community/CommunityHeader';
-import { CommunityPostContainer } from './Community/CommunityPostContainer';
+import { CommunityHeader } from './CommunityHeader';
+import { CommunityPostContainer } from './CommunityPostContainer';
 
 interface CommunityContainerProps {
   community: Community;
