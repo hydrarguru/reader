@@ -10,7 +10,7 @@ type NewCommunity = {
 }
 
 async function createCommunity(newCommunity: NewCommunity) {
-  await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community/create`, {
+  await fetch(`${import.meta.env.VITE_BACKEND_URL}/community/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,6 +43,7 @@ const CreateCommunity = () => {
         community_desc: '',
         community_image_url: '',
       })
+      handleOpenModal(false);
     },
   });
 
