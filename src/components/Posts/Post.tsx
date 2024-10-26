@@ -9,7 +9,7 @@ type voteType = "up" | "down";
 
 async function updatePostScore(post_id: string, score: number) {
   await fetch(
-    `${import.meta.env.VITE_READER_BACKEND_URL}/post/${post_id}/${score}`,
+    `${import.meta.env.VITE_BACKEND_URL}/post/${post_id}/${score}`,
     {
       method: "POST",
     }
@@ -17,15 +17,6 @@ async function updatePostScore(post_id: string, score: number) {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 }
-
-//TODO: show author username instead of author id
-/*
-async function getAuthorUserName(post_author_id: string) {
-  const req = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/users/${post_author_id}`);
-  const res = await req.json();
-  return res.username;
-}
-*/
 
 const CommunityPost = (post: {
   id: string;

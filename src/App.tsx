@@ -11,7 +11,7 @@ import CreateCommunity from './components/Modals/CreateCommunity';
 
 
 async function getCommunities() {
-  const result = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/community`)
+  const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/communities`)
     .then(res => res.json())
     .catch(err => console.error(err));
     if (result === undefined || result === null) {
@@ -22,35 +22,23 @@ async function getCommunities() {
     }
 }
 
-async function getCommunityPosts(community_id: string) {
-  const data = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/c/${community_id}/posts`)
-  .then(res => res.json())
-  .catch(err => console.error(err));
-  if (data === undefined || data === null) {
-    return;
+async function fetchPosts(): Promise<Post[]> {
+  const posts = await fetch(`${import.meta.env.VITE_BACKEND_URL}/posts`);
+  if (posts.ok) {
+    return posts.json();
   }
   else {
-    return data as Post[];
+    throw new Error('Failed to fetch posts');
   }
 }
 
-async function getPosts() {
-  const data = await fetch(`${import.meta.env.VITE_READER_BACKEND_URL}/posts`)
-  .then(res => res.json())
-  .catch(err => console.error(err));
-  if (data === undefined || data === null) {
-    return;
-  }
-  else {
-    return data as Post[];
-  }
-}
+const fetchedPosts = await fetchPosts();
 
 function App() {
   const [communities, setCommunities] = useState<Community[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
   const [communityPosts, setCommunityPosts] = useState<Post[] | null>(null);
-  const [allPosts, setAllPosts] = useState<Post[] | null>(null);
+  const [allPosts] = useState<Post[] | null>(fetchedPosts);
 
   useEffect(() => {
     if (communities === null) {
@@ -65,24 +53,16 @@ function App() {
   }, [communities]);
 
   useEffect(() => {
-    getPosts()
-    .then((posts) => {
-      if (posts !== undefined) {
-        setAllPosts(posts);
-      }
-    });
-  }, [allPosts]);
-
-  useEffect(() => {
-    if (activeCommunity !== null) {
-      getCommunityPosts(activeCommunity.community_id)
-      .then((posts) => {
-        if (posts !== undefined) {
-          setCommunityPosts(posts);
-        }
-      });
-    }
+    console.table(activeCommunity);
   }, [activeCommunity]);
+
+  function setActiveCommunityAndPosts(community: Community) {
+    setActiveCommunity(community);
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/c/${community.community_id}/posts`)
+      .then(res => res.json())
+      .then(posts => setCommunityPosts(posts))
+      .catch(err => console.error(err));
+  }
 
   return (
     <div>
@@ -94,13 +74,8 @@ function App() {
                 <Nav activeKey={communities}>
                   {
                     communities?.map((community: Community) => (
-                      <Nav.Item key={community.community_id} onClick={() => setActiveCommunity(
-                        {
-                          community_id: community.community_id,
-                          community_name: community.community_name,
-                          community_desc: community.community_desc,
-                          community_image_url: community.community_image_url
-                        }
+                      <Nav.Item key={community.community_id} onClick={() => setActiveCommunityAndPosts(
+                        community
                       )}>{community.community_name.charAt(0).toUpperCase() + community.community_name.slice(1)}</Nav.Item>
                     ))
                   }
