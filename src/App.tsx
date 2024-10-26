@@ -14,7 +14,17 @@ async function getCommunities() {
   }
 }
 
-function App() {
+import { Skeleton } from "@/components/ui/skeleton"
+ 
+export function SkeletonCard() {
+  return (
+    <div className="flex flex-col space-y-3">
+      <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+    </div>
+  )
+}
+
+export function App() {
   const [communities, setCommunities] = useState<Community[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
 
@@ -26,7 +36,6 @@ function App() {
     if (communities === null) {
       getCommunities().then((communities) => {
         if (communities !== undefined) {
-          console.log('Storing communities in session storage');
           setCommunities(communities);
         }
       });
@@ -50,7 +59,13 @@ function App() {
               ))}
             </div>
           ) : (
-            <p>Loading...</p>
+            <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
           )}
         </div>
       )}
