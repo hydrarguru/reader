@@ -36,7 +36,6 @@ export function NavBar(NavBarProps: NavBarProps) {
           <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
         </div>
 				<div className='flex pr-4 space-x-4'>
-        <NavBarSearch />
         <ThemeToggleButton />
         <DropdownMenu>
 				<DropdownMenuTrigger asChild>
