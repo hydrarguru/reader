@@ -1,7 +1,7 @@
 import { ButtonGroup } from "./ButtonGroup";
 
 export function CommunityPost(post: {
-    id: string;
+    id?: string;
     title: string;
     content: string;
     score: number;

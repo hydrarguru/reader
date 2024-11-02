@@ -11,7 +11,7 @@ export function CommunityContainer(activeCommunity: CommunityContainerProps) {
   return (
     <div>
       <CommunityHeader community={activeCommunity.community} />
-      <CommunityPostContainer community={activeCommunity.community} />
+      <CommunityPostContainer community={activeCommunity.community} communityId={activeCommunity.community.community_id} />
     </div>
   );
 }
