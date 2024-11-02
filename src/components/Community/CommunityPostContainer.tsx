@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Community } from '@/types/CommunityType';
-import { CommunityPost } from './CommunityPost';
+import { CommunityPost, CommunityPostSkeleton } from './CommunityPost';
 import { Post } from '@/types/PostType';
 import { CommunityInformationPanel } from './CommunityInfoPanel';
 
@@ -46,7 +46,14 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
           </div>
         ) : (
           <div className='w-3/4'>
-            <p>Loading...</p>
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
+            <CommunityPostSkeleton />
           </div>
         )
       }
