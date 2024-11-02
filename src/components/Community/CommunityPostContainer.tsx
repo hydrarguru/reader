@@ -15,7 +15,9 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
 
   useEffect(() => {
     async function getPosts() {
-      const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/c/${CommunityPostContainerProps.communityId}/posts`)
+      const result = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/c/${CommunityPostContainerProps.communityId}/posts`
+      )
         .then((res) => res.json())
         .catch((err) => console.error(err));
       if (result === undefined || result === null) {
@@ -34,30 +36,36 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
     }
   }, [CommunityPostContainerProps.communityId, posts]);
 
-
   return (
-    <div className='flex justify-between gap-4'>
-      {
-        posts !== null ? (
-          <div className='w-3/4'>
-            {posts.map((post) => (
-              <CommunityPost key={post.post_id} title={post.post_title} content={post.post_content} score={post.post_score} author={post.post_author} />
-            ))}
-          </div>
-        ) : (
-          <div className='w-3/4'>
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-            <CommunityPostSkeleton />
-          </div>
-        )
-      }
-      <div className='w-1/4'>
+    <div className='flex flex-col md:flex-row justify-between gap-4'>
+      <div className='md:w-1/4 lg:hidden'>
+        <CommunityInformationPanel community={CommunityPostContainerProps.community} />
+      </div>
+      {posts !== null ? (
+        <div className='w-full md:w-3/4'>
+          {posts.map((post) => (
+            <CommunityPost
+              key={post.post_id}
+              title={post.post_title}
+              content={post.post_content}
+              score={post.post_score}
+              author={post.post_author}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className='w-full md:w-3/4'>
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+        </div>
+      )}
+      <div className='hidden lg:block lg:w-1/4'>
         <CommunityInformationPanel community={CommunityPostContainerProps.community} />
       </div>
     </div>
