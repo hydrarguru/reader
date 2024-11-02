@@ -36,23 +36,6 @@ export function NavBar(NavBarProps: NavBarProps) {
           <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
         </div>
 				<div className='flex pr-4 space-x-4'>
-        <DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant='outline' size='icon'>
-						<Library className='text-black dark:text-white'/>
-					</Button>
-				</DropdownMenuTrigger>
-          <DropdownMenuContent align='center'>
-            <DropdownMenuLabel>Browse communities</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-							{
-								NavBarProps.communities?.map((community) => (
-									<DropdownMenuItem key={community.community_id} onClick={() =>NavBarProps.onCommunityChange(community)}>{community.community_name}</DropdownMenuItem>
-								))
-							}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
         <NavBarSearch />
         <ThemeToggleButton />
         <DropdownMenu>
