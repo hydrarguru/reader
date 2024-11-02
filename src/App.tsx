@@ -8,6 +8,7 @@ async function getCommunities() {
     .then((res) => res.json())
     .catch((err) => console.error(err));
   if (result === undefined || result === null) {
+    console.error('Error fetching communities');
     return [];
   } else {
     return result;
