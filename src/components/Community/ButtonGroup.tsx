@@ -10,6 +10,7 @@ function generateRandomNumber(): number {
 export function ButtonGroup({ postScore, postId }: { postScore: number, postId: string }) {
   const [postedId] = useState<string>(postId);
   const [postedScore, setPostedScore] = useState<number>(postScore);
+  const [intitalScore] = useState<number>(postScore);
   const [commentsAmount] = useState<number>(generateRandomNumber());
   const [isUpvoted, setIsUpvoted] = useState<boolean>(false);
   const [isDownvoted, setIsDownvoted] = useState<boolean>(false);
@@ -28,7 +29,19 @@ export function ButtonGroup({ postScore, postId }: { postScore: number, postId: 
         console.debug('Downvoted');
       }
     }
-  }, [postedScore, isUpvoted, isDownvoted]);
+    // remove downvote
+    if (isDownvoted) {
+      setPostedScore(intitalScore);
+      updatePostScore(intitalScore, postId);
+      setIsDownvoted(false);
+    }
+    //Remove upvote
+    if (isUpvoted) {
+      setPostedScore(intitalScore);
+      updatePostScore(intitalScore, postId);
+      setIsUpvoted(false);
+    }
+  }, [postedScore, intitalScore, isUpvoted, isDownvoted]);
 
   return (
     <div className='flex items-center gap-2'>
