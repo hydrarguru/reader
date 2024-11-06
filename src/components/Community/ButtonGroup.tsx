@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Maximize2, ArrowUp, ArrowDown } from 'lucide-react';
-import { CommunityPostModal } from './CommunityPostModal';
+import { CommunityPostModal } from '../Modals/CommunityPostModal';
 import { updatePostScore } from '@/api/posts';
 
 function generateRandomNumber(): number {
