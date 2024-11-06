@@ -8,7 +8,7 @@ import { ThemeProvider } from './components/Theme/ThemeProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
+    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <Suspense fallback={<div>Loading...</div>}>
       <App />
       </Suspense>

@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { User, Library } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
-import { NavBarSearch } from './NavBarSearch';
+//import { NavBarSearch } from './NavBarSearch';
 import { Button } from '../ui/button';
 
 
@@ -30,13 +30,12 @@ export function NavBar(NavBarProps: NavBarProps) {
   }, [NavBarProps.isUserLoggedIn]);
 
   return (
-    <nav className='p-4 rounded-xl bg-neutral-500 dark:bg-zinc-900'>
+    <nav className='p-4 rounded-xl border border-zinc-400  dark:bg-zinc-900 dark:border-none dark:text-white'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
           <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer overflow-hidden' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
         </div>
 				<div className='flex pr-4 space-x-4'>
-        <ThemeToggleButton />
         <DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant='outline' size='icon'>
