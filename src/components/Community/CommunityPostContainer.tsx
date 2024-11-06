@@ -46,7 +46,8 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
           {posts.map((post) => (
             <CommunityPost
               key={post.post_id}
-              id={post.post_id}
+              communityPost={post}
+              id={post.post_id as string}
               title={post.post_title}
               content={post.post_content}
               score={post.post_score}
