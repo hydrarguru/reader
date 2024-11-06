@@ -26,9 +26,6 @@ export function CommunityHeader(CommunityHeaderProps: CommunityHeaderProps) {
           <button className='px-4 py-2 rounded-full border border-zinc-400 hover:border-zinc-100'>
             Create Post
           </button>
-          <button className='px-4 py-2 text-white bg-blue-700 rounded-full hover:bg-blue-600'>
-            Join
-          </button>
         </div>
       </div>
     </div>
