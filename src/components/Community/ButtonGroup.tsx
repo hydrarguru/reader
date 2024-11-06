@@ -21,9 +21,11 @@ export function ButtonGroup({ postScore, postId }: { postScore: number, postId: 
       updatePostScore(newScore, postId);
       if (increment) {
         setIsUpvoted(true);
+        console.debug('Upvoted');
       }
       else {
         setIsDownvoted(true);
+        console.debug('Downvoted');
       }
     }
   }, [postedScore, isUpvoted, isDownvoted]);
