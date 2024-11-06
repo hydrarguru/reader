@@ -55,7 +55,7 @@ export function CommunityPost(post: {
         {/* Interaction Bar */}
         <div className='flex items-center space-x-6 text-sm text-gray-400'>
           <div className='flex items-center space-x-1'>
-            <ButtonGroup postScore={post.score} />
+            <ButtonGroup postScore={post.score} postId={post.id || ''} />
           </div>
         </div>
       </div>
