@@ -26,12 +26,18 @@ export function CommunityPostSkeleton() {
     );
   }
 
+function getTimeBetweenDates(date1: Date, date2: Date): string {
+  const diff = Math.abs(date1.getTime() - date2.getTime());
+  return `${Math.floor(diff / (1000 * 60 * 60 * 24))} days ago`;
+}
+
 export function CommunityPost(post: {
     id?: string;
     title: string;
     content: string;
     score: number;
     author: string;
+    createdAt?: Date;
   }) {
     return (
       <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
@@ -39,7 +45,7 @@ export function CommunityPost(post: {
           <div className='flex items-center space-x-1'>
             <span className='text-sm text-gray-400'>{post.author}</span>
             <span className='text-sm text-gray-400'>•</span>
-            <span className='text-sm text-gray-400'>4h ago</span>
+            <span className='text-sm text-gray-400'>{post.createdAt ? getTimeBetweenDates(post.createdAt, new Date()) : 'Unknown date'}</span>
           </div>
         </div>
   

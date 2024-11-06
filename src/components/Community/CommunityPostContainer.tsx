@@ -50,6 +50,7 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
               content={post.post_content}
               score={post.post_score}
               author={post.post_author}
+              createdAt={post.created_at ? new Date(post.created_at) : new Date()}
             />
           ))}
         </div>
