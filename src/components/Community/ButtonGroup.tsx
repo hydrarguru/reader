@@ -1,8 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { Maximize2, ArrowUp, ArrowDown } from 'lucide-react';
 import { CommunityPostModal } from './CommunityPostModal';
 import { updatePostScore } from '@/api/posts';
-import { Post } from '@/types/PostType';
 
 function generateRandomNumber(): number {
   return Math.floor(Math.random() * 100);
