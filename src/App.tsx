@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Content, Sidenav, Sidebar, Nav, Loader, Placeholder } from "rsuite";
+import { Container, Content, Sidenav, Sidebar, Nav, Placeholder } from "rsuite";
 import type { Community } from "./types/CommunityType";
 import type { Post } from "./types/PostType";
 
