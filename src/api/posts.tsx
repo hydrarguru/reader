@@ -12,3 +12,31 @@ export async function updatePostScore(score: number, postId: string) {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 }
+
+/**
+ * Creates a new post in a community by making a POST request to the backend.
+ *
+ * @param {string} community_id - The unique identifier of the community where the post will be created.
+ * @param {string} title - The title of the post.
+ * @param {string} author - The user id of the author.
+ * @param {string} image_url - The URL of the image associated with the post.
+ * @param {string} content - The content of the post.
+ * @returns {Promise<void>} A promise that resolves when the request is complete.
+ */
+export async function createPost(community_id: string, title: string, author: string, image_url: string, content: string) {
+  await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      community_id,
+      title,
+      author,
+      image_url,
+      content,
+    }),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+}
