@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/:community" element={<App />} />
+          <Route path="/c/:community" element={<App />} />
         </Routes>
       </BrowserRouter>
       <Toaster />
