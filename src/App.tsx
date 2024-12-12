@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import type { Community } from './types/CommunityType';
 import { NavBar } from './components/Navigation/NavBar';
 import { CommunityContainer } from './components/Community/CommunityContainer';
-import { NavLink, useParams } from "react-router";
+import { useParams } from "react-router";
 import { SkeletonContainer } from './components/Skeletons/SkeletonContainer';
+import { CommunityList } from './components/Navigation/CommunityList';
 
 async function getCommunities() {
   const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/communities`)
@@ -55,14 +56,7 @@ export function App() {
       ) : (
         <div className='my-4'>
           {communities !== null ? (
-            <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-              {communities.map((community) => (
-                <NavLink key={community.community_id} to={`/c/${community.community_name}`} className='bg-zinc-800 p-4 rounded-lg hover:bg-zinc-900 hover:cursor-pointer' onClick={() => handleCommunityChange(community)}>
-                  <h2 className='text-xl font-semibold'>{community.community_name}</h2>
-                  <p className='text-gray-200'>{community.community_desc}</p>
-                </NavLink>
-              ))}
-            </div>
+            <CommunityList communities={communities} />
           ) : (
             <SkeletonContainer skeletonCount={10} />
           )}
