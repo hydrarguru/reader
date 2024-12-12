@@ -5,18 +5,7 @@ import { CommunityContainer } from './components/Community/CommunityContainer';
 import { useParams } from "react-router";
 import { SkeletonContainer } from './components/Skeletons/SkeletonContainer';
 import { CommunityList } from './components/Navigation/CommunityList';
-
-async function getCommunities() {
-  const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/communities`)
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
-  if (result === undefined || result === null) {
-    console.error('Error fetching communities');
-    return [];
-  } else {
-    return result;
-  }
-}
+import { getAllCommunities } from './api/communities';
  
 export function App() {
   const [communities, setCommunities] = useState<Community[] | null>(null);
@@ -40,7 +29,7 @@ export function App() {
     }
 
     if (communities === null) {
-      getCommunities().then((communities) => {
+      getAllCommunities().then((communities) => {
         if (communities !== undefined) {
           setCommunities(communities);
         }
