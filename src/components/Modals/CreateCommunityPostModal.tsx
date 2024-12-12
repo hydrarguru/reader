@@ -37,7 +37,7 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
     resolver: zodResolver(createPostFormSchema),
     defaultValues: {
       community_id: CreateCommunityPostModalProps.communityId,
-      post_author: 'test_username',
+      post_author: 'admin',
       post_title: '',
       post_content: '',
     },
@@ -48,28 +48,31 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
     CreateCommunityPostModalProps.modalClose();
   }
 
-  const onSubmit = (data: z.infer<typeof createPostFormSchema>) => {
-    const error = false;
-
-    if (error) {
-      return toast({
-        type: 'background',
-        variant: 'destructive',
-        title: 'Error creating post',
-        description: 'An error occurred while creating the post.',
-        duration: 2000,
+  const onSubmit = async (data: z.infer<typeof createPostFormSchema>) => {
+    createPost(
+      data.community_id,
+      data.post_title,
+      data.post_author,
+      '',
+      data.post_content
+    ).then(() => {
+      form.reset();
+      CreateCommunityPostModalProps.modalClose();
+      toast({
+        title: 'Post created',
+        description: 'Your post has been successfully created',
+        type: 'foreground',
+        duration: 1250
       });
-    }
-      else {
-        toast({
-          type: 'background',
-          variant: 'default',
-          title: 'Created post',
-          description: 'Successfully created a post.',
-          duration: 1750,
-        });
-        console.dir(data);
-      }
+    }).catch((err) => {
+      console.error(err);
+      toast({
+        title: 'Error',
+        description: `Error creating post: ${err}`,
+        type: 'background',
+        duration: 1250
+      });
+    });
   }
 
   return (
