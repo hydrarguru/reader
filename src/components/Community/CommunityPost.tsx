@@ -24,7 +24,7 @@ function getTimeBetweenDates(date1: Date, date2: Date): string {
   }
 }
 
-function handleUserRoleColor(username: string) {
+function handleUserRoleColor() {
   const userRoles: UserRole[] = [
     { role_name: 'admin', role_color: 'text-sm text-red-500' },
     { role_name: 'moderator', role_color: 'text-sm text-green-500' },
@@ -103,7 +103,7 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
     <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
       <div className='flex items-center space-x-2 mb-2'>
         <div className='flex items-center space-x-1'>
-          <span className={handleUserRoleColor(CommunityPostProps.author)}>{CommunityPostProps.author}</span>
+          <span className={handleUserRoleColor()}>{CommunityPostProps.author}</span>
           <span className='text-sm text-gray-400'>•</span>
           <CommunityPostDate createdAt={CommunityPostProps.createdAt} />
         </div>
