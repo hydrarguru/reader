@@ -30,12 +30,12 @@ export async function createPost(community_id: string, title: string, author: st
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      community_id,
-      title,
-      author,
-      image_url,
-      content,
-    }),
+      community_id: community_id,
+      post_author: author,
+      post_title: title,
+      post_image_url: image_url,
+      post_content: content,
+    })
   })
     .then((res) => res.json())
     .catch((err) => console.error(err));
