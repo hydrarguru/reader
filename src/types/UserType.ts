@@ -6,3 +6,8 @@ export type User = {
     created_at?: string;
     modified_at?: string;
 };
+
+export type UserRole = {
+    role_name: string;
+    role_color: string;
+}

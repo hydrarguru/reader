@@ -2,7 +2,7 @@ import { ButtonGroup } from './ButtonGroup';
 import { Skeleton } from '../ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Post } from '../../types/PostType';
-
+import { UserRole } from '@/types/UserType';
 import { useState } from 'react';
 
 function getTimeBetweenDates(date1: Date, date2: Date): string {
@@ -22,6 +22,26 @@ function getTimeBetweenDates(date1: Date, date2: Date): string {
   } else {
     return `${days} days ago`;
   }
+}
+
+function handleUserRoleColor(username: string) {
+  const userRoles: UserRole[] = [
+    { role_name: 'admin', role_color: 'text-sm text-red-500' },
+    { role_name: 'moderator', role_color: 'text-sm text-green-500' },
+    { role_name: 'user', role_color: 'text-sm text-gray-400' },
+  ];
+  /*
+  switch (username) {
+    case 'admin':
+      return userRoles[0].role_color;
+    case 'moderator':
+      return userRoles[1].role_color;
+    default:
+      return userRoles[2].role_color;
+  }
+  */
+  const randomRole = Math.floor(Math.random() * userRoles.length);
+  return userRoles[randomRole].role_color;
 }
 
 export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
@@ -83,7 +103,7 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
     <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
       <div className='flex items-center space-x-2 mb-2'>
         <div className='flex items-center space-x-1'>
-          <span className='text-sm text-gray-400'>{CommunityPostProps.author}</span>
+          <span className={handleUserRoleColor(CommunityPostProps.author)}>{CommunityPostProps.author}</span>
           <span className='text-sm text-gray-400'>•</span>
           <CommunityPostDate createdAt={CommunityPostProps.createdAt} />
         </div>
