@@ -10,10 +10,9 @@ import { User, Library } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 //import { NavBarSearch } from './NavBarSearch';
 import { Button } from '../ui/button';
-
-
-import { useEffect, useState } from 'react';
 import { Community } from '@/types/CommunityType';
+import { useEffect, useState } from 'react';
+import { NavLink } from "react-router";
 
 interface NavBarProps {
   communities: Community[];
@@ -33,7 +32,9 @@ export function NavBar(NavBarProps: NavBarProps) {
     <nav className='p-4 rounded-xl border border-zinc-400  dark:bg-zinc-900 dark:border-none dark:text-white'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
+          <NavLink to='/' className='flex items-center space-x-2' end>
           <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer overflow-hidden' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
+          </NavLink>
         </div>
 				<div className='flex pr-4 space-x-4'>
         <DropdownMenu>
