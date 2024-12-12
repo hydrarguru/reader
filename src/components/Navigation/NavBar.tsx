@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User, Library } from 'lucide-react';
+import { User } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 //import { NavBarSearch } from './NavBarSearch';
 import { Button } from '../ui/button';
@@ -29,11 +29,11 @@ export function NavBar(NavBarProps: NavBarProps) {
   }, [NavBarProps.isUserLoggedIn]);
 
   return (
-    <nav className='p-4 rounded-xl border border-zinc-400  dark:bg-zinc-900 dark:border-none dark:text-white'>
+    <nav className='p-4 rounded-xl border border-emerald-800  dark:bg-zinc-900 dark:border-zinc-700 dark:text-white'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
           <NavLink to='/' className='flex items-center space-x-2' end>
-          <span className='text-3xl text-white font-extrabold hover:text-gray-400 hover:cursor-pointer overflow-hidden' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
+            <span className='text-emerald-800 hover:text-emerald-700 text-3xl font-extrabold dark:text-white dark:hover:text-neutral-300 hover:cursor-pointer overflow-hidden transition-all ease-in-out duration-200' onClick={() => NavBarProps.onCommunityChange(null)}>Reader</span>
           </NavLink>
         </div>
 				<div className='flex pr-4 space-x-4'>
@@ -59,6 +59,7 @@ export function NavBar(NavBarProps: NavBarProps) {
 							</>
              )}
           </DropdownMenuContent>
+          <ThemeToggleButton />
         </DropdownMenu>
 				</div>
       </ul>
