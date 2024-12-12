@@ -3,12 +3,10 @@
 @tailwind utilities;
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 
 @layer base {
   :root {
@@ -66,8 +64,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
