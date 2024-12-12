@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import type { Community } from './types/CommunityType';
 import { NavBar } from './components/Navigation/NavBar';
 import { CommunityContainer } from './components/Community/CommunityContainer';
-import { useParams } from "react-router";
+import { useParams } from 'react-router';
 import { SkeletonContainer } from './components/Skeletons/SkeletonContainer';
 import { CommunityList } from './components/Navigation/CommunityList';
 import { getAllCommunities } from './api/communities';
- 
+
 export function App() {
   const [communities, setCommunities] = useState<Community[] | null>(null);
   const [activeCommunity, setActiveCommunity] = useState<Community | null>(null);
@@ -14,7 +14,9 @@ export function App() {
 
   function handleCommunityChange(community: Community | null) {
     setActiveCommunity(community);
-    community !== null ? window.history.pushState({}, '', `/${community.community_name}`) : window.history.pushState({}, '', '/');
+    community !== null
+      ? window.history.pushState({}, '', `/${community.community_name}`)
+      : window.history.pushState({}, '', '/');
   }
 
   useEffect(() => {
@@ -38,20 +40,28 @@ export function App() {
   }, [communities, activeCommunity, communityParams]);
 
   return (
-    <main className='m-4'>
-      <NavBar communities={communities as Community[]} isUserLoggedIn={true} onCommunityChange={handleCommunityChange} />
-      {activeCommunity !== null ? (
-        <CommunityContainer community={activeCommunity} />
-      ) : (
-        <div className='my-4'>
-          {communities !== null ? (
-            <CommunityList communities={communities} />
-          ) : (
-            <SkeletonContainer skeletonCount={10} />
-          )}
-        </div>
-      )}
-    </main>
+    <div className='min-h-screen flex flex-col m-4'>
+      <header>
+        <NavBar
+          communities={communities as Community[]}
+          isUserLoggedIn={true}
+          onCommunityChange={handleCommunityChange}
+        />
+      </header>
+      <main>
+        {activeCommunity !== null ? (
+          <CommunityContainer community={activeCommunity} />
+        ) : (
+          <div>
+            {communities !== null ? (
+              <CommunityList communities={communities} />
+            ) : (
+              <SkeletonContainer skeletonCount={10} />
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
