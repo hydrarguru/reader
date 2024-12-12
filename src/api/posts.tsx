@@ -21,10 +21,10 @@ export async function updatePostScore(score: number, postId: string) {
  * @param {string} author - The user id of the author.
  * @param {string} image_url - The URL of the image associated with the post.
  * @param {string} content - The content of the post.
- * @returns {Promise<void>} A promise that resolves when the request is complete.
+ * @returns {Promise<number>} A promise that resolves with the status code of the request.
  */
-export async function createPost(community_id: string, title: string, author: string, image_url: string, content: string) {
-  await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/create`, {
+export async function createPost(community_id: string, title: string, author: string, image_url: string, content: string): Promise<number> {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +36,14 @@ export async function createPost(community_id: string, title: string, author: st
       post_image_url: image_url,
       post_content: content,
     })
-  })
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  });
+
+  if (!response.ok) {
+    console.error('Failed to create post:', response.statusText);
+    return 500;
+  }
+
+  const data = await response.json();
+  console.log(data);
+  return response.status;
 }

@@ -49,29 +49,24 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
   }
 
   const onSubmit = async (data: z.infer<typeof createPostFormSchema>) => {
-    createPost(
-      data.community_id,
-      data.post_title,
-      data.post_author,
-      '',
-      data.post_content
-    ).then(() => {
-      form.reset();
-      CreateCommunityPostModalProps.modalClose();
-      toast({
-        title: 'Post created',
-        description: 'Your post has been successfully created',
-        type: 'foreground',
-        duration: 1250
-      });
-    }).catch((err) => {
-      console.error(err);
-      toast({
-        title: 'Error',
-        description: `Error creating post: ${err}`,
-        type: 'background',
-        duration: 1250
-      });
+    createPost(data.community_id, data.post_title, data.post_author, '', data.post_content).then((status) => {
+      if (status === 201) {
+        form.reset();
+        CreateCommunityPostModalProps.modalClose();
+        toast({
+          title: 'Post created',
+          description: 'Your post has been successfully created',
+          type: 'foreground',
+          duration: 1250
+        });
+      } else {
+        toast({
+          title: 'Error',
+          description: `Error creating post: ${status}`,
+          type: 'background',
+          duration: 2000
+        });
+      }
     });
   }
 
