@@ -78,7 +78,7 @@ export function DesktopMenu({ loginState }: DesktopMenuProps) {
         <DropdownMenuSeparator />
         {loginState === true ? <SignedInUserMenu /> : <SignedOutUserMenu />}
       </DropdownMenuContent>
-      <ThemeToggleButton className='max-sm:hidden' />
+      <ThemeToggleButton  />
     </DropdownMenu>
   );
 }
