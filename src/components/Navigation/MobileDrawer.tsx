@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
-import { User, Settings, LogOut, LogIn, UserPlus, PanelLeftOpen } from 'lucide-react';
+//import { User, Settings, LogOut, LogIn, UserPlus, PanelLeftOpen } from 'lucide-react';
+import { PanelLeftOpen } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 import { Button } from '../ui/button';
 import { Drawer } from 'vaul';
