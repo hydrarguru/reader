@@ -12,20 +12,20 @@ import { Community } from '../../types/CommunityType';
 import { getAllCommunities } from '@/api/communities';
 import { DisabledButtons } from '../Skeletons/DisabledButtons';
 
-function fetchStarredCommunities(): Community[] | null {
-  const storedStarredCommunities = localStorage.getItem('starredCommunities');
-  if (storedStarredCommunities === null || storedStarredCommunities === undefined) {
-    console.info('No starred communities found in local storage');
-    return null;
-  }
-  else {
-    console.info('Starred communities found in local storage');
-    return JSON.parse(storedStarredCommunities);
-  }
-}
+// function fetchStarredCommunities(): Community[] | null {
+//   const storedStarredCommunities = localStorage.getItem('starredCommunities');
+//   if (storedStarredCommunities === null || storedStarredCommunities === undefined) {
+//     console.info('No starred communities found in local storage');
+//     return null;
+//   }
+//   else {
+//     console.info('Starred communities found in local storage');
+//     return JSON.parse(storedStarredCommunities);
+//   }
+// }
 
 export function MobileDrawer() {
-  const [starredCommunities, setStarredCommunities] = useState<Community[] | null>(null);
+  const [starredCommunities] = useState<Community[] | null>(null);
   const [communities, setCommunities] = useState<Community[] | null>(null);
 
   function getRandomCommunties(): Community[] {
@@ -96,30 +96,7 @@ export function MobileDrawer() {
                   </NavLink>
                 ))
               ) : (
-                <>
-                  {/* Disabled buttons */}
-                    <Button
-                      variant='default'
-                      disabled
-                      className='w-full p-4 border text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                    >
-                      <span>Community 1</span>
-                    </Button>
-                    <Button
-                      variant='default'
-                      disabled
-                      className='w-full p-4 border text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                    >
-                      <span>Community 2</span>
-                    </Button>
-                    <Button
-                      variant='default'
-                      disabled
-                      className='w-full p-4 border text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                    >
-                      <span>Community 3</span>
-                    </Button>
-                </>
+                <DisabledButtons buttonCount={3} />
               )}
             </div>
             <DrawerSeparator title='Account' />
