@@ -22,13 +22,12 @@ export function NavBar(NavBarProps: NavBarProps) {
     <nav className='p-4 rounded-lg bg-neutral-50 border border-violet-600  dark:bg-zinc-950 dark:border-gray-600 dark:text-white'>
       <ul className='flex justify-between'>
         <div className='flex items-center space-x-2'>
-          <NavLink to='/' className='flex items-center space-x-2' end>
-            <span
-              className='text-violet-600 dark:text-violet-600 hover:text-violet-800 dark:hover:text-lime-500 drop-shadow-sm text-3xl font-bold hover:cursor-pointer overflow-hidden transition-all ease-in-out duration-150'
-              onClick={() => NavBarProps.onCommunityChange(null)}
+          <NavLink to='/'
+            className='text-violet-600 dark:text-violet-600 hover:text-violet-800 dark:hover:text-lime-500 drop-shadow-sm text-3xl font-bold hover:cursor-pointer overflow-hidden transition-all ease-in-out duration-150'
+            end
+            onClick={() => NavBarProps.onCommunityChange(null)}
             >
-              Reader
-            </span>
+            Reader
           </NavLink>
         </div>
         <div className='flex pr-4 space-x-4'>
