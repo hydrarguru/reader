@@ -7,7 +7,13 @@ interface CommunityContainerProps {
   community: Community;
 }
 
+function setTitle(title: string) {
+  const constructedTitle = `Reader - ${title}`;
+  window.document.title = constructedTitle;
+}
+
 export function CommunityContainer(activeCommunity: CommunityContainerProps) {
+  setTitle(activeCommunity.community.community_name);
   return (
     <div>
       <CommunityHeader community={activeCommunity.community} />
