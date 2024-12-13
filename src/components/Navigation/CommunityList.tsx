@@ -11,7 +11,7 @@ export function CommunityList(CommunityListProps: CommunityListProps) {
       {CommunityListProps.communities.map((community) => (
         <article
           key={community.community_id}
-          className='p-4 rounded-md border flex flex-col items-center bg-neutral-50 hover:bg-neutral-100 border-violet-600 dark:bg-zinc-900 dark:border-zinc-700  dark:hover:bg-zinc-800 hover:cursor-pointer hover:transition-all ease-in-out duration-200'
+          className='p-4 rounded-md border flex flex-col items-center bg-neutral-50 hover:bg-neutral-100 border-violet-600 dark:bg-zinc-950 dark:border-gray-600  dark:hover:bg-zinc-900 hover:cursor-pointer hover:transition-all ease-in-out duration-200'
         >
           <NavLink key={community.community_id} to={`/c/${community.community_name}`} className='text-center'>
             <h2 className='text-xl font-semibold max-sm:text-3xl overflow-y-hidden max-sm:p-4'>{community.community_name}</h2>
