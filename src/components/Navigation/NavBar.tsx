@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 import { Community } from '@/types/CommunityType';
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import { MobileDrawer } from './MobileDrawer';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 //import { DesktopMenu } from './DesktopMenu';
@@ -12,11 +12,11 @@ interface NavBarProps {
 }
 
 export function NavBar(NavBarProps: NavBarProps) {
-  const [userLoginState, setUserLoginState] = useState<boolean>(false);
+  //const [userLoginState, setUserLoginState] = useState<boolean>(false);
 
-  useEffect(() => {
-    setUserLoginState(NavBarProps.isUserLoggedIn);
-  }, [NavBarProps.isUserLoggedIn]);
+  //useEffect(() => {
+  //  setUserLoginState(NavBarProps.isUserLoggedIn);
+  //}, [NavBarProps.isUserLoggedIn]);
 
   return (
     <nav className='p-4 rounded-lg bg-neutral-50 border border-violet-600  dark:bg-zinc-950 dark:border-gray-600 dark:text-white'>
