@@ -11,6 +11,9 @@ dependencies:
   '@react-router/serve':
     specifier: ^7.5.3
     version: 7.6.3(react-router@7.6.3)(typescript@5.8.3)
+  '@tanstack/react-query':
+    specifier: ^5.83.0
+    version: 5.83.0(react@19.1.0)
   isbot:
     specifier: ^5.1.27
     version: 5.1.28
@@ -1117,6 +1120,19 @@ packages:
       tailwindcss: 4.1.11
       vite: 6.3.5(@types/node@20.19.8)
     dev: true
+
+  /@tanstack/query-core@5.83.0:
+    resolution: {integrity: sha512-0M8dA+amXUkyz5cVUm/B+zSk3xkQAcuXuz5/Q/LveT4ots2rBpPTZOzd7yJa2Utsf8D2Upl5KyjhHRY+9lB/XA==}
+    dev: false
+
+  /@tanstack/react-query@5.83.0(react@19.1.0):
+    resolution: {integrity: sha512-/XGYhZ3foc5H0VM2jLSD/NyBRIOK4q9kfeml4+0x2DlL6xVuAcVEW+hTlTapAmejObg0i3eNqhkr2dT+eciwoQ==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.83.0
+      react: 19.1.0
+    dev: false
 
   /@types/estree@1.0.8:
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
