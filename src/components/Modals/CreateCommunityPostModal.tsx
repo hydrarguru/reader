@@ -59,6 +59,9 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
           type: 'foreground',
           duration: 1250
         });
+        setTimeout(() => {
+          location.reload();
+        }, 500);
       } else {
         toast({
           title: 'Error',
@@ -72,9 +75,8 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center ${
-        CreateCommunityPostModalProps.isOpen ? 'block' : 'hidden'
-      }`}
+      className={`fixed inset-0 z-50 flex items-center justify-center ${CreateCommunityPostModalProps.isOpen ? 'block' : 'hidden'
+        }`}
     >
       <div className='fixed inset-0 bg-black opacity-50' onClick={onCancel}></div>
       <div className='bg-zinc-900 rounded-md overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full'>
