@@ -4,6 +4,7 @@ import { Community } from '@/types/CommunityType';
 import { CommunityPost, CommunityPostSkeleton } from './CommunityPost';
 import { Post } from '@/types/PostType';
 import { CommunityInformationPanel } from './CommunityInfoPanel';
+import { getCommunityPosts } from '@/api/posts';
 
 interface CommunityPostContainerProps {
   community: Community;
@@ -14,21 +15,8 @@ export function CommunityPostContainer(CommunityPostContainerProps: CommunityPos
   const [posts, setPosts] = useState<Post[] | null>(null);
 
   useEffect(() => {
-    async function getPosts() {
-      const result = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/c/${CommunityPostContainerProps.communityId}/posts`
-      )
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
-      if (result === undefined || result === null) {
-        return [];
-      } else {
-        return result;
-      }
-    }
-
     if (posts === null) {
-      getPosts().then((posts) => {
+      getCommunityPosts(CommunityPostContainerProps.communityId).then((posts: Post[]) => {
         if (posts !== undefined) {
           setPosts(posts);
         }
