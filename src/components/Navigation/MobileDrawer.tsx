@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router';
+import { useMemo, useState } from 'react';
+import { NavLink, useNavigate, useRouteLoaderData } from 'react-router';
 //import { User, Settings, LogOut, LogIn, UserPlus, PanelLeftOpen } from 'lucide-react';
 import { PanelLeftOpen } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
@@ -9,8 +9,10 @@ import { DrawerSeparator } from './MobileDrawerSeparator';
 import { ComponentToolTip } from '../Tooltip';
 
 import { Community } from '../../types/CommunityType';
-import { getAllCommunities } from '@/api/communities';
+import type { RootLoaderData } from '@/router';
 import { DisabledButtons } from '../Skeletons/DisabledButtons';
+import { useAuth } from '../Auth/AuthProvider';
+import { useAuthLinkState } from '../Auth/useReturnPath';
 
 // function fetchStarredCommunities(): Community[] | null {
 //   const storedStarredCommunities = localStorage.getItem('starredCommunities');
@@ -26,22 +28,17 @@ import { DisabledButtons } from '../Skeletons/DisabledButtons';
 
 export function MobileDrawer() {
   const [starredCommunities] = useState<Community[] | null>(null);
-  const [communities, setCommunities] = useState<Community[] | null>(null);
+  // Undefined when the root loader failed (the error page still renders the navbar).
+  const communities = (useRouteLoaderData('root') as RootLoaderData | undefined)?.communities ?? null;
+  const { session, logout } = useAuth();
+  const navigate = useNavigate();
+  const authLinkState = useAuthLinkState();
 
-  function getRandomCommunties(): Community[] {
-    const randomCommunities: Community[] = communities?.sort(() => Math.random() - Math.random()).slice(0, 3) || [];
-    return randomCommunities;
-  }
-
-  useEffect(() => {
-    if (communities === null) {
-      getAllCommunities().then((communities) => {
-        if (communities !== undefined) {
-          setCommunities(communities);
-        }
-      });
-    }
-  }, [communities]);
+  // Pick once per load, so the list doesn't reshuffle on every render.
+  const randomCommunities = useMemo<Community[]>(
+    () => (communities ? [...communities].sort(() => Math.random() - 0.5).slice(0, 3) : []),
+    [communities]
+  );
 
   return (
     <Drawer.Root direction='right' handleOnly dismissible={true}>
@@ -87,7 +84,7 @@ export function MobileDrawer() {
             <DrawerSeparator title='Communities' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4'>
               {communities !== null ? (
-                getRandomCommunties().map((community) => (
+                randomCommunities.map((community) => (
                   <NavLink role='button' className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
                     to={`/c/${community.community_name}`}
                     key={community.community_id}
@@ -101,24 +98,49 @@ export function MobileDrawer() {
             </div>
             <DrawerSeparator title='Account' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4 mb-4'>
-            <NavLink 
-                to='/profile'
-                className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                >
-                  Profile
-              </NavLink>
-              <NavLink 
-                to='/settings'
-                className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                >
-                  Preferences
-              </NavLink>
-              <NavLink 
-                to='/signout'
-                className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
-                >
-                  Sign out
-              </NavLink>
+              {session !== null ? (
+                <>
+                  <NavLink
+                    to='/profile'
+                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    >
+                      Profile
+                  </NavLink>
+                  <NavLink
+                    to='/settings'
+                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    >
+                      Preferences
+                  </NavLink>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      logout();
+                      navigate('/');
+                    }}
+                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    >
+                      Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to='/login'
+                    state={authLinkState}
+                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    >
+                      Log in
+                  </NavLink>
+                  <NavLink
+                    to='/signup'
+                    state={authLinkState}
+                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    >
+                      Sign up
+                  </NavLink>
+                </>
+              )}
             </div>
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4'>
               <ThemeToggleButton />

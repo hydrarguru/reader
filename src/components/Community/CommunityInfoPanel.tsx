@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Community } from '@/types/CommunityType';
 
 import {
@@ -12,17 +11,13 @@ interface communityInformationPanelProps {
   community: Community;
 }
 
-export function CommunityInformationPanel(
-  communityInformationPanelProps: communityInformationPanelProps
-) {
-  const [activeCommunity] = useState<Community | null>(communityInformationPanelProps.community);
-
+export function CommunityInformationPanel({ community }: communityInformationPanelProps) {
   return (
     <div className='flex flex-col gap-4 dark:bg-zinc-900 p-4 border rounded-md'>
       <div className='flex flex-col gap-1'>
         <h2 className='text-xl font-semibold'>Community Information:</h2>
         <span className='text-sm italic text-black dark:text-white'>
-          {activeCommunity?.community_desc}
+          {community.community_desc}
         </span>
       </div>
       <div className='flex flex-col gap-2'>
