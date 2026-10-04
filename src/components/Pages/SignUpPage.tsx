@@ -46,6 +46,7 @@ export function SignUpPage() {
     document.title = 'Reader - Sign up';
   }, []);
 
+  // Also handles the redirect after a successful sign-up, so there is exactly one navigation.
   if (session !== null && !form.formState.isSubmitting) {
     return <Navigate to={returnPath} replace />;
   }
@@ -66,7 +67,6 @@ export function SignUpPage() {
     try {
       await login(data.username, data.password);
       toast({ title: 'Welcome to Reader!', description: `Signed in as ${data.username}.`, duration: 2000 });
-      navigate(returnPath, { replace: true });
     } catch {
       // The account exists, so send them to log in rather than showing a sign-up error.
       navigate('/login', { replace: true, state: { from: returnPath } });

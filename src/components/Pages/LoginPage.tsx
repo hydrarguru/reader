@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -18,7 +18,6 @@ const loginFormSchema = z.object({
 
 export function LoginPage() {
   const { session, login } = useAuth();
-  const navigate = useNavigate();
   const returnPath = useReturnPath();
   const [error, setError] = useState<string | null>(null);
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -30,6 +29,7 @@ export function LoginPage() {
     document.title = 'Reader - Log in';
   }, []);
 
+  // Also handles the redirect after a successful login, so there is exactly one navigation.
   if (session !== null && !form.formState.isSubmitting) {
     return <Navigate to={returnPath} replace />;
   }
@@ -38,7 +38,6 @@ export function LoginPage() {
     setError(null);
     try {
       await login(data.username, data.password);
-      navigate(returnPath, { replace: true });
     } catch (err) {
       setError(
         err instanceof ApiError && err.status === 401
