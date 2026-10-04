@@ -1,5 +1,6 @@
-//import { useState } from 'react';
+import { useLocation, useNavigate, useRevalidator } from 'react-router';
 import { createPost } from '@/api/posts';
+import { ApiError } from '@/api/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,7 +20,6 @@ interface CreateCommunityPostModalProps {
 
 const createPostFormSchema = z.object({
   community_id: z.string(),
-  post_author: z.string(),
   post_title: z
     .string()
     .min(6, {
@@ -33,11 +33,13 @@ const createPostFormSchema = z.object({
 
 export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCommunityPostModalProps) {
   const { toast } = useToast();
+  const { revalidate } = useRevalidator();
+  const navigate = useNavigate();
+  const location = useLocation();
   const form = useForm<z.infer<typeof createPostFormSchema>>({
     resolver: zodResolver(createPostFormSchema),
     defaultValues: {
       community_id: CreateCommunityPostModalProps.communityId,
-      post_author: 'admin',
       post_title: '',
       post_content: '',
     },
@@ -49,28 +51,32 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
   }
 
   const onSubmit = async (data: z.infer<typeof createPostFormSchema>) => {
-    createPost(data.community_id, data.post_title, data.post_author, '', data.post_content).then((status) => {
-      if (status === 201) {
-        form.reset();
+    try {
+      await createPost(data.community_id, data.post_title, data.post_content);
+      form.reset();
+      CreateCommunityPostModalProps.modalClose();
+      toast({
+        title: 'Post created',
+        description: 'Your post has been successfully created',
+        type: 'foreground',
+        duration: 1250
+      });
+      // Re-run the route loaders so the new post shows up.
+      revalidate();
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 401) {
         CreateCommunityPostModalProps.modalClose();
-        toast({
-          title: 'Post created',
-          description: 'Your post has been successfully created',
-          type: 'foreground',
-          duration: 1250
-        });
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      } else {
-        toast({
-          title: 'Error',
-          description: `Error creating post: ${status}`,
-          type: 'background',
-          duration: 2000
-        });
+        toast({ title: 'Session expired', description: 'Please log in again to post.', duration: 2000 });
+        navigate('/login', { state: { from: location.pathname } });
+        return;
       }
-    });
+      toast({
+        title: 'Error',
+        description: `Error creating post: ${err instanceof Error ? err.message : 'unknown error'}`,
+        type: 'background',
+        duration: 2000
+      });
+    }
   }
 
   return (
@@ -113,10 +119,10 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
                 )}
               />
               <div className='flex justify-between'>
-                <Button className='mt-2' type='submit'>
+                <Button className='mt-2' type='submit' disabled={form.formState.isSubmitting}>
                   Submit
                 </Button>
-                <Button className='mt-2' variant="destructive" onClick={onCancel}>
+                <Button className='mt-2' type='button' variant="destructive" onClick={onCancel}>
                   Cancel
                 </Button>
               </div>

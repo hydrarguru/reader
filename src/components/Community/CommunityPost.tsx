@@ -1,7 +1,7 @@
+import { Link } from 'react-router';
 import { ButtonGroup } from './ButtonGroup';
 import { Skeleton } from '../ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Post } from '../../types/PostType';
 import { UserRole } from '@/types/UserType';
 import { useState } from 'react';
 
@@ -89,16 +89,16 @@ export function CommunityPostSkeleton() {
 }
 
 interface CommunityPostProps {
-  communityPost: Post;
+  communityName: string;
   id: string;
   title: string;
-  content: string;
   score: number;
   author: string;
   createdAt?: Date;
 }
 
 export function CommunityPost(CommunityPostProps: CommunityPostProps) {
+  const postPath = `/c/${CommunityPostProps.communityName}/p/${CommunityPostProps.id}`;
   return (
     <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
       <div className='flex items-center space-x-2 mb-2'>
@@ -110,18 +110,17 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
       </div>
 
       {/* Post Title */}
-      <div className='text-lg mb-4 font-semibold text-gray-100'>{CommunityPostProps.title}</div>
+      <Link to={postPath} className='block text-lg mb-4 font-semibold text-gray-100 hover:underline'>
+        {CommunityPostProps.title}
+      </Link>
 
       {/* Interaction Bar */}
       <div className='flex items-center space-x-6 text-sm text-gray-400'>
         <div className='flex items-center space-x-1'>
           <ButtonGroup
             id={CommunityPostProps.id}
-            title={CommunityPostProps.title}
-            content={CommunityPostProps.title}
             score={CommunityPostProps.score}
-            author={CommunityPostProps.author}
-            createdAt={CommunityPostProps.createdAt}
+            postPath={postPath}
           />
         </div>
       </div>
