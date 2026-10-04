@@ -39,7 +39,8 @@ async function communityLoader({ params }: LoaderFunctionArgs) {
 }
 
 async function postLoader({ params }: LoaderFunctionArgs) {
-  const post = await orNotFound(getPost(params.postId!));
+  const community = await orNotFound(getCommunity(params.communityName!));
+  const post = await orNotFound(getPost(params.postId!, community.community_id));
   return { post };
 }
 

@@ -23,12 +23,19 @@ export function invalidateCommunities() {
 }
 
 /**
- * Fetches a single community by its name.
+ * Fetches a single community by its name. Uses the cached community list when the
+ * community is in it, and only asks the backend for communities it doesn't know yet.
  * @param {string} name - The community name, as used in the URL.
  * @returns {Promise<Community>} A promise that resolves to the community.
  * @throws {ApiError} With status 404 if the community does not exist.
  */
 export async function getCommunity(name: string): Promise<Community> {
+  try {
+    const community = (await getAllCommunities()).find((c) => c.community_name === name);
+    if (community !== undefined) return community;
+  } catch {
+    /* fall back to asking for this one community */
+  }
   const result = await apiFetch<{ community: Community }>(`/community/${encodeURIComponent(name)}`);
   return result.community;
 }
