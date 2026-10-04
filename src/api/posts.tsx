@@ -12,20 +12,39 @@ function postsCacheKey(community_id: string): string {
   return POSTS_CACHE_PREFIX + community_id;
 }
 
+export type Vote = 1 | -1 | 0;
+export type PostVote = { post_id: string; vote: Vote };
+
 /**
- * Updates the score of a post. Requires the user to be logged in.
- * @param {number} score - The new score to be assigned to the post.
- * @param {string} postId - The unique identifier of the post to be updated.
- * @throws {ApiError} With status 401 if the user is not logged in.
+ * Casts the logged-in user's vote on a post: 1 (up), -1 (down) or 0 (remove the vote).
+ * Voting the same way twice doesn't change the score.
+ * @param {string} postId - The unique identifier of the post.
+ * @param {Vote} vote - The user's new vote.
+ * @returns {Promise<{ post_score: number, vote: Vote }>} The post's new score and the saved vote.
+ * @throws {ApiError} With status 401 if the user is not logged in, 404 if the post doesn't exist.
  */
-export async function updatePostScore(score: number, postId: string): Promise<void> {
-  await apiFetch(`/post/${postId}/${score}`, { method: 'POST', auth: true });
+export async function votePost(postId: string, vote: Vote): Promise<{ post_score: number; vote: Vote }> {
+  const result = await apiFetch<{ post_score: number; vote: Vote }>(`/post/${postId}/vote`, {
+    method: 'POST',
+    auth: true,
+    body: { vote },
+  });
   // Keep cached post lists in step, so going back to the community shows the new score.
   updateCache<Post[]>(
     POSTS_CACHE_PREFIX,
-    (posts) => posts.map((post) => (post.post_id === postId ? { ...post, post_score: score } : post)),
+    (posts) => posts.map((post) => (post.post_id === postId ? { ...post, post_score: result.post_score } : post)),
     POSTS_CACHE_OPTIONS
   );
+  return result;
+}
+
+/**
+ * Fetches the logged-in user's votes, to show which arrows they have already clicked.
+ * @returns {Promise<PostVote[]>} One entry per post the user has voted on.
+ * @throws {ApiError} With status 401 if the user is not logged in.
+ */
+export function getMyVotes(): Promise<PostVote[]> {
+  return apiFetch<PostVote[]>('/post/votes', { auth: true });
 }
 
 /**
