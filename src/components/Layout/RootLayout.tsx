@@ -5,11 +5,13 @@ export function RootLayout({ children }: { children?: React.ReactNode }) {
   const navigation = useNavigation();
 
   return (
-    <div className='min-h-screen flex flex-col m-4'>
-      <header>
+    <div className='min-h-screen flex flex-col'>
+      <header className='sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur'>
         <NavBar />
       </header>
-      <main className={navigation.state === 'loading' ? 'opacity-60 transition-opacity' : undefined}>
+      <main
+        className={`w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 ${navigation.state === 'loading' ? 'opacity-60 transition-opacity' : ''}`}
+      >
         {children ?? <Outlet />}
       </main>
     </div>

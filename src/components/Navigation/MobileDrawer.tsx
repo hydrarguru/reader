@@ -26,6 +26,9 @@ import { useAuthLinkState } from '../Auth/useReturnPath';
 //   }
 // }
 
+const drawerLinkClass =
+  'w-full rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-surface-hover';
+
 export function MobileDrawer() {
   const [starredCommunities] = useState<Community[] | null>(null);
   // Undefined when the root loader failed (the error page still renders the navbar).
@@ -44,33 +47,32 @@ export function MobileDrawer() {
     <Drawer.Root direction='right' handleOnly dismissible={true}>
       <Drawer.Trigger
         asChild
-        className='text-violet-600 border-violet-600 hover:bg-violet-800 hover:border-zinc-700 hover:text-white dark:bg-zinc-950 dark:hover:border-lime-500 dark:hover:bg-zinc-950 dark:hover:text-lime-500'
       >
-        <Button variant='outline' size='icon'>
-          <PanelLeftOpen strokeWidth={1.75} size={24} />
+        <Button variant='ghost' size='icon' aria-label='Open sidebar'>
+          <PanelLeftOpen strokeWidth={1.8} size={18} />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Overlay className='fixed inset-0' />
+        <Drawer.Overlay className='fixed inset-0 z-40 bg-[#1C1A21]/40' />
         <Drawer.Content
           role='Sidebar Content'
-          className='right-0 top-0 bottom-0 fixed z-10 outline-none w-[310px] flex border-l border-violet-600'
+          className='right-0 top-0 bottom-0 fixed z-50 outline-none w-[310px] flex border-l border-border shadow-raised'
         >
-          <div className='h-full w-full grow flex flex-col items-center bg-neutral-50 dark:bg-zinc-900 dark:border-zinc-700 text-black dark:text-white overflow-y-auto overflow-x-hidden'>
+          <div className='h-full w-full grow flex flex-col items-center bg-card text-foreground overflow-y-auto overflow-x-hidden'>
             <div className='flex flex-row items-center justify-center w-full px-2 py-2 my-2'>
               <Drawer.Close>
                 <ComponentToolTip toolTip='Close the sidebar' align='center' delayDur={300}>
-                  <Drawer.Title className='text-black dark:text-white text-2xl font-normal'>
-                    Reader Sidebar
+                  <Drawer.Title className='font-display text-2xl font-medium'>
+                    Reader
                   </Drawer.Title>
                 </ComponentToolTip>
               </Drawer.Close>
             </div>
             <DrawerSeparator title='Starred communities' />
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4'>
+            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
               {starredCommunities !== null ? (
                 starredCommunities.map((community) => (
-                  <NavLink role='button' className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                  <NavLink role='button' className={drawerLinkClass}
                     to={`/c/${community.community_name}`}
                     key={community.community_id}
                     >
@@ -82,10 +84,10 @@ export function MobileDrawer() {
               )}
             </div>
             <DrawerSeparator title='Communities' />
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4'>
+            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
               {communities !== null ? (
                 randomCommunities.map((community) => (
-                  <NavLink role='button' className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                  <NavLink role='button' className={drawerLinkClass}
                     to={`/c/${community.community_name}`}
                     key={community.community_id}
                     >
@@ -97,18 +99,18 @@ export function MobileDrawer() {
               )}
             </div>
             <DrawerSeparator title='Account' />
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4 mb-4'>
+            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1 mb-4'>
               {session !== null ? (
                 <>
                   <NavLink
                     to='/profile'
-                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    className={drawerLinkClass}
                     >
                       Profile
                   </NavLink>
                   <NavLink
                     to='/settings'
-                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    className={drawerLinkClass}
                     >
                       Preferences
                   </NavLink>
@@ -118,7 +120,7 @@ export function MobileDrawer() {
                       logout();
                       navigate('/');
                     }}
-                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    className={drawerLinkClass}
                     >
                       Sign out
                   </button>
@@ -128,27 +130,27 @@ export function MobileDrawer() {
                   <NavLink
                     to='/login'
                     state={authLinkState}
-                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    className={drawerLinkClass}
                     >
                       Log in
                   </NavLink>
                   <NavLink
                     to='/signup'
                     state={authLinkState}
-                    className='w-full p-2 border rounded-md text-center text-violet-600 bg-neutral-50 hover:bg-violet-800 hover:text-white hover:border-violet-800 transition-all ease-in-out duration-150 border-violet-600 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:border-violet-800 dark:text-white text-md font-normal'
+                    className={drawerLinkClass}
                     >
                       Sign up
                   </NavLink>
                 </>
               )}
             </div>
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-4'>
+            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
               <ThemeToggleButton />
             </div>
-            <div className='mt-auto w-full p-4 border-t border-violet-600 dark:border-zinc-700 flex justify-center items-center'>
+            <div className='mt-auto w-full p-4 border-t border-border flex justify-center items-center'>
               <ComponentToolTip toolTip='Visit my portfolio!' align='center' delayDur={500}>
                 <NavLink to='https://henrikengqvist.se' target='_blank'>
-                  <span className='max-md:text-sm max-lg:text-md text-violet-600 dark:text-white'>
+                  <span className='text-sm text-muted-foreground hover:text-foreground'>
                     Henrik Engqvist © 2024
                   </span>
                 </NavLink>

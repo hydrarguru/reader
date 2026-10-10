@@ -7,7 +7,16 @@ export default {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			display: ['"EB Garamond"', 'Garamond', '"Iowan Old Style"', 'Georgia', 'serif'],
+  			sans: ['"Instrument Sans"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+  		},
+  		boxShadow: {
+  			card: 'var(--shadow-card)',
+  			raised: 'var(--shadow-raised)',
+  		},
   		borderRadius: {
+  			xl: '1.25rem',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
@@ -42,6 +51,33 @@ export default {
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			surface: {
+  				page: 'hsl(var(--surface-page))',
+  				card: 'hsl(var(--surface-card))',
+  				sunken: 'hsl(var(--surface-sunken))',
+  				hover: 'hsl(var(--surface-hover))'
+  			},
+  			ink: {
+  				DEFAULT: 'hsl(var(--ink))',
+  				muted: 'hsl(var(--ink-muted))',
+  				inverse: 'hsl(var(--ink-inverse))'
+  			},
+  			brand: {
+  				DEFAULT: 'hsl(var(--brand))',
+  				on: 'hsl(var(--on-brand))',
+  				ink: 'hsl(var(--brand-ink))',
+  				soft: 'hsl(var(--brand-soft))'
+  			},
+  			sage: {
+  				DEFAULT: 'hsl(var(--accent-fill))',
+  				ink: 'hsl(var(--accent-ink))',
+  				soft: 'hsl(var(--accent-soft))'
+  			},
+  			highlight: 'hsl(var(--highlight))',
+  			line: {
+  				DEFAULT: 'hsl(var(--line))',
+  				strong: 'hsl(var(--line-strong))'
   			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',

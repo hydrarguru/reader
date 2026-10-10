@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Community } from '@/types/CommunityType';
 import { useAuth } from '../Auth/AuthProvider';
+import { Button } from '../ui/button';
 import { CreateCommunityPostModal } from '../Modals/CreateCommunityPostModal';
 interface CommunityHeaderProps {
   community: Community;
@@ -26,21 +27,29 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
   }
 
   return (
-    <div className='my-4'>
-      <img
-        src={community.community_image_url}
-        alt='Community Header Image'
-        className='rounded-md object-cover w-full h-32'
-      />
-      <div className='flex justify-between items-center my-4'>
-        <h1 className='text-3xl font-extrabold tracking-tight lg:text-4xl py-2'>
-          {community.community_name}
-        </h1>
-        <div className='grid gap-2 grid-flow-col'>
-          <button className='px-4 py-2 rounded-full border border-zinc-400 hover:border-zinc-100' onClick={handleCreatePost}>
-            Create Post
-          </button>
+    <header className='mb-8 overflow-hidden rounded-xl border border-border bg-card'>
+      <div className='h-32 bg-sage sm:h-40'>
+        {community.community_image_url && (
+          <img src={community.community_image_url} alt='' className='h-full w-full object-cover' />
+        )}
+      </div>
+      <div className='flex flex-wrap items-end justify-between gap-4 px-6 pb-6'>
+        <div className='flex items-end gap-4'>
+          <div
+            aria-hidden
+            className='relative -mt-9 grid h-[72px] w-[72px] flex-none place-items-center rounded-full border-4 border-card bg-brand font-display text-4xl font-medium leading-none text-brand-on'
+          >
+            {community.community_name.charAt(0).toUpperCase()}
+          </div>
+          <div className='pt-4'>
+            <h1 className='font-display text-4xl font-medium tracking-tight'>
+              <span className='font-normal text-muted-foreground'>c/</span>
+              {community.community_name}
+            </h1>
+            <p className='mt-1 text-sm text-muted-foreground'>{community.community_desc}</p>
+          </div>
         </div>
+        <Button onClick={handleCreatePost}>Create post</Button>
       </div>
       <CreateCommunityPostModal
         key={community.community_id}
@@ -49,6 +58,6 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
         isOpen={modalState}
         modalClose={handleModalState}
       />
-    </div>
+    </header>
   );
 }

@@ -2,8 +2,8 @@ import { Link } from 'react-router';
 import { ButtonGroup } from './ButtonGroup';
 import { Skeleton } from '../ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { UserRole } from '@/types/UserType';
 import { useState } from 'react';
+import { UserAvatar } from '../Common/UserAvatar';
 
 function getTimeBetweenDates(date1: Date, date2: Date): string {
   const diff = Math.abs(date1.getTime() - date2.getTime());
@@ -24,26 +24,6 @@ function getTimeBetweenDates(date1: Date, date2: Date): string {
   }
 }
 
-function handleUserRoleColor() {
-  const userRoles: UserRole[] = [
-    { role_name: 'admin', role_color: 'text-sm text-red-500' },
-    { role_name: 'moderator', role_color: 'text-sm text-green-500' },
-    { role_name: 'user', role_color: 'text-sm text-gray-400' },
-  ];
-  /*
-  switch (username) {
-    case 'admin':
-      return userRoles[0].role_color;
-    case 'moderator':
-      return userRoles[1].role_color;
-    default:
-      return userRoles[2].role_color;
-  }
-  */
-  const randomRole = Math.floor(Math.random() * userRoles.length);
-  return userRoles[randomRole].role_color;
-}
-
 export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
   const [postDate] = useState<Date>(createdAt ? createdAt : new Date());
   const dateToolTip = `Posted on ${postDate.toDateString() + ' at ' + postDate.toLocaleTimeString()}`;
@@ -52,9 +32,9 @@ export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className='hover:text-gray-500 cursor-default text-sm text-gray-400'>
+          <time dateTime={postDate.toISOString()} className='cursor-default hover:text-foreground'>
             {postDate ? getTimeBetweenDates(postDate, new Date()) : 'Unknown date'}
-          </span>
+          </time>
         </TooltipTrigger>
         <TooltipContent>
           <p>{dateToolTip}</p>
@@ -66,24 +46,10 @@ export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
 
 export function CommunityPostSkeleton() {
   return (
-    <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
-      <div className='flex items-center space-x-2 mb-2'>
-        <div className='flex items-center space-x-1'>
-          <Skeleton className='h-4 w-20' />
-        </div>
-      </div>
-
-      {/* Post Title */}
-      <div className='text-lg mb-4 font-semibold text-gray-100'>
-        <Skeleton className='h-6 w-72' />
-      </div>
-
-      {/* Interaction Bar */}
-      <div className='flex items-center space-x-6 text-sm text-gray-400'>
-        <div className='flex items-center space-x-1'>
-          <Skeleton className='h-4 w-20' />
-        </div>
-      </div>
+    <div className='rounded-lg border border-border bg-card px-6 py-5'>
+      <Skeleton className='mb-3 h-4 w-32' />
+      <Skeleton className='mb-4 h-6 w-72' />
+      <Skeleton className='h-8 w-28 rounded-full' />
     </div>
   );
 }
@@ -92,6 +58,7 @@ interface CommunityPostProps {
   communityName: string;
   id: string;
   title: string;
+  excerpt?: string;
   score: number;
   author: string;
   createdAt?: Date;
@@ -100,30 +67,26 @@ interface CommunityPostProps {
 export function CommunityPost(CommunityPostProps: CommunityPostProps) {
   const postPath = `/c/${CommunityPostProps.communityName}/p/${CommunityPostProps.id}`;
   return (
-    <div className='border text-gray-200 p-4 rounded-md mx-auto mb-4'>
-      <div className='flex items-center space-x-2 mb-2'>
-        <div className='flex items-center space-x-1'>
-          <span className={handleUserRoleColor()}>{CommunityPostProps.author}</span>
-          <span className='text-sm text-gray-400'>•</span>
-          <CommunityPostDate createdAt={CommunityPostProps.createdAt} />
-        </div>
+    <article className='rounded-lg border border-border bg-card px-6 py-5 shadow-card transition-shadow hover:shadow-raised'>
+      <div className='mb-2 flex flex-wrap items-center gap-2 text-[13px] font-medium leading-[18px] text-muted-foreground'>
+        <UserAvatar name={CommunityPostProps.author} size={20} />
+        <span>{CommunityPostProps.author}</span>
+        <span aria-hidden className='text-line-strong'>·</span>
+        <CommunityPostDate createdAt={CommunityPostProps.createdAt} />
       </div>
 
-      {/* Post Title */}
-      <Link to={postPath} className='block text-lg mb-4 font-semibold text-gray-100 hover:underline'>
+      <Link
+        to={postPath}
+        className='mb-2 block font-display text-[22px] font-medium leading-7 text-foreground [text-wrap:pretty] hover:underline hover:decoration-1 hover:underline-offset-4'
+      >
         {CommunityPostProps.title}
       </Link>
 
-      {/* Interaction Bar */}
-      <div className='flex items-center space-x-6 text-sm text-gray-400'>
-        <div className='flex items-center space-x-1'>
-          <ButtonGroup
-            id={CommunityPostProps.id}
-            score={CommunityPostProps.score}
-            postPath={postPath}
-          />
-        </div>
-      </div>
-    </div>
+      {CommunityPostProps.excerpt && (
+        <p className='mb-4 line-clamp-2 text-[15px] leading-6 text-muted-foreground'>{CommunityPostProps.excerpt}</p>
+      )}
+
+      <ButtonGroup id={CommunityPostProps.id} score={CommunityPostProps.score} postPath={postPath} />
+    </article>
   );
 }

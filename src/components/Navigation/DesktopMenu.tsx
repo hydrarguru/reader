@@ -17,20 +17,20 @@ function SignedInUserMenu() {
     <>
       <DropdownMenuGroup>
         <DropdownMenuItem className='gap-2'>
-          <User size={24} strokeWidth={1.5} className='text-black dark:text-white' />
-          <NavLink to='/profile' className='text-black dark:text-white'>
+          <User size={24} strokeWidth={1.5} className='text-foreground' />
+          <NavLink to='/profile' className='text-foreground'>
             Profile
           </NavLink>
         </DropdownMenuItem>
         <DropdownMenuItem className='gap-2'>
-          <Settings size={24} strokeWidth={1.5} className='text-black dark:text-white' />
-          <NavLink to='/settings' className='text-black dark:text-white'>
+          <Settings size={24} strokeWidth={1.5} className='text-foreground' />
+          <NavLink to='/settings' className='text-foreground'>
             Settings
           </NavLink>
         </DropdownMenuItem>
         <DropdownMenuItem className='gap-2'>
-          <LogOut size={24} strokeWidth={1.5} className='text-black dark:text-white' />
-          <NavLink to='/sign-out' className='text-black dark:text-white'>
+          <LogOut size={24} strokeWidth={1.5} className='text-foreground' />
+          <NavLink to='/sign-out' className='text-foreground'>
             Logout
           </NavLink>
         </DropdownMenuItem>
@@ -43,14 +43,14 @@ function SignedOutUserMenu() {
   return (
     <>
       <DropdownMenuItem className='gap-2'>
-        <LogIn size={24} strokeWidth={1.5} className='text-black dark:text-white' />
-        <NavLink to='/sign-in' className='text-black dark:text-white'>
+        <LogIn size={24} strokeWidth={1.5} className='text-foreground' />
+        <NavLink to='/sign-in' className='text-foreground'>
           Sign in
         </NavLink>
       </DropdownMenuItem>
       <DropdownMenuItem className='gap-2'>
-        <UserPlus size={24} strokeWidth={1.5} className='text-black dark:text-white' />
-        <NavLink to='/sign-in' className='text-black dark:text-white'>
+        <UserPlus size={24} strokeWidth={1.5} className='text-foreground' />
+        <NavLink to='/sign-in' className='text-foreground'>
           Sign up
         </NavLink>
       </DropdownMenuItem>
@@ -69,7 +69,7 @@ export function DesktopMenu({ loginState }: DesktopMenuProps) {
         <Button variant='outline' size='icon' className='max-sm:hidden'>
           <User
             strokeWidth={1.5}
-            className='text-violet-600 dark:text-violet-600 hover:text-violet-800 dark:hover:text-violet-800'
+            className='text-foreground'
           />
         </Button>
       </DropdownMenuTrigger>

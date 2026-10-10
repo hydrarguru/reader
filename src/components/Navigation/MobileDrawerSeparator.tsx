@@ -4,10 +4,10 @@ interface DrawerSeparatorProps {
 
 export function DrawerSeparator(DrawerSeparatorProps: DrawerSeparatorProps) {
     return (
-        <div className='flex items-center w-full my-2 mx-2'>
-            <div className='flex-grow border-t border-violet-700 dark:border-violet-700 mx-2' />
-            <span className='px-2 text-violet-600 dark:text-neutral-100'>{DrawerSeparatorProps.title || 'Separator'}</span>
-            <div className='flex-grow border-t border-violet-700 dark:border-violet-700 mx-2' />
+        <div className='w-full px-4 pt-5 pb-1'>
+            <span className='text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground'>
+                {DrawerSeparatorProps.title || 'Separator'}
+            </span>
         </div>
     );
 }
