@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { getMyVotes, votePost, Vote } from '@/api/posts';
 import { useAuth } from '../Auth/AuthProvider';
 
@@ -7,6 +7,8 @@ interface VotesContextValue {
   getVote: (postId: string) => Vote;
   /** Saves a vote and returns the post's new score. Rolls the vote back and rethrows on failure. */
   castVote: (postId: string, vote: Vote) => Promise<number>;
+  /** How many posts the logged-in user has upvoted and downvoted. */
+  voteCounts: { up: number; down: number };
 }
 
 const VotesContext = createContext<VotesContextValue | null>(null);
@@ -39,6 +41,16 @@ export function VotesProvider({ children }: { children: React.ReactNode }) {
 
   const getVote = useCallback((postId: string): Vote => votes.get(postId) ?? 0, [votes]);
 
+  const voteCounts = useMemo(() => {
+    let up = 0;
+    let down = 0;
+    for (const vote of votes.values()) {
+      if (vote === 1) up++;
+      else if (vote === -1) down++;
+    }
+    return { up, down };
+  }, [votes]);
+
   const castVote = useCallback(async (postId: string, vote: Vote): Promise<number> => {
     const setVote = (value: Vote) => {
       const next = new Map(votesRef.current);
@@ -59,7 +71,7 @@ export function VotesProvider({ children }: { children: React.ReactNode }) {
     }
   }, [setVotes]);
 
-  return <VotesContext.Provider value={{ getVote, castVote }}>{children}</VotesContext.Provider>;
+  return <VotesContext.Provider value={{ getVote, castVote, voteCounts }}>{children}</VotesContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
