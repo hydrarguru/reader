@@ -10,13 +10,12 @@ interface CommunityPostContainerProps {
 
 export function CommunityPostContainer({ community, posts }: CommunityPostContainerProps) {
   return (
-    <div className='flex flex-col md:flex-row justify-between gap-4'>
-      <div className='md:w-1/4 lg:hidden'>
-        <CommunityInformationPanel community={community} />
-      </div>
-      <div className='w-full md:w-3/4'>
+    <div className='grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_300px]'>
+      <div className='flex flex-col gap-4'>
         {posts.length === 0 && (
-          <p className='my-8 text-center text-gray-400'>No posts yet. Be the first to post!</p>
+          <p className='rounded-lg border border-dashed border-border py-12 text-center text-muted-foreground'>
+            No posts yet. Be the first to start a thread in c/{community.community_name}.
+          </p>
         )}
         {posts.map((post) => (
           <CommunityPost
@@ -24,15 +23,18 @@ export function CommunityPostContainer({ community, posts }: CommunityPostContai
             communityName={community.community_name}
             id={post.post_id as string}
             title={post.post_title}
+            excerpt={post.post_content}
             score={post.post_score}
             author={post.post_author}
             createdAt={post.created_at ? new Date(post.created_at) : new Date()}
           />
         ))}
       </div>
-      <div className='hidden lg:block lg:w-1/4'>
-        <CommunityInformationPanel community={community} />
-      </div>
+      <aside>
+        <div className='lg:sticky lg:top-24'>
+          <CommunityInformationPanel community={community} />
+        </div>
+      </aside>
     </div>
   );
 }

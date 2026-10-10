@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { Maximize2, ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowUp, ArrowDown, MessageSquare } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Vote } from '@/api/posts';
 import { ApiError } from '@/api/client';
 import { useToast } from '@/hooks/use-toast';
@@ -62,35 +63,64 @@ export function ButtonGroup({ id: postId, score, postPath }: ButtonGroupProps) {
     }
   }
 
-  const scoreColor = currentVote === 1 ? 'text-green-500' : currentVote === -1 ? 'text-red-500' : 'text-gray-400';
-
   return (
     <div className='flex items-center gap-2'>
-      {postPath && (
-        <Link to={postPath} className='p-2 rounded-full hover:bg-zinc-900' aria-label='Open post'>
-          <Maximize2 className='rotate-90' />
+      <div
+        role='group'
+        aria-label='Vote'
+        className={cn(
+          'inline-flex items-center gap-0.5 rounded-full bg-muted p-0.5 text-[13px] font-semibold',
+          currentVote === 1 && 'bg-brand-soft',
+          currentVote === -1 && 'bg-sage-soft'
+        )}
+      >
+        <button
+          className={cn(
+            'grid h-[30px] w-[30px] place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            currentVote === 1 && 'bg-brand text-brand-on hover:bg-brand hover:text-brand-on'
+          )}
+          onClick={() => handleVote(1)}
+          aria-label='Upvote'
+          aria-pressed={currentVote === 1}
+        >
+          <ArrowUp size={16} strokeWidth={2} />
+        </button>
+        <span
+          aria-live='polite'
+          className={cn(
+            'min-w-7 text-center tabular-nums',
+            currentVote === 1 && 'text-brand-ink',
+            currentVote === -1 && 'text-sage-ink'
+          )}
+        >
+          {postedScore}
+        </span>
+        <button
+          className={cn(
+            'grid h-[30px] w-[30px] place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            currentVote === -1 && 'bg-sage text-[#26222E] hover:bg-sage hover:text-[#26222E]'
+          )}
+          onClick={() => handleVote(-1)}
+          aria-label='Downvote'
+          aria-pressed={currentVote === -1}
+        >
+          <ArrowDown size={16} strokeWidth={2} />
+        </button>
+      </div>
+      {postPath ? (
+        <Link
+          to={postPath}
+          className='inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground'
+        >
+          <MessageSquare size={15} strokeWidth={1.8} />
+          {`${commentsAmount} comments`}
         </Link>
+      ) : (
+        <span className='inline-flex h-8 items-center gap-1.5 px-3 text-[13px] font-semibold text-muted-foreground'>
+          <MessageSquare size={15} strokeWidth={1.8} />
+          {`${commentsAmount} comments`}
+        </span>
       )}
-      <button
-        className={`p-2 rounded-full hover:bg-zinc-900 hover:text-green-500 ${currentVote === 1 ? 'text-green-500' : ''}`}
-        onClick={() => handleVote(1)}
-        aria-label='Upvote'
-        aria-pressed={currentVote === 1}
-      >
-        <ArrowUp />
-      </button>
-      <span className={scoreColor}>{postedScore}</span>
-      <button
-        className={`p-2 rounded-full hover:bg-zinc-900 hover:text-red-500 ${currentVote === -1 ? 'text-red-500' : ''}`}
-        onClick={() => handleVote(-1)}
-        aria-label='Downvote'
-        aria-pressed={currentVote === -1}
-      >
-        <ArrowDown />
-      </button>
-      <button className='p-2 rounded-full hover:bg-zinc-900'>
-        <span className='text-gray-400'>{`${commentsAmount} comments`}</span>
-      </button>
     </div>
   );
 }

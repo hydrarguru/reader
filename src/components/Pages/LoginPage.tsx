@@ -48,8 +48,9 @@ export function LoginPage() {
   };
 
   return (
-    <div className='max-w-sm w-full mx-auto my-12 p-6 rounded-md border bg-neutral-50 dark:bg-zinc-900'>
-      <h1 className='text-2xl font-bold mb-4'>Log in</h1>
+    <div className='mx-auto my-8 w-full max-w-sm rounded-xl border border-border bg-card p-8 shadow-card'>
+      <h1 className='font-display text-4xl font-medium tracking-tight'>Log in</h1>
+      <p className='mt-1 mb-6 text-sm text-muted-foreground'>Welcome back to your communities.</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
           <FormField
@@ -84,9 +85,9 @@ export function LoginPage() {
           </Button>
         </form>
       </Form>
-      <p className='mt-4 text-sm text-center text-gray-500 dark:text-gray-400'>
+      <p className='mt-6 text-sm text-center text-muted-foreground'>
         No account yet?{' '}
-        <Link to='/signup' state={{ from: returnPath }} className='text-violet-600 hover:underline'>
+        <Link to='/signup' state={{ from: returnPath }} className='font-semibold text-brand-ink hover:underline'>
           Sign up
         </Link>
       </p>

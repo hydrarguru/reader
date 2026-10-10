@@ -9,59 +9,83 @@
 }
 
 @layer base {
+  /*
+   * Reader design system tokens (see the Reader design system artifact).
+   * Values are HSL triples so Tailwind opacity modifiers (bg-brand/90) work.
+   * The shadcn names below alias the Reader role tokens.
+   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --surface-page: 87 21.6% 90%;
+    --surface-card: 75 33.3% 97.6%;
+    --surface-sunken: 88 18.3% 86.1%;
+    --surface-hover: 77 22.6% 93.9%;
+    --ink: 260 15% 15.7%;
+    --ink-muted: 258 10.3% 38%;
+    --ink-inverse: 75 33.3% 97.6%;
+    --brand: 7 80.3% 64.1%;
+    --on-brand: 260 15% 15.7%;
+    --brand-ink: 7 57.9% 42%;
+    --brand-soft: 10 72.5% 90%;
+    --accent-fill: 172 23.5% 68.2%;
+    --accent-ink: 173 26.5% 32.5%;
+    --accent-soft: 169 22.2% 85.9%;
+    --highlight: 57 72.2% 84.5%;
+    --secondary-fill: 258 10.3% 38%;
+    --line: 88 15.2% 80.6%;
+    --line-strong: 259 8.4% 55.5%;
+    --focus: 260 15% 15.7%;
+    --danger: 3 71.3% 41%;
+    --on-danger: 75 33.3% 97.6%;
+    --shadow-card: 0 1px 2px rgba(38, 34, 46, 0.06), 0 6px 20px rgba(38, 34, 46, 0.05);
+    --shadow-raised: 0 2px 4px rgba(38, 34, 46, 0.08), 0 16px 40px rgba(38, 34, 46, 0.12);
+
+    --background: var(--surface-page);
+    --foreground: var(--ink);
+    --card: var(--surface-card);
+    --card-foreground: var(--ink);
+    --popover: var(--surface-card);
+    --popover-foreground: var(--ink);
+    --primary: var(--brand);
+    --primary-foreground: var(--on-brand);
+    --secondary: var(--secondary-fill);
+    --secondary-foreground: var(--ink-inverse);
+    --muted: var(--surface-sunken);
+    --muted-foreground: var(--ink-muted);
+    --accent: var(--accent-fill);
+    --accent-foreground: 260 15% 15.7%;
+    --destructive: var(--danger);
+    --destructive-foreground: var(--on-danger);
+    --border: var(--line);
+    --input: var(--line-strong);
+    --ring: var(--focus);
+    --radius: 0.75rem;
+    --chart-1: var(--brand);
+    --chart-2: var(--accent-fill);
+    --chart-3: var(--secondary-fill);
+    --chart-4: var(--highlight);
+    --chart-5: var(--brand-ink);
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --surface-page: 257 11.9% 11.6%;
+    --surface-card: 254 15.7% 16.3%;
+    --surface-sunken: 260 13% 9%;
+    --surface-hover: 256 14.9% 19.8%;
+    --ink: 87 21.6% 90%;
+    --ink-muted: 259 11.5% 67.6%;
+    --ink-inverse: 260 15% 15.7%;
+    --brand-ink: 7 79.3% 71.6%;
+    --brand-soft: 0 27.6% 22.7%;
+    --accent-ink: 172 23.5% 68.2%;
+    --accent-soft: 185 26.1% 18%;
+    --secondary-fill: 259 11.5% 67.6%;
+    --line: 261 12.5% 22%;
+    --line-strong: 254 10% 49.2%;
+    --focus: 57 72.2% 84.5%;
+    --danger: 5 100% 75.1%;
+    --on-danger: 260 15% 15.7%;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-raised: 0 2px 6px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -70,6 +94,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    background: hsl(var(--highlight));
+    color: hsl(260 15% 15.7%);
   }
 }

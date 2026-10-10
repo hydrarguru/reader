@@ -84,22 +84,21 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
       className={`fixed inset-0 z-50 flex items-center justify-center ${CreateCommunityPostModalProps.isOpen ? 'block' : 'hidden'
         }`}
     >
-      <div className='fixed inset-0 bg-black opacity-50' onClick={onCancel}></div>
-      <div className='bg-zinc-900 rounded-md overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full'>
-        <div className='px-4 py-5 sm:p-6'>
-          <h3 className='text-lg leading-6 font-medium text-white'>
-            Creating a post in {CreateCommunityPostModalProps.communityName}
-          </h3>
+      <div className='fixed inset-0 bg-[#1C1A21]/50 backdrop-blur-sm' onClick={onCancel}></div>
+      <div role='dialog' aria-modal='true' aria-labelledby='create-post-title' className='relative mx-4 w-full overflow-hidden rounded-xl border border-border bg-card shadow-raised transition-all sm:max-w-lg'>
+        <div className='p-6 sm:p-8'>
+          <h3 id='create-post-title' className='font-display text-3xl font-medium tracking-tight'>Create a post</h3>
+          <p className='mt-1 text-sm text-muted-foreground'>in c/{CreateCommunityPostModalProps.communityName}</p>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='mt-2'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='mt-6 space-y-4'>
               <FormField
                 control={form.control}
                 name='post_title'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Post title:</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input className='focus-visible:ring-0' placeholder='Post title...' autoComplete='false' {...field} />
+                      <Input placeholder='An interesting title' autoComplete='false' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,20 +109,20 @@ export function CreateCommunityPostModal(CreateCommunityPostModalProps: CreateCo
                 name='post_content'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Post content:</FormLabel>
+                    <FormLabel>Text</FormLabel>
                     <FormControl>
-                      <Textarea className='focus-visible:ring-0' cols={5} placeholder='Post content...' autoComplete='false' {...field} />
+                      <Textarea rows={6} placeholder='What do you want to share?' autoComplete='false' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <div className='flex justify-between'>
-                <Button className='mt-2' type='submit' disabled={form.formState.isSubmitting}>
-                  Submit
-                </Button>
-                <Button className='mt-2' type='button' variant="destructive" onClick={onCancel}>
+              <div className='flex justify-end gap-2 pt-2'>
+                <Button type='button' variant='ghost' onClick={onCancel}>
                   Cancel
+                </Button>
+                <Button type='submit' disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? 'Posting…' : 'Post'}
                 </Button>
               </div>
             </form>

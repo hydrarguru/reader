@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     loader: rootLoader,
     errorElement: <RootLayout><ErrorPage /></RootLayout>,
-    hydrateFallbackElement: <div className='m-4'><SkeletonContainer skeletonCount={10} /></div>,
+    hydrateFallbackElement: <div className='max-w-6xl mx-auto px-4 sm:px-6 py-8'><SkeletonContainer skeletonCount={9} /></div>,
     children: [
       {
         // Errors in child routes render inside the layout, so the navbar stays visible.

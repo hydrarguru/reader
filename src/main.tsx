@@ -12,7 +12,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+    <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
       <AuthProvider>
         <VotesProvider>
           <RouterProvider router={router} />
