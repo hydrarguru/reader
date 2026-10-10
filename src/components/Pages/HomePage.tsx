@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-import { useRouteLoaderData } from 'react-router';
-import type { RootLoaderData } from '@/router';
 import { CommunityList } from '../Navigation/CommunityList';
+import { WithCommunities } from '../Common/WithCommunities';
+import { SkeletonContainer } from '../Skeletons/SkeletonContainer';
 
 export function HomePage() {
-  const { communities } = useRouteLoaderData('root') as RootLoaderData;
-
   useEffect(() => {
     document.title = 'Reader';
   }, []);
@@ -21,13 +19,24 @@ export function HomePage() {
           Join a community, post what you are into, and vote up the things worth reading.
         </p>
       </section>
-      {communities.length === 0 ? (
-        <p className='rounded-lg border border-dashed border-border py-12 text-center text-muted-foreground'>
-          There are no communities yet.
-        </p>
-      ) : (
-        <CommunityList communities={communities} />
-      )}
+      <WithCommunities
+        fallback={<SkeletonContainer skeletonCount={6} />}
+        errorElement={
+          <p role='alert' className='rounded-lg border border-dashed border-border py-12 text-center text-muted-foreground'>
+            We couldn't load the communities. Check your connection and reload the page.
+          </p>
+        }
+      >
+        {(communities) =>
+          communities.length === 0 ? (
+            <p className='rounded-lg border border-dashed border-border py-12 text-center text-muted-foreground'>
+              There are no communities yet.
+            </p>
+          ) : (
+            <CommunityList communities={communities} />
+          )
+        }
+      </WithCommunities>
     </div>
   );
 }

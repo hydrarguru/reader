@@ -14,7 +14,7 @@ import { LoginPage } from './components/Pages/LoginPage';
 import { SignUpPage } from './components/Pages/SignUpPage';
 import { Profile } from './components/Pages/Profile';
 import { Settings } from './components/Pages/Settings';
-import { SkeletonContainer } from './components/Skeletons/SkeletonContainer';
+import { RouteSkeleton } from './components/Skeletons/PageSkeletons';
 
 /** Turns a backend 404 into a route error response, so ErrorPage can show "not found". */
 async function orNotFound<T>(request: Promise<T>): Promise<T> {
@@ -28,8 +28,10 @@ async function orNotFound<T>(request: Promise<T>): Promise<T> {
   }
 }
 
-async function rootLoader() {
-  return { communities: await getAllCommunities() };
+function rootLoader() {
+  // Not awaited, so the layout and pages render straight away; parts that list
+  // communities wait for it through <WithCommunities>.
+  return { communities: getAllCommunities() };
 }
 
 async function communityLoader({ params }: LoaderFunctionArgs) {
@@ -55,7 +57,9 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     loader: rootLoader,
     errorElement: <RootLayout><ErrorPage /></RootLayout>,
-    hydrateFallbackElement: <div className='max-w-6xl mx-auto px-4 sm:px-6 py-8'><SkeletonContainer skeletonCount={9} /></div>,
+    // On the first load the router waits for every matched loader before rendering the
+    // routes, so show the real layout with a placeholder shaped like the page.
+    hydrateFallbackElement: <RootLayout><RouteSkeleton /></RootLayout>,
     children: [
       {
         // Errors in child routes render inside the layout, so the navbar stays visible.

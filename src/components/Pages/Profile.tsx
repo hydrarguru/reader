@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { Link, useNavigate, useRouteLoaderData } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { ArrowDown, ArrowUp, LogOut, Settings as SettingsIcon } from 'lucide-react';
-import type { RootLoaderData } from '@/router';
 import { useAuth } from '../Auth/AuthProvider';
 import { useVotes } from '../Votes/VotesProvider';
 import { UserAvatar } from '../Common/UserAvatar';
 import { CommunityList } from '../Navigation/CommunityList';
+import { WithCommunities } from '../Common/WithCommunities';
+import { SkeletonContainer } from '../Skeletons/SkeletonContainer';
 import { Button } from '../ui/button';
 
 function StatTile({ icon, label, value, tone }: { icon: React.ReactNode; label: string; value: number; tone: 'brand' | 'sage' }) {
@@ -33,8 +34,6 @@ export function Profile() {
   const { session, logout } = useAuth();
   const { voteCounts } = useVotes();
   const navigate = useNavigate();
-  // Undefined when the root loader failed.
-  const communities = (useRouteLoaderData('root') as RootLoaderData | undefined)?.communities ?? [];
 
   useEffect(() => {
     document.title = `Reader - ${session?.username ?? 'Profile'}`;
@@ -87,12 +86,16 @@ export function Profile() {
         </div>
       </section>
 
-      {communities.length > 0 && (
-        <section className='flex flex-col gap-4'>
-          <h2 className='text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground'>Communities to explore</h2>
-          <CommunityList communities={communities.slice(0, 3)} />
-        </section>
-      )}
+      <WithCommunities fallback={<SkeletonContainer skeletonCount={3} />}>
+        {(communities) =>
+          communities.length > 0 && (
+            <section className='flex flex-col gap-4'>
+              <h2 className='text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground'>Communities to explore</h2>
+              <CommunityList communities={communities.slice(0, 3)} />
+            </section>
+          )
+        }
+      </WithCommunities>
     </div>
   );
 }
