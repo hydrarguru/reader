@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { NavLink, useNavigate, useRouteLoaderData } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 //import { User, Settings, LogOut, LogIn, UserPlus, PanelLeftOpen } from 'lucide-react';
 import { PanelLeftOpen } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
@@ -9,7 +9,7 @@ import { DrawerSeparator } from './MobileDrawerSeparator';
 import { ComponentToolTip } from '../Tooltip';
 
 import { Community } from '../../types/CommunityType';
-import type { RootLoaderData } from '@/router';
+import { WithCommunities } from '../Common/WithCommunities';
 import { DisabledButtons } from '../Skeletons/DisabledButtons';
 import { useAuth } from '../Auth/AuthProvider';
 import { useAuthLinkState } from '../Auth/useReturnPath';
@@ -26,22 +26,36 @@ import { useAuthLinkState } from '../Auth/useReturnPath';
 //   }
 // }
 
+function RandomCommunities({ communities }: { communities: Community[] }) {
+  // Pick once per load, so the list doesn't reshuffle on every render.
+  const randomCommunities = useMemo(
+    () => [...communities].sort(() => Math.random() - 0.5).slice(0, 3),
+    [communities]
+  );
+
+  return (
+    <>
+      {randomCommunities.map((community) => (
+        <NavLink role='button' className={drawerLinkClass}
+          to={`/c/${community.community_name}`}
+          key={community.community_id}
+          >
+            {community.community_name}
+        </NavLink>
+      ))}
+    </>
+  );
+}
+
 const drawerLinkClass =
   'w-full rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-surface-hover';
 
 export function MobileDrawer() {
   const [starredCommunities] = useState<Community[] | null>(null);
-  // Undefined when the root loader failed (the error page still renders the navbar).
-  const communities = (useRouteLoaderData('root') as RootLoaderData | undefined)?.communities ?? null;
   const { session, logout } = useAuth();
   const navigate = useNavigate();
   const authLinkState = useAuthLinkState();
 
-  // Pick once per load, so the list doesn't reshuffle on every render.
-  const randomCommunities = useMemo<Community[]>(
-    () => (communities ? [...communities].sort(() => Math.random() - 0.5).slice(0, 3) : []),
-    [communities]
-  );
 
   return (
     <Drawer.Root direction='right' handleOnly dismissible={true}>
@@ -85,18 +99,12 @@ export function MobileDrawer() {
             </div>
             <DrawerSeparator title='Communities' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
-              {communities !== null ? (
-                randomCommunities.map((community) => (
-                  <NavLink role='button' className={drawerLinkClass}
-                    to={`/c/${community.community_name}`}
-                    key={community.community_id}
-                    >
-                      {community.community_name}
-                  </NavLink>
-                ))
-              ) : (
-                <DisabledButtons buttonCount={3} />
-              )}
+              <WithCommunities
+                fallback={<DisabledButtons buttonCount={3} />}
+                errorElement={<p className='w-full px-3 py-2 text-sm text-muted-foreground'>Couldn't load communities.</p>}
+              >
+                {(communities) => <RandomCommunities communities={communities} />}
+              </WithCommunities>
             </div>
             <DrawerSeparator title='Account' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1 mb-4'>
