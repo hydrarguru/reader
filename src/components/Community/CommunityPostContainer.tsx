@@ -30,7 +30,7 @@ export function CommunityPostContainer({ community, posts }: CommunityPostContai
           />
         ))}
       </div>
-      <aside>
+      <aside className='order-first lg:order-none'>
         <div className='lg:sticky lg:top-24'>
           <CommunityInformationPanel community={community} />
         </div>
