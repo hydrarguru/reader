@@ -11,7 +11,7 @@ interface communityInformationPanelProps {
   community: Community;
 }
 
-// Shown until the backend stores rules for the community.
+// Shown when the backend doesn't send rules (before it stored them).
 const placeholderRules: CommunityRule[] = [1, 2, 3].map((n) => ({
   rule_title: `Rule ${n}`,
   rule_desc:

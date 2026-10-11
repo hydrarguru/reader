@@ -6,6 +6,7 @@ import { ApiError } from '@/api/client';
 import { createCommunity, deleteCommunity, updateCommunity } from '@/api/communities';
 import { Community } from '@/types/CommunityType';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '../Auth/AuthProvider';
 import { WithCommunities } from '../Common/WithCommunities';
 import { CommunityFormDialog, CommunityFormValues } from '../Admin/CommunityFormDialog';
 import { Button } from '../ui/button';
@@ -53,6 +54,7 @@ export function AdminPage() {
   const { revalidate } = useRevalidator();
   const navigate = useNavigate();
   const location = useLocation();
+  const { session } = useAuth();
 
   useEffect(() => {
     document.title = 'Reader - Admin';
@@ -94,10 +96,6 @@ export function AdminPage() {
       setFormState({ open: false });
       revalidate();
     } catch (err) {
-      if (editing !== null && err instanceof ApiError && err.status === 404) {
-        toast({ title: "Couldn't save changes", description: "The backend can't edit communities yet.", duration: 3000 });
-        return;
-      }
       handleError(editing === null ? 'create the community' : 'save changes', err);
     }
   }
@@ -110,6 +108,17 @@ export function AdminPage() {
     } catch (err) {
       handleError('delete the community', err);
     }
+  }
+
+  if (!session?.is_admin) {
+    return (
+      <div className='mx-auto max-w-4xl'>
+        <h1 className='font-display text-5xl font-medium tracking-tight'>Admin</h1>
+        <p className='mt-2 text-muted-foreground'>
+          Only admins can manage communities. If you were just made an admin, log out and in again.
+        </p>
+      </div>
+    );
   }
 
   return (

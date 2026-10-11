@@ -17,8 +17,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => onSessionChange(setSessionState), []);
 
   async function login(username: string, password: string) {
-    const { token, user_id } = await loginRequest(username, password);
-    setSession({ token, user_id, username });
+    const { token, user_id, is_admin } = await loginRequest(username, password);
+    setSession({ token, user_id, username, is_admin: is_admin === true });
   }
 
   return (

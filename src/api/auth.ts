@@ -1,10 +1,10 @@
 import { apiFetch } from './client';
 
-type LoginResponse = { token: string; user_id: string };
+type LoginResponse = { token: string; user_id: string; is_admin?: boolean };
 type SignUpResponse = { message: string; user: { user_id: string; username: string } };
 
 /**
- * Logs in and returns the JWT and user id. Throws an ApiError with status 401 on bad credentials.
+ * Logs in and returns the JWT, user id and whether the user is an admin. Throws an ApiError with status 401 on bad credentials.
  */
 export function login(username: string, password: string): Promise<LoginResponse> {
   return apiFetch<LoginResponse>('/auth/login', { method: 'POST', body: { username, password } });

@@ -35,11 +35,13 @@ function AccountButtons() {
         <UserAvatar name={session.username} size={28} ring />
         {session.username}
       </Link>
-      <Button variant='ghost' size='icon' aria-label='Admin' asChild>
-        <Link to='/admin'>
-          <ShieldCheck strokeWidth={1.8} size={18} />
-        </Link>
-      </Button>
+      {session.is_admin && (
+        <Button variant='ghost' size='icon' aria-label='Admin' asChild>
+          <Link to='/admin'>
+            <ShieldCheck strokeWidth={1.8} size={18} />
+          </Link>
+        </Button>
+      )}
       <Button
         variant='ghost'
         size='icon'

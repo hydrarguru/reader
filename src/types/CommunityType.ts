@@ -8,7 +8,7 @@ export type Community = {
     community_name: string;
     community_image_url: string;
     community_desc: string;
-    /** Not stored by the backend yet; see updateCommunity(). */
+    /** Missing when the backend predates community rules. */
     community_rules?: CommunityRule[];
     created_at?: Date;
     modified_at?: Date;
