@@ -1,5 +1,6 @@
 import { Comment } from '@/types/CommentType';
 import { apiFetch } from './client';
+import { changeCachedCommentCount } from './posts';
 
 /**
  * Fetches the comments on a post, oldest first.
@@ -25,15 +26,18 @@ export async function createComment(postId: string, content: string): Promise<Co
     auth: true,
     body: { comment_content: content },
   });
+  changeCachedCommentCount(postId, 1);
   return result.comment;
 }
 
 /**
  * Deletes one of the logged-in user's comments.
  * @param {string} commentId - The unique identifier of the comment.
+ * @param {string} postId - The post the comment is on, to update its cached comment count.
  * @throws {ApiError} With status 401 if the user is not logged in, 403 if the comment
  * belongs to someone else, 404 if it doesn't exist.
  */
-export async function deleteComment(commentId: string): Promise<void> {
+export async function deleteComment(commentId: string, postId: string): Promise<void> {
   await apiFetch(`/comment/${encodeURIComponent(commentId)}`, { method: 'DELETE', auth: true });
+  changeCachedCommentCount(postId, -1);
 }

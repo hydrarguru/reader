@@ -178,7 +178,7 @@ function CommentItem({ comment, onDeleted }: { comment: Comment; onDeleted: () =
   const onDelete = async () => {
     setDeleting(true);
     try {
-      await deleteComment(comment.comment_id);
+      await deleteComment(comment.comment_id, comment.post_id);
       onDeleted();
     } catch (err) {
       setDeleting(false);

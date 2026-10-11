@@ -60,6 +60,7 @@ interface CommunityPostProps {
   title: string;
   excerpt?: string;
   score: number;
+  commentCount?: number;
   author: string;
   createdAt?: Date;
 }
@@ -86,7 +87,7 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
         <p className='mb-4 line-clamp-2 text-[15px] leading-6 text-muted-foreground'>{CommunityPostProps.excerpt}</p>
       )}
 
-      <ButtonGroup id={CommunityPostProps.id} score={CommunityPostProps.score} postPath={postPath} />
+      <ButtonGroup id={CommunityPostProps.id} score={CommunityPostProps.score} postPath={postPath} commentCount={CommunityPostProps.commentCount} />
     </article>
   );
 }

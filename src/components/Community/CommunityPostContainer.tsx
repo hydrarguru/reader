@@ -25,6 +25,7 @@ export function CommunityPostContainer({ community, posts }: CommunityPostContai
             title={post.post_title}
             excerpt={post.post_content}
             score={post.post_score}
+            commentCount={post.comment_count}
             author={post.post_author}
             createdAt={post.created_at ? new Date(post.created_at) : new Date()}
           />

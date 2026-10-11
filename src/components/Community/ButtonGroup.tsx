@@ -13,10 +13,12 @@ interface ButtonGroupProps {
   score: number;
   /** Link to the post's own page. Leave out when already on it. */
   postPath?: string;
+  /** Shown on the comments link; leave out to show a plain "Comments". */
+  commentCount?: number;
 }
 
 
-export function ButtonGroup({ id: postId, score, postPath }: ButtonGroupProps) {
+export function ButtonGroup({ id: postId, score, postPath, commentCount }: ButtonGroupProps) {
   const [postedScore, setPostedScore] = useState<number>(score);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const { session } = useAuth();
@@ -109,7 +111,7 @@ export function ButtonGroup({ id: postId, score, postPath }: ButtonGroupProps) {
           className='inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground'
         >
           <MessageSquare size={15} strokeWidth={1.8} />
-          Comments
+          {commentCount === undefined ? 'Comments' : `${commentCount} ${commentCount === 1 ? 'comment' : 'comments'}`}
         </Link>
       )}
     </div>
