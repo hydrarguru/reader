@@ -8,13 +8,11 @@ export function Footer() {
   return (
     <footer className='border-t border-border'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 py-6 text-xs text-muted-foreground'>
-        <div className='flex flex-wrap items-center justify-between gap-2'>
-          <div className='flex flex-wrap items-center gap-x-4 gap-y-1'>
-            <span>© {year} Reader. All rights reserved.</span>
-            <Link to='/privacy' className='hover:text-foreground hover:underline'>
-              Privacy policy
-            </Link>
-          </div>
+        <div className='flex flex-wrap items-center justify-center gap-x-4 gap-y-1'>
+          <span>© {year} Reader. All rights reserved.</span>
+          <Link to='/privacy' className='hover:text-foreground hover:underline'>
+            Privacy policy
+          </Link>
           {__COMMIT_HASH__ && (
             <a
               href={`${REPO_URL}/commit/${__COMMIT_HASH__}`}
