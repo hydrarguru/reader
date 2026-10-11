@@ -39,6 +39,23 @@ export async function votePost(postId: string, vote: Vote): Promise<{ post_score
 }
 
 /**
+ * Adds `delta` to a post's comment count in the cached post lists, so going back to the
+ * community shows the new count after adding or deleting a comment.
+ */
+export function changeCachedCommentCount(postId: string, delta: number) {
+  updateCache<Post[]>(
+    POSTS_CACHE_PREFIX,
+    (posts) =>
+      posts.map((post) =>
+        post.post_id === postId && post.comment_count !== undefined
+          ? { ...post, comment_count: Math.max(0, post.comment_count + delta) }
+          : post
+      ),
+    POSTS_CACHE_OPTIONS
+  );
+}
+
+/**
  * Fetches the logged-in user's votes, to show which arrows they have already clicked.
  * @returns {Promise<PostVote[]>} One entry per post the user has voted on.
  * @throws {ApiError} With status 401 if the user is not logged in.

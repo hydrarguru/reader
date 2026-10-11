@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { CommunityPostSkeleton } from '../Community/CommunityPost';
+import { CommentSkeleton } from '../Comments/PostComments';
 
 /**
  * Shown on the first load of the site, inside the real layout, while the route data
@@ -91,6 +92,13 @@ function PostPageSkeleton({ communityName }: { communityName: string }) {
           <Skeleton className='h-8 w-28 rounded-full' />
         </div>
       </div>
+      <section className='mt-8'>
+        <h2 className='mb-4 font-display text-2xl font-medium tracking-tight'>Comments</h2>
+        <div className='flex flex-col gap-3'>
+          <CommentSkeleton />
+          <CommentSkeleton />
+        </div>
+      </section>
     </article>
   );
 }
