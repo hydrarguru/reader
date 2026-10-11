@@ -51,7 +51,7 @@ function CommunityPageSkeleton({ communityName }: { communityName: string }) {
           <CommunityPostSkeleton />
           <CommunityPostSkeleton />
         </div>
-        <aside className='flex flex-col gap-4 rounded-lg border border-border bg-card p-6 self-start'>
+        <aside className='order-first flex flex-col gap-4 rounded-lg border border-border bg-card p-6 self-start lg:order-none'>
           <h2 className='text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground'>
             Rules of c/{communityName}
           </h2>
