@@ -14,6 +14,7 @@ import { LoginPage } from './components/Pages/LoginPage';
 import { SignUpPage } from './components/Pages/SignUpPage';
 import { Profile } from './components/Pages/Profile';
 import { Settings } from './components/Pages/Settings';
+import { PrivacyPage } from './components/Pages/PrivacyPage';
 import { RouteSkeleton } from './components/Skeletons/PageSkeletons';
 
 /** Turns a backend 404 into a route error response, so ErrorPage can show "not found". */
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
           { path: 'c/:communityName/p/:postId', element: <PostPage />, loader: postLoader },
           { path: 'login', element: <LoginPage /> },
           { path: 'signup', element: <SignUpPage /> },
+          { path: 'privacy', element: <PrivacyPage /> },
           {
             element: <RequireAuth />,
             children: [

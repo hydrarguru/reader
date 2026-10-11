@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 const REPO_URL = 'https://github.com/hydrarguru/reader';
 
 export function Footer() {
@@ -5,9 +7,14 @@ export function Footer() {
 
   return (
     <footer className='border-t border-border'>
-      <div className='max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-2 text-xs text-muted-foreground'>
+      <div className='max-w-6xl mx-auto px-4 sm:px-6 py-6 text-xs text-muted-foreground'>
         <div className='flex flex-wrap items-center justify-between gap-2'>
-          <span>© {year} Reader. All rights reserved.</span>
+          <div className='flex flex-wrap items-center gap-x-4 gap-y-1'>
+            <span>© {year} Reader. All rights reserved.</span>
+            <Link to='/privacy' className='hover:text-foreground hover:underline'>
+              Privacy policy
+            </Link>
+          </div>
           {__COMMIT_HASH__ && (
             <a
               href={`${REPO_URL}/commit/${__COMMIT_HASH__}`}
@@ -20,11 +27,6 @@ export function Footer() {
             </a>
           )}
         </div>
-        <p>
-          Privacy: when you sign up we store your username, email address and a hashed password, plus the posts,
-          comments and votes you create, only to run Reader. Your login session and theme choice are kept in your
-          browser's local storage. We use no tracking or advertising cookies.
-        </p>
       </div>
     </footer>
   );
