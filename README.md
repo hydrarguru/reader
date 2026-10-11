@@ -5,6 +5,6 @@ A project that takes inspiration from Reddit. Create or join a community and sha
 View the project [here](https://reader-app.netlify.app/).
 
 # Tech Stack:
-Frontend: React using [React Suite](https://rsuitejs.com/) for components & styling.
+Frontend: React + TypeScript built with Vite, styled with Tailwind CSS and [shadcn/ui](https://ui.shadcn.com/) components.
 
-Backend: Bun + Express with MySQL Database. View backend repo [here](https://github.com/hydrarguru/reader-backend).
+Backend: Express + Sequelize with a MySQL database, deployed on Fly.io. View backend repo [here](https://github.com/hydrarguru/reader-backend).
