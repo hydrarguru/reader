@@ -1,5 +1,6 @@
 import { Outlet, useNavigation } from 'react-router';
 import { NavBar } from '../Navigation/NavBar';
+import { Footer } from './Footer';
 
 export function RootLayout({ children }: { children?: React.ReactNode }) {
   const navigation = useNavigation();
@@ -10,10 +11,11 @@ export function RootLayout({ children }: { children?: React.ReactNode }) {
         <NavBar />
       </header>
       <main
-        className={`w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 ${navigation.state === 'loading' ? 'opacity-60 transition-opacity' : ''}`}
+        className={`flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 ${navigation.state === 'loading' ? 'opacity-60 transition-opacity' : ''}`}
       >
         {children ?? <Outlet />}
       </main>
+      <Footer />
     </div>
   );
 }
