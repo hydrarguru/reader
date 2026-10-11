@@ -5,6 +5,7 @@ import type { PostLoaderData } from '@/router';
 import { ButtonGroup } from '../Community/ButtonGroup';
 import { CommunityPostDate } from '../Community/CommunityPost';
 import { UserAvatar } from '../Common/UserAvatar';
+import { PostComments } from '../Comments/PostComments';
 
 export function PostPage() {
   const { post } = useLoaderData() as PostLoaderData;
@@ -41,6 +42,7 @@ export function PostPage() {
           <ButtonGroup key={post.post_id} id={post.post_id as string} score={post.post_score} />
         </div>
       </div>
+      <PostComments key={post.post_id} postId={post.post_id as string} />
     </article>
   );
 }

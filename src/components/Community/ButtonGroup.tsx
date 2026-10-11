@@ -8,10 +8,6 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '../Auth/AuthProvider';
 import { useVotes } from '../Votes/VotesProvider';
 
-function generateRandomNumber(): number {
-  return Math.floor(Math.random() * 100);
-}
-
 interface ButtonGroupProps {
   id: string;
   score: number;
@@ -23,7 +19,6 @@ interface ButtonGroupProps {
 export function ButtonGroup({ id: postId, score, postPath }: ButtonGroupProps) {
   const [postedScore, setPostedScore] = useState<number>(score);
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [commentsAmount] = useState<number>(generateRandomNumber());
   const { session } = useAuth();
   const { getVote, castVote } = useVotes();
   const { toast } = useToast();
@@ -107,19 +102,15 @@ export function ButtonGroup({ id: postId, score, postPath }: ButtonGroupProps) {
           <ArrowDown size={16} strokeWidth={2} />
         </button>
       </div>
-      {postPath ? (
+      {/* The post page lists its comments below, so the link is only shown on post cards. */}
+      {postPath && (
         <Link
           to={postPath}
           className='inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold text-muted-foreground transition-colors hover:bg-surface-hover hover:text-foreground'
         >
           <MessageSquare size={15} strokeWidth={1.8} />
-          {`${commentsAmount} comments`}
+          Comments
         </Link>
-      ) : (
-        <span className='inline-flex h-8 items-center gap-1.5 px-3 text-[13px] font-semibold text-muted-foreground'>
-          <MessageSquare size={15} strokeWidth={1.8} />
-          {`${commentsAmount} comments`}
-        </span>
       )}
     </div>
   );
