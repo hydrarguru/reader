@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router';
-import { LogOut } from 'lucide-react';
+import { LogOut, ShieldCheck } from 'lucide-react';
 import { MobileDrawer } from './MobileDrawer';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 import { Button } from '../ui/button';
@@ -35,6 +35,11 @@ function AccountButtons() {
         <UserAvatar name={session.username} size={28} ring />
         {session.username}
       </Link>
+      <Button variant='ghost' size='icon' aria-label='Admin' asChild>
+        <Link to='/admin'>
+          <ShieldCheck strokeWidth={1.8} size={18} />
+        </Link>
+      </Button>
       <Button
         variant='ghost'
         size='icon'

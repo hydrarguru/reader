@@ -61,6 +61,12 @@ export async function apiFetch<T>(path: string, { body, auth = false, headers, .
     throw new ApiError(response.status, await readErrorMessage(response));
   }
 
+  // Some routes (e.g. creating or deleting a community) answer with plain text.
   const text = await response.text();
-  return (text ? JSON.parse(text) : undefined) as T;
+  if (!text) return undefined as T;
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return text as T;
+  }
 }

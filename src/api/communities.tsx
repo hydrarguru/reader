@@ -39,3 +39,41 @@ export async function getCommunity(name: string): Promise<Community> {
   const result = await apiFetch<{ community: Community }>(`/community/${encodeURIComponent(name)}`);
   return result.community;
 }
+
+export type NewCommunity = Pick<Community, 'community_name' | 'community_desc'> & {
+  community_image_url?: string;
+};
+
+export type CommunityChanges = Partial<Pick<Community, 'community_desc' | 'community_image_url' | 'community_rules'>>;
+
+/**
+ * Creates a community. Requires the user to be logged in.
+ * @param {NewCommunity} community - Name (letters and underscores, 1-20 characters), description and optional banner image URL.
+ * @throws {ApiError} With status 400 if the name is invalid or already taken, 401 if the user is not logged in.
+ */
+export async function createCommunity(community: NewCommunity): Promise<void> {
+  await apiFetch('/community/create', { method: 'POST', auth: true, body: community });
+  invalidateCommunities();
+}
+
+/**
+ * Updates a community's description, banner image URL and rules. Requires the user to be logged in.
+ * The backend has no route for this yet, so it currently fails with a 404.
+ * @param {string} communityId - The unique identifier of the community.
+ * @param {CommunityChanges} changes - The fields to change.
+ * @throws {ApiError} With status 401 if the user is not logged in, 404 if the route or community doesn't exist.
+ */
+export async function updateCommunity(communityId: string, changes: CommunityChanges): Promise<void> {
+  await apiFetch(`/community/${encodeURIComponent(communityId)}`, { method: 'PATCH', auth: true, body: changes });
+  invalidateCommunities();
+}
+
+/**
+ * Deletes a community, together with its posts and their comments. Requires the user to be logged in.
+ * @param {string} communityId - The unique identifier of the community.
+ * @throws {ApiError} With status 400 if the ID is invalid, 401 if the user is not logged in.
+ */
+export async function deleteCommunity(communityId: string): Promise<void> {
+  await apiFetch(`/community/${encodeURIComponent(communityId)}`, { method: 'DELETE', auth: true });
+  invalidateCommunities();
+}
