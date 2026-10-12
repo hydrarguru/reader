@@ -122,6 +122,14 @@ export function MobileDrawer() {
                     >
                       Preferences
                   </NavLink>
+                  {session.is_admin && (
+                    <NavLink
+                      to='/admin'
+                      className={drawerLinkClass}
+                      >
+                        Admin
+                    </NavLink>
+                  )}
                   <button
                     type='button'
                     onClick={() => {

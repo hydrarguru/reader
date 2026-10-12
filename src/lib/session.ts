@@ -2,6 +2,8 @@ export type Session = {
   token: string;
   user_id: string;
   username: string;
+  /** May create, edit and delete communities. Missing on sessions from before admins existed. */
+  is_admin?: boolean;
 };
 
 const STORAGE_KEY = 'reader-session';

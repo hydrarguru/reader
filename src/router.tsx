@@ -14,6 +14,7 @@ import { LoginPage } from './components/Pages/LoginPage';
 import { SignUpPage } from './components/Pages/SignUpPage';
 import { Profile } from './components/Pages/Profile';
 import { Settings } from './components/Pages/Settings';
+import { AdminPage } from './components/Pages/AdminPage';
 import { PrivacyPage } from './components/Pages/PrivacyPage';
 import { RouteSkeleton } from './components/Skeletons/PageSkeletons';
 
@@ -77,6 +78,7 @@ export const router = createBrowserRouter([
             children: [
               { path: 'profile', element: <Profile /> },
               { path: 'settings', element: <Settings /> },
+              { path: 'admin', element: <AdminPage /> },
             ],
           },
           { path: '*', loader: () => { throw data('Not found', { status: 404 }); } },
