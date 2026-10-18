@@ -105,3 +105,10 @@ export function invalidateCache(key: string) {
     /* storage unavailable, nothing to remove */
   }
 }
+
+/** Drops every in-memory value whose key starts with `keyPrefix`. */
+export function invalidateCachePrefix(keyPrefix: string) {
+  for (const key of [...memory.keys(), ...inFlight.keys()]) {
+    if (key.startsWith(keyPrefix)) invalidateCache(key);
+  }
+}

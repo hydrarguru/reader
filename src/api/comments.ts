@@ -31,11 +31,28 @@ export async function createComment(postId: string, content: string): Promise<Co
 }
 
 /**
- * Deletes one of the logged-in user's comments.
+ * Edits the text of one of the logged-in user's comments.
+ * @param {string} commentId - The unique identifier of the comment.
+ * @param {string} content - The new comment text.
+ * @returns {Promise<Comment>} The updated comment.
+ * @throws {ApiError} With status 401 if the user is not logged in, 403 if the comment
+ * belongs to someone else, 404 if it doesn't exist.
+ */
+export async function updateComment(commentId: string, content: string): Promise<Comment> {
+  const result = await apiFetch<{ comment: Comment }>(`/comment/${encodeURIComponent(commentId)}`, {
+    method: 'PATCH',
+    auth: true,
+    body: { comment_content: content },
+  });
+  return result.comment;
+}
+
+/**
+ * Deletes a comment. Its author and admins can delete it.
  * @param {string} commentId - The unique identifier of the comment.
  * @param {string} postId - The post the comment is on, to update its cached comment count.
  * @throws {ApiError} With status 401 if the user is not logged in, 403 if the comment
- * belongs to someone else, 404 if it doesn't exist.
+ * belongs to someone else and the user isn't an admin, 404 if it doesn't exist.
  */
 export async function deleteComment(commentId: string, postId: string): Promise<void> {
   await apiFetch(`/comment/${encodeURIComponent(commentId)}`, { method: 'DELETE', auth: true });

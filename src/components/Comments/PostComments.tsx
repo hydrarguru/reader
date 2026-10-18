@@ -3,10 +3,10 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 
 import { ApiError } from '@/api/client';
-import { createComment, deleteComment, getPostComments } from '@/api/comments';
+import { createComment, deleteComment, getPostComments, updateComment } from '@/api/comments';
 import { Comment } from '@/types/CommentType';
 import { useToast } from '@/hooks/use-toast';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -95,6 +95,7 @@ export function PostComments({ postId }: { postId: string }) {
               key={comment.comment_id}
               comment={comment}
               onDeleted={() => setComments((prev) => prev?.filter((c) => c.comment_id !== comment.comment_id) ?? null)}
+              onUpdated={(updated) => setComments((prev) => prev?.map((c) => (c.comment_id === updated.comment_id ? updated : c)) ?? null)}
             />
           ))
         )}
@@ -168,12 +169,20 @@ function CommentForm({ postId, onCreated }: { postId: string; onCreated: (commen
   );
 }
 
-function CommentItem({ comment, onDeleted }: { comment: Comment; onDeleted: () => void }) {
+/** True when the comment was changed after it was posted. Timestamps have one-second precision. */
+function wasEdited(comment: Comment): boolean {
+  if (!comment.created_at || !comment.modified_at) return false;
+  return new Date(comment.modified_at).getTime() - new Date(comment.created_at).getTime() >= 1000;
+}
+
+function CommentItem({ comment, onDeleted, onUpdated }: { comment: Comment; onDeleted: () => void; onUpdated: (comment: Comment) => void }) {
   const { session } = useAuth();
   const sessionExpired = useSessionExpired();
   const { toast } = useToast();
   const [deleting, setDeleting] = useState(false);
+  const [editing, setEditing] = useState(false);
   const isOwn = session !== null && session.username === comment.comment_author;
+  const canDelete = isOwn || session?.is_admin === true;
 
   const onDelete = async () => {
     setDeleting(true);
@@ -183,7 +192,7 @@ function CommentItem({ comment, onDeleted }: { comment: Comment; onDeleted: () =
     } catch (err) {
       setDeleting(false);
       if (err instanceof ApiError && err.status === 401) {
-        sessionExpired('delete your comment');
+        sessionExpired('delete the comment');
         return;
       }
       if (err instanceof ApiError && err.status === 404) {
@@ -206,34 +215,118 @@ function CommentItem({ comment, onDeleted }: { comment: Comment; onDeleted: () =
         <span>{comment.comment_author}</span>
         <span aria-hidden className='text-line-strong'>·</span>
         <CommunityPostDate createdAt={comment.created_at ? new Date(comment.created_at) : undefined} />
-        {isOwn && (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='ml-auto h-8 w-8 text-muted-foreground hover:text-destructive'
-                disabled={deleting}
-                aria-label='Delete comment'
-              >
-                <Trash2 size={16} strokeWidth={1.8} />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Delete this comment?</AlertDialogTitle>
-                <AlertDialogDescription>This can't be undone.</AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction className={buttonVariants({ variant: 'destructive' })} onClick={onDelete}>Delete</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        )}
+        {wasEdited(comment) && <span className='text-xs'>(edited)</span>}
+        <div className='ml-auto flex items-center gap-1'>
+          {isOwn && !editing && (
+            <Button
+              variant='ghost'
+              size='icon'
+              className='h-8 w-8 text-muted-foreground hover:text-foreground'
+              onClick={() => setEditing(true)}
+              aria-label='Edit comment'
+            >
+              <Pencil size={16} strokeWidth={1.8} />
+            </Button>
+          )}
+          {canDelete && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='h-8 w-8 text-muted-foreground hover:text-destructive'
+                  disabled={deleting}
+                  aria-label='Delete comment'
+                >
+                  <Trash2 size={16} strokeWidth={1.8} />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete this comment?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {isOwn ? "This can't be undone." : `This deletes ${comment.comment_author}'s comment. It can't be undone.`}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction className={buttonVariants({ variant: 'destructive' })} onClick={onDelete}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
       </div>
-      <p className='whitespace-pre-wrap text-[15px] leading-6'>{comment.comment_content}</p>
+      {editing ? (
+        <EditCommentForm
+          comment={comment}
+          onCancel={() => setEditing(false)}
+          onSaved={(updated) => {
+            setEditing(false);
+            onUpdated(updated);
+          }}
+        />
+      ) : (
+        <p className='whitespace-pre-wrap text-[15px] leading-6'>{comment.comment_content}</p>
+      )}
     </article>
+  );
+}
+
+function EditCommentForm({ comment, onCancel, onSaved }: { comment: Comment; onCancel: () => void; onSaved: (comment: Comment) => void }) {
+  const sessionExpired = useSessionExpired();
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof commentFormSchema>>({
+    resolver: zodResolver(commentFormSchema),
+    defaultValues: { comment_content: comment.comment_content },
+  });
+
+  const onSubmit = async (data: z.infer<typeof commentFormSchema>) => {
+    if (data.comment_content === comment.comment_content) {
+      onCancel();
+      return;
+    }
+    try {
+      onSaved(await updateComment(comment.comment_id, data.comment_content));
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 401) {
+        sessionExpired('edit your comment');
+        return;
+      }
+      toast({
+        title: 'Error',
+        description: `Error saving comment: ${err instanceof Error ? err.message : 'unknown error'}`,
+        duration: 2000,
+      });
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name='comment_content'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='sr-only'>Edit comment</FormLabel>
+              <FormControl>
+                <Textarea rows={3} maxLength={MAX_COMMENT_LENGTH} autoFocus {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className='mt-3 flex justify-end gap-2'>
+          <Button type='button' variant='ghost' size='sm' onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type='submit' size='sm' disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? 'Saving…' : 'Save'}
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }
 
