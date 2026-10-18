@@ -6,6 +6,7 @@ import { useAuth } from '../Auth/AuthProvider';
 import { useTheme } from '../Theme/ThemeProvider';
 import { UserAvatar } from '../Common/UserAvatar';
 import { Button } from '../ui/button';
+import { AccountSettings } from '../Settings/AccountSettings';
 
 type Theme = 'light' | 'dark';
 
@@ -83,7 +84,7 @@ export function Settings() {
       </SettingsSection>
 
       {session && (
-        <SettingsSection title='Account' description='The account you are signed in with.'>
+        <SettingsSection title='Account' description='Change your username, email or password, or delete your account.'>
           <div className='flex flex-wrap items-center justify-between gap-4'>
             <div className='flex items-center gap-3'>
               <UserAvatar name={session.username} size={44} />
@@ -101,6 +102,9 @@ export function Settings() {
             >
               Log out
             </Button>
+          </div>
+          <div className='mt-8 border-t border-border pt-6'>
+            <AccountSettings session={session} />
           </div>
         </SettingsSection>
       )}

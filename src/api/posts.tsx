@@ -1,6 +1,6 @@
 import { Post } from "@/types/PostType";
 import { apiFetch } from "./client";
-import { cached, invalidateCache, peekCache, updateCache } from "@/lib/cache";
+import { cached, invalidateCache, invalidateCachePrefix, peekCache, updateCache } from "@/lib/cache";
 
 // Posts change more often than communities, so they are cached briefly and only in memory:
 // moving around the app reuses them, but a reload always shows fresh posts.
@@ -118,4 +118,49 @@ export async function createPost(community_id: string, title: string, content: s
     },
   });
   invalidateCache(postsCacheKey(community_id));
+}
+
+export type PostChanges = {
+  post_title?: string;
+  post_content?: string;
+  /** An empty string removes the image. */
+  post_image_url?: string;
+};
+
+/**
+ * Edits one of the logged-in user's posts. Fields left out stay as they are.
+ * @param {string} postId - The unique identifier of the post.
+ * @param {PostChanges} changes - The fields to change.
+ * @returns {Promise<Post>} The updated post.
+ * @throws {ApiError} With status 400 on invalid fields, 401 if the user is not logged in,
+ * 403 if the post belongs to someone else, 404 if it doesn't exist.
+ */
+export async function updatePost(postId: string, changes: PostChanges): Promise<Post> {
+  const result = await apiFetch<{ post: Post }>(`/post/${encodeURIComponent(postId)}`, {
+    method: 'PATCH',
+    auth: true,
+    body: changes,
+  });
+  updateCache<Post[]>(
+    POSTS_CACHE_PREFIX,
+    (posts) => posts.map((post) => (post.post_id === postId ? result.post : post)),
+    POSTS_CACHE_OPTIONS
+  );
+  return result.post;
+}
+
+/**
+ * Deletes a post with its comments. Its author and admins can delete it.
+ * @param {string} postId - The unique identifier of the post.
+ * @param {string} community_id - The community the post belongs to, to drop its cached posts.
+ * @throws {ApiError} With status 401 if the user is not logged in, 403 if not allowed, 404 if it doesn't exist.
+ */
+export async function deletePost(postId: string, community_id: string): Promise<void> {
+  await apiFetch(`/post/${encodeURIComponent(postId)}`, { method: 'DELETE', auth: true });
+  invalidateCache(postsCacheKey(community_id));
+}
+
+/** Drops every cached post list, e.g. after the user is renamed or deleted and their posts change. */
+export function invalidatePostsCache() {
+  invalidateCachePrefix(POSTS_CACHE_PREFIX);
 }
