@@ -1,7 +1,11 @@
 # Changelog
 
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
-Versions before 0.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
+Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
+
+## [1.11.0] - 2026-10-18
+### Changed
+- Project declared stable; version set to 1.11.0 (continues from 0.11.0).
 
 ## [0.11.0] - 2026-10-18
 ### Added
