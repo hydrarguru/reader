@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 // Same limits as the backend's validatePostChanges (Posts.post_title is VARCHAR(50)).
-const editPostFormSchema = z.object({
+const postFormSchema = z.object({
   post_title: z
     .string()
     .trim()
@@ -25,30 +25,32 @@ const editPostFormSchema = z.object({
     .refine((value) => value === '' || /^https?:\/\/\S+$/.test(value), { message: 'Enter a full http(s) URL, or leave it empty.' }),
 });
 
-export type EditPostFormValues = z.infer<typeof editPostFormSchema>;
+export type PostFormValues = z.infer<typeof postFormSchema>;
 
-interface EditPostDialogProps {
-  post: Post;
+interface PostFormDialogProps {
+  /** The post to edit, or null to write a new one. */
+  post: Post | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (values: EditPostFormValues) => Promise<void>;
+  onSubmit: (values: PostFormValues) => Promise<void>;
 }
 
-function toFormValues(post: Post): EditPostFormValues {
+function toFormValues(post: Post | null): PostFormValues {
   return {
-    post_title: post.post_title,
-    post_content: post.post_content,
-    post_image_url: post.post_image_url ?? '',
+    post_title: post?.post_title ?? '',
+    post_content: post?.post_content ?? '',
+    post_image_url: post?.post_image_url ?? '',
   };
 }
 
-export function EditPostDialog({ post, open, onOpenChange, onSubmit }: EditPostDialogProps) {
-  const form = useForm<EditPostFormValues>({
-    resolver: zodResolver(editPostFormSchema),
+export function PostFormDialog({ post, open, onOpenChange, onSubmit }: PostFormDialogProps) {
+  const isEditing = post !== null;
+  const form = useForm<PostFormValues>({
+    resolver: zodResolver(postFormSchema),
     defaultValues: toFormValues(post),
   });
 
-  // Start from the current post each time the dialog opens.
+  // Start from the current post, or an empty form, each time the dialog opens.
   useEffect(() => {
     if (open) form.reset(toFormValues(post));
   }, [open, post, form]);
@@ -57,8 +59,8 @@ export function EditPostDialog({ post, open, onOpenChange, onSubmit }: EditPostD
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-xl'>
         <DialogHeader>
-          <DialogTitle className='font-display text-3xl font-medium tracking-tight'>Edit post</DialogTitle>
-          <DialogDescription>Change the title, text or image.</DialogDescription>
+          <DialogTitle className='font-display text-3xl font-medium tracking-tight'>{isEditing ? 'Edit post' : 'Create a post'}</DialogTitle>
+          <DialogDescription>{isEditing ? 'Change the title, text or image.' : 'Share something with the community.'}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
@@ -69,7 +71,7 @@ export function EditPostDialog({ post, open, onOpenChange, onSubmit }: EditPostD
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input autoComplete='off' maxLength={50} {...field} />
+                    <Input placeholder='An interesting title' autoComplete='off' maxLength={50} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -82,7 +84,7 @@ export function EditPostDialog({ post, open, onOpenChange, onSubmit }: EditPostD
                 <FormItem>
                   <FormLabel>Text</FormLabel>
                   <FormControl>
-                    <Textarea rows={8} {...field} />
+                    <Textarea rows={8} placeholder='What do you want to share?' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +108,7 @@ export function EditPostDialog({ post, open, onOpenChange, onSubmit }: EditPostD
                 Cancel
               </Button>
               <Button type='submit' disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? 'Saving…' : 'Save changes'}
+                {form.formState.isSubmitting ? 'Saving…' : isEditing ? 'Save changes' : 'Post'}
               </Button>
             </DialogFooter>
           </form>

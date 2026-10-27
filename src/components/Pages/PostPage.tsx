@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
+import { Link, useLoaderData, useNavigate, useParams } from 'react-router';
 import { ArrowLeft, Pencil, Trash2 } from 'lucide-react';
 import type { PostLoaderData } from '@/router';
 import { Post } from '@/types/PostType';
@@ -19,11 +19,12 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useAuth } from '../Auth/AuthProvider';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 import { ButtonGroup } from '../Community/ButtonGroup';
 import { CommunityPostDate } from '../Community/CommunityPost';
 import { UserAvatar } from '../Common/UserAvatar';
 import { PostComments } from '../Comments/PostComments';
-import { EditPostDialog, EditPostFormValues } from '../Modals/EditPostDialog';
+import { PostFormDialog, PostFormValues } from '../Modals/PostFormDialog';
 
 export function PostPage() {
   const { post: loadedPost } = useLoaderData() as PostLoaderData;
@@ -31,7 +32,7 @@ export function PostPage() {
   const { session } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const location = useLocation();
+  const sessionExpired = useSessionExpired();
   // The post as last saved here; falls back to the loaded one when moving to another post.
   const [savedPost, setSavedPost] = useState<Post | null>(null);
   const post = savedPost !== null && savedPost.post_id === loadedPost.post_id ? savedPost : loadedPost;
@@ -44,12 +45,7 @@ export function PostPage() {
     document.title = `Reader - ${post.post_title}`;
   }, [post.post_title]);
 
-  const sessionExpired = (action: string) => {
-    toast({ title: 'Session expired', description: `Please log in again to ${action}.`, duration: 2000 });
-    navigate('/login', { state: { from: location.pathname } });
-  };
-
-  const onEdit = async (values: EditPostFormValues) => {
+  const onEdit = async (values: PostFormValues) => {
     try {
       const updated = await updatePost(post.post_id as string, values);
       setSavedPost(updated);
@@ -164,7 +160,7 @@ export function PostPage() {
         </div>
       </div>
       <PostComments key={post.post_id} postId={post.post_id as string} />
-      {isOwn && <EditPostDialog post={post} open={editing} onOpenChange={setEditing} onSubmit={onEdit} />}
+      {isOwn && <PostFormDialog post={post} open={editing} onOpenChange={setEditing} onSubmit={onEdit} />}
     </article>
   );
 }

@@ -70,8 +70,14 @@ export function clearSession() {
  * Subscribes to session changes (login, logout, expired token). Returns an unsubscribe function.
  */
 export function onSessionChange(listener: Listener): () => void {
+  // Also follow logins and logouts in other tabs.
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY || event.key === null) listener(getSession());
+  };
   listeners.add(listener);
+  window.addEventListener('storage', onStorage);
   return () => {
     listeners.delete(listener);
+    window.removeEventListener('storage', onStorage);
   };
 }

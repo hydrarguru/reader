@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -24,6 +24,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useAuth } from '../Auth/AuthProvider';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 
 // Same rules as sign-up.
 const profileFormSchema = z.object({
@@ -52,17 +53,6 @@ const passwordFormSchema = z
 
 function errorText(err: unknown): string {
   return err instanceof Error ? err.message : 'unknown error';
-}
-
-/** Sends the user to the login page after their session ran out, and back here afterwards. */
-function useSessionExpired() {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const location = useLocation();
-  return (action: string) => {
-    toast({ title: 'Session expired', description: `Please log in again to ${action}.`, duration: 2000 });
-    navigate('/login', { state: { from: location.pathname } });
-  };
 }
 
 /** Forms for changing the username, email and password, and for deleting the account. */

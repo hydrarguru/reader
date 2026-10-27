@@ -6,7 +6,6 @@ import { Button } from '../ui/button';
 import { UserAvatar } from '../Common/UserAvatar';
 import { useAuth } from '../Auth/AuthProvider';
 import { useAuthLinkState } from '../Auth/useReturnPath';
-//import { DesktopMenu } from './DesktopMenu';
 
 function AccountButtons() {
   const { session, logout } = useAuth();
@@ -72,7 +71,6 @@ export function NavBar() {
         <AccountButtons />
         <ThemeToggleButton />
         <MobileDrawer />
-        {/*<DesktopMenu loginState={userLoginState} />*/}
       </div>
     </nav>
   );

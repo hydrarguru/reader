@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router';
-//import { User, Settings, LogOut, LogIn, UserPlus, PanelLeftOpen } from 'lucide-react';
 import { PanelLeftOpen } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
 import { Button } from '../ui/button';
@@ -13,18 +12,6 @@ import { WithCommunities } from '../Common/WithCommunities';
 import { DisabledButtons } from '../Skeletons/DisabledButtons';
 import { useAuth } from '../Auth/AuthProvider';
 import { useAuthLinkState } from '../Auth/useReturnPath';
-
-// function fetchStarredCommunities(): Community[] | null {
-//   const storedStarredCommunities = localStorage.getItem('starredCommunities');
-//   if (storedStarredCommunities === null || storedStarredCommunities === undefined) {
-//     console.info('No starred communities found in local storage');
-//     return null;
-//   }
-//   else {
-//     console.info('Starred communities found in local storage');
-//     return JSON.parse(storedStarredCommunities);
-//   }
-// }
 
 function RandomCommunities({ communities }: { communities: Community[] }) {
   // Pick once per load, so the list doesn't reshuffle on every render.

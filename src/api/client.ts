@@ -46,7 +46,11 @@ export async function apiFetch<T>(path: string, { body, auth = false, headers, .
   if (body !== undefined) requestHeaders.set('Content-Type', 'application/json');
   if (auth) {
     const session = getSession();
-    if (session === null) throw new ApiError(401, 'You need to log in first.');
+    if (session === null) {
+      // The token may have been removed in another tab; tell the app so it stops showing a logged-in user.
+      clearSession();
+      throw new ApiError(401, 'You need to log in first.');
+    }
     requestHeaders.set('Authorization', `Bearer ${session.token}`);
   }
 

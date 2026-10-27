@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate, useRevalidator } from 'react-router';
+import { Link, useRevalidator } from 'react-router';
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 
 import { ApiError } from '@/api/client';
@@ -7,6 +7,7 @@ import { createCommunity, deleteCommunity, updateCommunity } from '@/api/communi
 import { Community } from '@/types/CommunityType';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '../Auth/AuthProvider';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 import { WithCommunities } from '../Common/WithCommunities';
 import { CommunityFormDialog, CommunityFormValues } from '../Admin/CommunityFormDialog';
 import { Button } from '../ui/button';
@@ -52,8 +53,7 @@ export function AdminPage() {
   const [pendingDelete, setPendingDelete] = useState<Community | null>(null);
   const { toast } = useToast();
   const { revalidate } = useRevalidator();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const sessionExpired = useSessionExpired();
   const { session } = useAuth();
 
   useEffect(() => {
@@ -63,8 +63,7 @@ export function AdminPage() {
   /** Shows a toast for a failed request; a 401 sends the user to log in again. */
   function handleError(action: string, err: unknown) {
     if (err instanceof ApiError && err.status === 401) {
-      toast({ title: 'Session expired', description: 'Please log in again.', duration: 2000 });
-      navigate('/login', { state: { from: location.pathname } });
+      sessionExpired(action);
       return;
     }
     toast({

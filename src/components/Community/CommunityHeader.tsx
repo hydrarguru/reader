@@ -1,29 +1,53 @@
-import { useState, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useState } from 'react';
+import { useLocation, useNavigate, useRevalidator } from 'react-router';
 import { Community } from '@/types/CommunityType';
+import { ApiError } from '@/api/client';
+import { createPost } from '@/api/posts';
+import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '../Auth/AuthProvider';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 import { Button } from '../ui/button';
-import { CreateCommunityPostModal } from '../Modals/CreateCommunityPostModal';
+import { PostFormDialog, PostFormValues } from '../Modals/PostFormDialog';
 interface CommunityHeaderProps {
   community: Community;
 }
 
 export function CommunityHeader({ community }: CommunityHeaderProps) {
-  const [modalState, setModalState] = useState<boolean>(false);
+  const [creating, setCreating] = useState(false);
   const { session } = useAuth();
+  const { toast } = useToast();
+  const { revalidate } = useRevalidator();
+  const sessionExpired = useSessionExpired();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const handleModalState = useCallback(() => {
-    setModalState((prev) => !prev);
-  }, []);
 
   function handleCreatePost() {
     if (session === null) {
       navigate('/login', { state: { from: location.pathname } });
       return;
     }
-    handleModalState();
+    setCreating(true);
+  }
+
+  async function onCreate(values: PostFormValues) {
+    try {
+      await createPost(community.community_id, values.post_title, values.post_content, values.post_image_url);
+      setCreating(false);
+      toast({ title: 'Post created', duration: 1250 });
+      // Re-run the route loaders so the new post shows up.
+      revalidate();
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 401) {
+        setCreating(false);
+        sessionExpired('post');
+        return;
+      }
+      toast({
+        title: 'Error',
+        description: `Error creating post: ${err instanceof Error ? err.message : 'unknown error'}`,
+        duration: 2000,
+      });
+    }
   }
 
   return (
@@ -51,13 +75,7 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
         </div>
         <Button onClick={handleCreatePost}>Create post</Button>
       </div>
-      <CreateCommunityPostModal
-        key={community.community_id}
-        communityId={community.community_id}
-        communityName={community.community_name}
-        isOpen={modalState}
-        modalClose={handleModalState}
-      />
+      <PostFormDialog post={null} open={creating} onOpenChange={setCreating} onSubmit={onCreate} />
     </header>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useAuth } from '../Auth/AuthProvider';
 import { useAuthLinkState } from '../Auth/useReturnPath';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 import { UserAvatar } from '../Common/UserAvatar';
 import { CommunityPostDate } from '../Community/CommunityPost';
 
@@ -39,17 +40,6 @@ const commentFormSchema = z.object({
     .min(1, { message: 'Write something first.' })
     .max(MAX_COMMENT_LENGTH, { message: `Comments can be at most ${MAX_COMMENT_LENGTH} characters.` }),
 });
-
-/** Sends the user to the login page after their session ran out, and back here afterwards. */
-function useSessionExpired() {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const location = useLocation();
-  return (action: string) => {
-    toast({ title: 'Session expired', description: `Please log in again to ${action}.`, duration: 2000 });
-    navigate('/login', { state: { from: location.pathname } });
-  };
-}
 
 /** The comments under a post: a form for logged-in users, then the comments, oldest first. */
 export function PostComments({ postId }: { postId: string }) {

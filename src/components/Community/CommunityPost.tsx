@@ -2,38 +2,30 @@ import { Link } from 'react-router';
 import { ButtonGroup } from './ButtonGroup';
 import { Skeleton } from '../ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useState } from 'react';
 import { UserAvatar } from '../Common/UserAvatar';
 
-function getTimeBetweenDates(date1: Date, date2: Date): string {
-  const diff = Math.abs(date1.getTime() - date2.getTime());
+const relativeTime = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+const UNITS: [Intl.RelativeTimeFormatUnit, number][] = [['day', 86400], ['hour', 3600], ['minute', 60]];
 
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (seconds < 60) {
-    return `${seconds} seconds ago`;
-  } else if (minutes < 60) {
-    return `${minutes} minutes ago`;
-  } else if (hours < 24) {
-    return `${hours} hours ago`;
-  } else {
-    return `${days} days ago`;
+/** "5 minutes ago", "1 hour ago", "yesterday". */
+function timeAgo(date: Date): string {
+  const seconds = Math.trunc((date.getTime() - Date.now()) / 1000);
+  for (const [unit, size] of UNITS) {
+    if (Math.abs(seconds) >= size) return relativeTime.format(Math.trunc(seconds / size), unit);
   }
+  return relativeTime.format(seconds, 'second');
 }
 
 export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
-  const [postDate] = useState<Date>(createdAt ? createdAt : new Date());
-  const dateToolTip = `Posted on ${postDate.toDateString() + ' at ' + postDate.toLocaleTimeString()}`;
+  if (createdAt === undefined) return <span>Unknown date</span>;
+  const dateToolTip = `Posted on ${createdAt.toDateString()} at ${createdAt.toLocaleTimeString()}`;
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <time dateTime={postDate.toISOString()} className='cursor-default hover:text-foreground'>
-            {postDate ? getTimeBetweenDates(postDate, new Date()) : 'Unknown date'}
+          <time dateTime={createdAt.toISOString()} className='cursor-default hover:text-foreground'>
+            {timeAgo(createdAt)}
           </time>
         </TooltipTrigger>
         <TooltipContent>

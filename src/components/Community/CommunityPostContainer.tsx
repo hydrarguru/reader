@@ -27,7 +27,7 @@ export function CommunityPostContainer({ community, posts }: CommunityPostContai
             score={post.post_score}
             commentCount={post.comment_count}
             author={post.post_author}
-            createdAt={post.created_at ? new Date(post.created_at) : new Date()}
+            createdAt={post.created_at ? new Date(post.created_at) : undefined}
           />
         ))}
       </div>

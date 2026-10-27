@@ -1,4 +1,4 @@
-import { Community, CommunityRule } from '@/types/CommunityType';
+import { Community } from '@/types/CommunityType';
 
 import {
   Accordion,
@@ -11,15 +11,8 @@ interface communityInformationPanelProps {
   community: Community;
 }
 
-// Shown when the backend doesn't send rules (before it stored them).
-const placeholderRules: CommunityRule[] = [1, 2, 3].map((n) => ({
-  rule_title: `Rule ${n}`,
-  rule_desc:
-    'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-}));
-
 export function CommunityInformationPanel({ community }: communityInformationPanelProps) {
-  const rules = community.community_rules ?? placeholderRules;
+  const rules = community.community_rules ?? [];
 
   return (
     <div className='flex flex-col gap-6 rounded-lg border border-border bg-card p-6'>

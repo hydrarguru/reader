@@ -59,7 +59,9 @@ export function SignUpPage() {
       setError(
         err instanceof ApiError && err.status === 409
           ? 'That username or email is already taken.'
-          : 'Could not create your account right now. Please try again.'
+          : err instanceof ApiError && err.status === 429
+            ? err.message
+            : 'Could not create your account right now. Please try again.'
       );
       return;
     }

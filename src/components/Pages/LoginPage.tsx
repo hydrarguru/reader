@@ -42,7 +42,9 @@ export function LoginPage() {
       setError(
         err instanceof ApiError && err.status === 401
           ? 'Wrong username or password.'
-          : 'Could not log in right now. Please try again.'
+          : err instanceof ApiError && err.status === 429
+            ? err.message
+            : 'Could not log in right now. Please try again.'
       );
     }
   };

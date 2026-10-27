@@ -6,6 +6,7 @@ import { Vote } from '@/api/posts';
 import { ApiError } from '@/api/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '../Auth/AuthProvider';
+import { useSessionExpired } from '../Auth/useSessionExpired';
 import { useVotes } from '../Votes/VotesProvider';
 
 interface ButtonGroupProps {
@@ -26,6 +27,7 @@ export function ButtonGroup({ id: postId, score, postPath, commentCount }: Butto
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
+  const sessionExpired = useSessionExpired();
   const currentVote = getVote(postId);
 
   // Pick up a new score when the page's data is reloaded.
@@ -50,8 +52,7 @@ export function ButtonGroup({ id: postId, score, postPath, commentCount }: Butto
     } catch (err) {
       setPostedScore(previousScore);
       if (err instanceof ApiError && err.status === 401) {
-        toast({ title: 'Session expired', description: 'Please log in again to vote.', duration: 2000 });
-        navigate('/login', { state: { from: location.pathname } });
+        sessionExpired('vote');
       } else {
         toast({ title: 'Error', description: 'Could not save your vote.', duration: 2000 });
       }

@@ -3,6 +3,22 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.0] - 2026-10-27
+### Added
+- New posts can have an image URL; creating and editing posts now use the same form.
+- Unit tests for the API cache (`pnpm test`, using Vitest).
+### Changed
+- The create-post popup now closes with Escape and keeps keyboard focus inside it.
+- Logging in or out in one tab now applies to all open tabs.
+- Removed 31 unused dependencies and 34 unused UI components, plus other dead code.
+### Fixed
+- Post titles are limited to 50 characters when creating a post, matching the database; longer titles used to fail with a generic error.
+- Logging out in another tab no longer traps this tab in a redirect loop between the login page and the current page.
+- The app no longer shows a blank page when the browser blocks site storage.
+- Post times use correct plurals ("1 day ago", "yesterday"), and posts without a date show "Unknown date" instead of "0 seconds ago".
+- Community pages no longer show placeholder rules.
+- Login and sign-up show the server's "too many attempts" message when rate limited (backend 2.0.0), instead of asking to try again.
+
 ## [1.11.0] - 2026-10-18
 ### Changed
 - Project declared stable; version set to 1.11.0 (continues from 0.11.0).
