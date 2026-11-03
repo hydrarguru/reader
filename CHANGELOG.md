@@ -3,6 +3,10 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.1] - 2026-11-03
+### Changed
+- README tech stack now lists the libraries actually in use (React Router, Radix UI, React Hook Form, Zod, Vitest and others), updates the backend to Express 5 + Drizzle, and adds setup commands.
+
 ## [1.12.0] - 2026-10-27
 ### Added
 - New posts can have an image URL; creating and editing posts now use the same form.

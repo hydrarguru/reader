@@ -8,7 +8,7 @@ React 18 + TypeScript + Vite, styled with Tailwind and shadcn/ui (`src/component
 
 ## Backend
 
-The API lives in a separate repo at `../reader-backend` (github.com/hydrarguru/reader-backend): Express + Sequelize + MySQL, deployed to https://reader-api.fly.dev.
+The API lives in a separate repo at `../reader-backend` (github.com/hydrarguru/reader-backend): Express 5 + Drizzle ORM + MySQL, deployed to https://reader-api.fly.dev.
 
 - Routes: `../reader-backend/src/routes/` (Auth, User, Post, Community); logic in `src/functions/`, models in `src/models/`.
 - Swagger docs at `/api-docs` are the source of truth for request and response shapes.
