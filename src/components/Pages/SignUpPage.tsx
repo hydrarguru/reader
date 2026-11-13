@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { signUp } from '@/api/auth';
 import { ApiError } from '@/api/client';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '../Auth/AuthProvider';
@@ -90,6 +90,7 @@ export function SignUpPage() {
                 <FormControl>
                   <Input autoComplete='username' autoFocus {...field} />
                 </FormControl>
+                <FormDescription>3 to 32 letters, numbers or underscores.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -116,6 +117,7 @@ export function SignUpPage() {
                 <FormControl>
                   <Input type='password' autoComplete='new-password' {...field} />
                 </FormControl>
+                <FormDescription>At least 8 characters.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -137,6 +139,13 @@ export function SignUpPage() {
           <Button type='submit' className='w-full' disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? 'Creating account…' : 'Sign up'}
           </Button>
+          <p className='text-[13px] text-muted-foreground'>
+            The{' '}
+            <Link to='/privacy' className='font-semibold text-brand-ink hover:underline'>
+              privacy policy
+            </Link>{' '}
+            explains what we store and why.
+          </p>
         </form>
       </Form>
       <p className='mt-6 text-sm text-center text-muted-foreground'>

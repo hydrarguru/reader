@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { errorToast } from '@/lib/errorToast';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { CharacterCount } from '@/components/Common/CharacterCount';
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -142,6 +143,7 @@ function CommentForm({ postId, onCreated }: { postId: string; onCreated: (commen
               <FormControl>
                 <Textarea rows={3} maxLength={MAX_COMMENT_LENGTH} placeholder='Add a comment' {...field} />
               </FormControl>
+              <CharacterCount value={field.value} max={MAX_COMMENT_LENGTH} />
               <FormMessage />
             </FormItem>
           )}
@@ -292,6 +294,7 @@ function EditCommentForm({ comment, onCancel, onSaved }: { comment: Comment; onC
               <FormControl>
                 <Textarea rows={3} maxLength={MAX_COMMENT_LENGTH} autoFocus {...field} />
               </FormControl>
+              <CharacterCount value={field.value} max={MAX_COMMENT_LENGTH} />
               <FormMessage />
             </FormItem>
           )}

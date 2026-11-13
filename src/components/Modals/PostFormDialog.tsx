@@ -7,6 +7,7 @@ import { Post } from '@/types/PostType';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { CharacterCount } from '@/components/Common/CharacterCount';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -73,6 +74,7 @@ export function PostFormDialog({ post, open, onOpenChange, onSubmit }: PostFormD
                   <FormControl>
                     <Input placeholder='An interesting title' autoComplete='off' maxLength={50} {...field} />
                   </FormControl>
+                  <CharacterCount value={field.value} max={50} />
                   <FormMessage />
                 </FormItem>
               )}

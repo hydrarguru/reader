@@ -3,6 +3,11 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.10] - 2026-11-13
+### Fixed
+- Sign-up shows the username and password rules up front instead of only after a failed attempt, and links to the privacy policy.
+- Post titles and comments show a character count, so the length limit no longer cuts text off without warning.
+
 ## [1.12.9] - 2026-11-13
 ### Fixed
 - Error messages say what failed ("Couldn't save your vote") instead of "Error", and stay on screen until closed instead of vanishing after 2 seconds. The "Session expired" message also stays longer.
