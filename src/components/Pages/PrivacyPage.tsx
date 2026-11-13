@@ -1,4 +1,6 @@
-const LAST_UPDATED = 'October 11, 2026';
+import { CONTACT_EMAIL } from '@/lib/contact';
+
+const LAST_UPDATED = 'November 13, 2026';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -68,7 +70,11 @@ export function PrivacyPage() {
       <Section title='Your rights'>
         <p>
           You can ask for a copy of your data, have it corrected, or have it deleted. You can also object to how it is
-          used, or complain to your country's data protection authority.
+          used, or complain to your country's data protection authority. To use any of these rights, email{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} className='font-semibold text-brand-ink hover:underline'>
+            {CONTACT_EMAIL}
+          </a>
+          .
         </p>
       </Section>
     </article>

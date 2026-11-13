@@ -3,6 +3,11 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.5] - 2026-11-13
+### Fixed
+- The login page has a "Can't log in? Email us" link, so people locked out of an account have a way to get help.
+- The privacy policy says which email address to use for data requests (copy, correction, deletion).
+
 ## [1.12.4] - 2026-11-13
 ### Fixed
 - The theme toggle is a single button; it used to sit inside a second, unnamed button that added an extra tab stop and a console error on every page.

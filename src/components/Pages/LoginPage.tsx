@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useAuth } from '../Auth/AuthProvider';
 import { useReturnPath } from '../Auth/useReturnPath';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'Enter your username.' }),
@@ -92,6 +93,12 @@ export function LoginPage() {
         <Link to='/signup' state={{ from: returnPath }} className='font-semibold text-brand-ink hover:underline'>
           Sign up
         </Link>
+      </p>
+      <p className='mt-2 text-sm text-center text-muted-foreground'>
+        Can't log in?{' '}
+        <a href={`mailto:${CONTACT_EMAIL}`} className='font-semibold text-brand-ink hover:underline'>
+          Email us
+        </a>
       </p>
     </div>
   );
