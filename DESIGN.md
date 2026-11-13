@@ -210,7 +210,7 @@ A warm, low-saturation palette on paper, where every colour has one job and ever
 ### Primary
 
 - **Reader Coral** (brand): the one primary action per view, the upvoted state, the wordmark dot and the community mark. It is a fill only and always carries dark ink (on-brand, 5.0:1). It is the same in both themes.
-- **Coral Ink** (brand-ink, brand-ink-dark): coral as text, for links, the upvoted score, `c/` names in feeds and the overline above page titles (5.2:1 light, 7.1:1 dark).
+- **Coral Ink** (brand-ink, brand-ink-dark): coral as text, for links, the upvoted score, and `c/` names in feeds (5.2:1 light, 7.1:1 dark).
 - **Coral Blush** (brand-soft, brand-soft-dark): the tinted ground behind an upvoted vote control or a selected row.
 
 ### Secondary
@@ -274,7 +274,7 @@ A warm, low-saturation palette on paper, where every colour has one job and ever
 
 - **Container:** one centred column, 1152px wide at most (`max-w-6xl`), with a 16px gutter on phones and 24px from 640px up. Main content sits 32px below the sticky header.
 - **Header:** sticky, 64px tall, paper at 85% opacity with a backdrop blur and a bottom hairline. The wordmark is on the left; account actions, theme toggle and the mobile drawer are on the right.
-- **Home:** an overline and a display headline, then a grid of community cards, three across on desktop.
+- **Home:** a display headline and a one-line intro, then a grid of community cards, three across on desktop.
 - **Community page:** a full-width community header card, then a two-column split: a feed of post cards (about two thirds) beside a rules and information panel. On small screens the rules move above the posts.
 - **Rhythm:** a 4px base (space-1 to space-12). Cards pad space-6 and stack space-4 apart; page sections sit space-8 apart; heroes and empty states get space-12.
 - **Breakpoints:** Tailwind defaults (640, 768, 1024px). Below 640px, account buttons move into the drawer.
@@ -375,3 +375,4 @@ A large-radius card with a sage banner (or the community image) on top, a 72px c
 - **Don't** add a third shadow level or pure-black shadows in the light theme.
 - **Don't** set buttons in all caps or use "Submit"; buttons are verbs in sentence case.
 - **Don't** use grey-on-black or plain white surfaces; Reader lives on warm paper.
+- **Don't** put an overline or kicker above a page title; the title carries its own weight. Overlines label sections and panels only.

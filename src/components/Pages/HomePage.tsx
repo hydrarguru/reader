@@ -11,12 +11,11 @@ export function HomePage() {
   return (
     <div className='flex flex-col gap-10'>
       <section className='max-w-2xl pt-4'>
-        <p className='text-xs font-semibold uppercase tracking-[0.08em] text-brand-ink'>Communities</p>
-        <h1 className='mt-3 font-display text-5xl font-medium leading-[1.05] tracking-tight [text-wrap:balance] sm:text-6xl'>
+        <h1 className='font-display text-5xl font-medium leading-[1.05] tracking-tight [text-wrap:balance] sm:text-6xl'>
           Find your people, share what you love.
         </h1>
         <p className='mt-4 text-base text-muted-foreground'>
-          Join a community, post what you are into, and vote up the things worth reading.
+          Pick a community, post what you are into, and vote up the things worth reading.
         </p>
       </section>
       <WithCommunities

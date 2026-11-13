@@ -3,6 +3,11 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.7] - 2026-11-13
+### Fixed
+- The home page and profile no longer put a small uppercase label above the page title.
+- The home and sign-up intros describe what Reader does today ("Pick a community…", "Create an account to post, comment and vote.") instead of promising a "join" feature that doesn't exist.
+
 ## [1.12.6] - 2026-11-13
 ### Fixed
 - Post bodies, comments and the privacy policy keep lines to a readable length (about 65 characters) instead of running to 85-95.

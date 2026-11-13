@@ -78,7 +78,7 @@ export function SignUpPage() {
   return (
     <div className='mx-auto my-8 w-full max-w-sm rounded-xl border border-border bg-card p-8 shadow-card'>
       <h1 className='font-display text-4xl font-medium tracking-tight'>Create an account</h1>
-      <p className='mt-1 mb-6 text-sm text-muted-foreground'>Join communities and start posting.</p>
+      <p className='mt-1 mb-6 text-sm text-muted-foreground'>Create an account to post, comment and vote.</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
           <FormField

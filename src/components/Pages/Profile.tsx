@@ -52,10 +52,7 @@ export function Profile() {
               size={96}
               className='relative -mt-12 border-4 border-card'
             />
-            <div>
-              <p className='text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground'>Profile</p>
-              <h1 className='font-display text-4xl font-medium tracking-tight'>{session.username}</h1>
-            </div>
+            <h1 className='font-display text-4xl font-medium tracking-tight'>{session.username}</h1>
           </div>
           <div className='flex gap-2'>
             <Button variant='outline' asChild>
