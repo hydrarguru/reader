@@ -76,7 +76,7 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
       </Link>
 
       {CommunityPostProps.excerpt && (
-        <p className='mb-4 line-clamp-2 text-[15px] leading-6 text-muted-foreground'>{CommunityPostProps.excerpt}</p>
+        <p className='mb-4 line-clamp-2 text-sm leading-[22px] text-muted-foreground'>{CommunityPostProps.excerpt}</p>
       )}
 
       <ButtonGroup id={CommunityPostProps.id} score={CommunityPostProps.score} postPath={postPath} commentCount={CommunityPostProps.commentCount} />

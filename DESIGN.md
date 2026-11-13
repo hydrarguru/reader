@@ -79,6 +79,10 @@ typography:
     fontSize: "14px"
     fontWeight: 600
     lineHeight: "20px"
+  input:
+    fontFamily: "Instrument Sans, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "15px"
+    fontWeight: 400
   meta:
     fontFamily: "Instrument Sans, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "13px"
@@ -256,6 +260,7 @@ A warm, low-saturation palette on paper, where every colour has one job and ever
 - **Body** (Instrument Sans 400, 16px/26px): post bodies and comments. Keep long text at 65 to 75 characters per line.
 - **Body Small** (Instrument Sans 400, 14px/22px): descriptions, sidebars and helper text.
 - **Label** (Instrument Sans 600, 14px/20px): buttons, tabs and form labels, in sentence case.
+- **Input** (Instrument Sans 400, 15px): text typed into inputs and textareas.
 - **Meta** (Instrument Sans 500, 13px/18px): author, timestamp and counts, with tabular figures for scores.
 - **Overline** (Instrument Sans 600, 12px/16px, 0.08em, uppercase): small section labels such as "COMMUNITIES" and "RULES OF C/CATS".
 
@@ -344,7 +349,7 @@ The signature component: a pill well holding up and down arrows with the score b
 
 ### Post Card
 
-A post in a feed: a meta row (20px avatar, author, a dot, relative time with the full date in a tooltip), the serif title that underlines on hover, an optional two-line muted excerpt, then the vote control and comments link.
+A post in a feed: a meta row (20px avatar, author, a dot, relative time with the full date in a tooltip), the serif title that underlines on hover, an optional two-line muted excerpt in body small, then the vote control and comments link.
 
 ### Community Header
 

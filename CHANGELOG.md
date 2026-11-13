@@ -3,6 +3,12 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.6] - 2026-11-13
+### Fixed
+- Post bodies, comments and the privacy policy keep lines to a readable length (about 65 characters) instead of running to 85-95.
+- Comments use the same 16px body text as posts, and feed excerpts use the 14px small body size, matching the design system.
+- The privacy policy is set in full-strength ink instead of muted grey, and the home headline wraps in balanced lines.
+
 ## [1.12.5] - 2026-11-13
 ### Fixed
 - The login page has a "Can't log in? Email us" link, so people locked out of an account have a way to get help.

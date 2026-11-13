@@ -154,7 +154,7 @@ export function PostPage() {
         {post.post_image_url && (
           <img src={post.post_image_url} alt='' className='mb-6 max-h-[480px] w-full rounded-md bg-muted object-contain' />
         )}
-        <p className='mb-8 whitespace-pre-wrap text-base leading-[26px]'>{post.post_content}</p>
+        <p className='mb-8 max-w-prose whitespace-pre-wrap text-base leading-[26px]'>{post.post_content}</p>
         <div className='border-t border-border pt-4'>
           <ButtonGroup key={post.post_id} id={post.post_id as string} score={post.post_score} />
         </div>
