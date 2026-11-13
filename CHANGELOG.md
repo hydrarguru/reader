@@ -3,6 +3,13 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.3] - 2026-11-13
+### Fixed
+- The header "Sign up" is an outline button, so each page keeps one coral action.
+- The 404 numeral uses coral ink instead of coral text, which failed contrast.
+- The login page explains what logging in is for ("Log in to post, comment and vote.") instead of greeting every visitor as returning.
+- The mobile drawer no longer shows a placeholder "Starred communities" section.
+
 ## [1.12.2] - 2026-11-13
 ### Added
 - `PRODUCT.md` and `DESIGN.md` describe the product and the Reader design system, with `.impeccable/design.json` alongside.

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 import { PanelLeftOpen } from 'lucide-react';
 import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
@@ -38,7 +38,6 @@ const drawerLinkClass =
   'w-full rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-surface-hover';
 
 export function MobileDrawer() {
-  const [starredCommunities] = useState<Community[] | null>(null);
   const { session, logout } = useAuth();
   const navigate = useNavigate();
   const authLinkState = useAuthLinkState();
@@ -68,21 +67,6 @@ export function MobileDrawer() {
                   </Drawer.Title>
                 </ComponentToolTip>
               </Drawer.Close>
-            </div>
-            <DrawerSeparator title='Starred communities' />
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
-              {starredCommunities !== null ? (
-                starredCommunities.map((community) => (
-                  <NavLink role='button' className={drawerLinkClass}
-                    to={`/c/${community.community_name}`}
-                    key={community.community_id}
-                    >
-                      {community.community_name}
-                  </NavLink>
-                )) 
-              ) : (
-                <DisabledButtons buttonCount={3} />
-              )}
             </div>
             <DrawerSeparator title='Communities' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>

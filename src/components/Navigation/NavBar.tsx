@@ -18,7 +18,7 @@ function AccountButtons() {
         <Button variant='ghost' asChild>
           <Link to='/login' state={authLinkState}>Log in</Link>
         </Button>
-        <Button asChild>
+        <Button variant='outline' asChild>
           <Link to='/signup' state={authLinkState}>Sign up</Link>
         </Button>
       </div>
