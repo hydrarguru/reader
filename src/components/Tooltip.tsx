@@ -11,7 +11,7 @@ export function ComponentToolTip({ toolTip, align, side, delayDur, children }: T
   return (
     <TooltipProvider>
       <Tooltip delayDuration={delayDur || 700}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
             {children}
         </TooltipTrigger>
         <TooltipContent side={side} align={align}>

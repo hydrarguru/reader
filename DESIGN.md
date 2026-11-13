@@ -331,7 +331,7 @@ Confident but quiet pills that press 1px down when clicked.
 
 - **Wordmark:** "Reader" in EB Garamond 500 at 30px, followed by a small coral dot; hover turns the word coral ink.
 - **Account:** signed-out visitors get a ghost "Log in" and an outline "Sign up", so the page's own primary action stays the one coral voice. Signed-in members get an avatar pill with their username, plus ghost icon buttons for Admin and Log out.
-- **Mobile:** below 640px, account actions live in a bottom drawer opened from the header.
+- **Mobile:** below 640px, a menu button in the header opens a drawer from the right with a labelled close button, every community in alphabetical order and the account actions, where "Sign up" is the one coral button. The menu button is hidden from 640px up.
 
 ### Vote Control
 

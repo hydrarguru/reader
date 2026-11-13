@@ -3,6 +3,13 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.4] - 2026-11-13
+### Fixed
+- The theme toggle is a single button; it used to sit inside a second, unnamed button that added an extra tab stop and a console error on every page.
+- The mobile menu has a labelled close button, valid roles and focus rings on its links, lists every community alphabetically instead of three random ones, and closes when you pick a link.
+- The mobile menu uses the same labels as the header ("Settings", "Log out"), makes "Sign up" its one coral button, and drops its duplicate theme toggle and the old 2024 portfolio line.
+- The menu button uses a menu icon and only shows below 640px, where the header has no room for the account buttons.
+
 ## [1.12.3] - 2026-11-13
 ### Fixed
 - The header "Sign up" is an outline button, so each page keeps one coral action.

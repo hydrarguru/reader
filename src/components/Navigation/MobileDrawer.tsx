@@ -1,11 +1,8 @@
-import { useMemo } from 'react';
-import { NavLink, useNavigate } from 'react-router';
-import { PanelLeftOpen } from 'lucide-react';
-import { ThemeToggleButton } from '../Theme/ThemeToggleButton';
+import { NavLink, NavLinkProps, useNavigate } from 'react-router';
+import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Drawer } from 'vaul';
 import { DrawerSeparator } from './MobileDrawerSeparator';
-import { ComponentToolTip } from '../Tooltip';
 
 import { Community } from '../../types/CommunityType';
 import { WithCommunities } from '../Common/WithCommunities';
@@ -13,59 +10,58 @@ import { DisabledButtons } from '../Skeletons/DisabledButtons';
 import { useAuth } from '../Auth/AuthProvider';
 import { useAuthLinkState } from '../Auth/useReturnPath';
 
-function RandomCommunities({ communities }: { communities: Community[] }) {
-  // Pick once per load, so the list doesn't reshuffle on every render.
-  const randomCommunities = useMemo(
-    () => [...communities].sort(() => Math.random() - 0.5).slice(0, 3),
-    [communities]
-  );
+function CommunityLinks({ communities }: { communities: Community[] }) {
+  const sorted = [...communities].sort((a, b) => a.community_name.localeCompare(b.community_name));
 
   return (
     <>
-      {randomCommunities.map((community) => (
-        <NavLink role='button' className={drawerLinkClass}
-          to={`/c/${community.community_name}`}
-          key={community.community_id}
-          >
-            {community.community_name}
-        </NavLink>
+      {sorted.map((community) => (
+        <DrawerLink to={`/c/${community.community_name}`} key={community.community_id}>
+          {community.community_name}
+        </DrawerLink>
       ))}
     </>
   );
 }
 
 const drawerLinkClass =
-  'w-full rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-surface-hover';
+  'w-full rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+
+function DrawerLink(props: NavLinkProps) {
+  return (
+    <Drawer.Close asChild>
+      <NavLink className={drawerLinkClass} {...props} />
+    </Drawer.Close>
+  );
+}
 
 export function MobileDrawer() {
   const { session, logout } = useAuth();
   const navigate = useNavigate();
   const authLinkState = useAuthLinkState();
 
-
   return (
     <Drawer.Root direction='right' handleOnly dismissible={true}>
-      <Drawer.Trigger
-        asChild
-      >
-        <Button variant='ghost' size='icon' aria-label='Open sidebar'>
-          <PanelLeftOpen strokeWidth={1.8} size={18} />
+      <Drawer.Trigger asChild>
+        <Button variant='ghost' size='icon' aria-label='Open menu' className='sm:hidden'>
+          <Menu strokeWidth={1.8} size={18} />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className='fixed inset-0 z-40 bg-[#1C1A21]/40' />
         <Drawer.Content
-          role='Sidebar Content'
+          aria-describedby={undefined}
           className='right-0 top-0 bottom-0 fixed z-50 outline-none w-[310px] flex border-l border-border shadow-raised'
         >
           <div className='h-full w-full grow flex flex-col items-center bg-card text-foreground overflow-y-auto overflow-x-hidden'>
-            <div className='flex flex-row items-center justify-center w-full px-2 py-2 my-2'>
-              <Drawer.Close>
-                <ComponentToolTip toolTip='Close the sidebar' align='center' delayDur={300}>
-                  <Drawer.Title className='font-display text-2xl font-medium'>
-                    Reader
-                  </Drawer.Title>
-                </ComponentToolTip>
+            <div className='flex items-center justify-between w-full pl-7 pr-3 py-2 my-2'>
+              <Drawer.Title className='font-display text-2xl font-medium'>
+                Reader
+              </Drawer.Title>
+              <Drawer.Close asChild>
+                <Button variant='ghost' size='icon' aria-label='Close menu'>
+                  <X strokeWidth={1.8} size={18} />
+                </Button>
               </Drawer.Close>
             </div>
             <DrawerSeparator title='Communities' />
@@ -74,74 +70,41 @@ export function MobileDrawer() {
                 fallback={<DisabledButtons buttonCount={3} />}
                 errorElement={<p className='w-full px-3 py-2 text-sm text-muted-foreground'>Couldn't load communities.</p>}
               >
-                {(communities) => <RandomCommunities communities={communities} />}
+                {(communities) => <CommunityLinks communities={communities} />}
               </WithCommunities>
             </div>
             <DrawerSeparator title='Account' />
             <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1 mb-4'>
               {session !== null ? (
                 <>
-                  <NavLink
-                    to='/profile'
-                    className={drawerLinkClass}
-                    >
-                      Profile
-                  </NavLink>
-                  <NavLink
-                    to='/settings'
-                    className={drawerLinkClass}
-                    >
-                      Preferences
-                  </NavLink>
-                  {session.is_admin && (
-                    <NavLink
-                      to='/admin'
+                  <DrawerLink to='/profile'>Profile</DrawerLink>
+                  <DrawerLink to='/settings'>Settings</DrawerLink>
+                  {session.is_admin && <DrawerLink to='/admin'>Admin</DrawerLink>}
+                  <Drawer.Close asChild>
+                    <button
+                      type='button'
+                      onClick={() => {
+                        logout();
+                        navigate('/');
+                      }}
                       className={drawerLinkClass}
-                      >
-                        Admin
-                    </NavLink>
-                  )}
-                  <button
-                    type='button'
-                    onClick={() => {
-                      logout();
-                      navigate('/');
-                    }}
-                    className={drawerLinkClass}
                     >
-                      Sign out
-                  </button>
+                      Log out
+                    </button>
+                  </Drawer.Close>
                 </>
               ) : (
                 <>
-                  <NavLink
-                    to='/login'
-                    state={authLinkState}
-                    className={drawerLinkClass}
-                    >
-                      Log in
-                  </NavLink>
-                  <NavLink
-                    to='/signup'
-                    state={authLinkState}
-                    className={drawerLinkClass}
-                    >
-                      Sign up
-                  </NavLink>
+                  <DrawerLink to='/login' state={authLinkState}>Log in</DrawerLink>
+                  <Drawer.Close asChild>
+                    <Button asChild className='w-full mt-2'>
+                      <NavLink to='/signup' state={authLinkState}>
+                        Sign up
+                      </NavLink>
+                    </Button>
+                  </Drawer.Close>
                 </>
               )}
-            </div>
-            <div className='flex flex-col items-center justify-center w-full px-4 py-2 space-y-1'>
-              <ThemeToggleButton />
-            </div>
-            <div className='mt-auto w-full p-4 border-t border-border flex justify-center items-center'>
-              <ComponentToolTip toolTip='Visit my portfolio!' align='center' delayDur={500}>
-                <NavLink to='https://henrikengqvist.se' target='_blank'>
-                  <span className='text-sm text-muted-foreground hover:text-foreground'>
-                    Henrik Engqvist © 2024
-                  </span>
-                </NavLink>
-              </ComponentToolTip>
             </div>
           </div>
         </Drawer.Content>
