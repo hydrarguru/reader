@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { CONTACT_EMAIL } from '@/lib/contact';
 
 const LAST_UPDATED = 'November 13, 2026';
@@ -12,6 +13,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 export function PrivacyPage() {
+  useEffect(() => {
+    document.title = 'Reader - Privacy policy';
+  }, []);
+
   return (
     <article className='max-w-prose mx-auto flex flex-col gap-8 leading-relaxed [text-wrap:pretty]'>
       <header className='flex flex-col gap-2'>

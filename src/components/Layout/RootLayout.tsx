@@ -1,4 +1,4 @@
-import { Outlet, useNavigation } from 'react-router';
+import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
 import { NavBar } from '../Navigation/NavBar';
 import { Footer } from './Footer';
 
@@ -16,6 +16,7 @@ export function RootLayout({ children }: { children?: React.ReactNode }) {
         {children ?? <Outlet />}
       </main>
       <Footer />
+      <ScrollRestoration />
     </div>
   );
 }

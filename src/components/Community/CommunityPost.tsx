@@ -3,18 +3,8 @@ import { ButtonGroup } from './ButtonGroup';
 import { Skeleton } from '../ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { UserAvatar } from '../Common/UserAvatar';
+import { timeAgo } from '@/lib/timeAgo';
 
-const relativeTime = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-const UNITS: [Intl.RelativeTimeFormatUnit, number][] = [['day', 86400], ['hour', 3600], ['minute', 60]];
-
-/** "5 minutes ago", "1 hour ago", "yesterday". */
-function timeAgo(date: Date): string {
-  const seconds = Math.trunc((date.getTime() - Date.now()) / 1000);
-  for (const [unit, size] of UNITS) {
-    if (Math.abs(seconds) >= size) return relativeTime.format(Math.trunc(seconds / size), unit);
-  }
-  return relativeTime.format(seconds, 'second');
-}
 
 export function CommunityPostDate({ createdAt }: { createdAt?: Date }) {
   if (createdAt === undefined) return <span>Unknown date</span>;

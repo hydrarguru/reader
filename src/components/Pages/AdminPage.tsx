@@ -6,6 +6,7 @@ import { ApiError } from '@/api/client';
 import { createCommunity, deleteCommunity, updateCommunity } from '@/api/communities';
 import { Community } from '@/types/CommunityType';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { useAuth } from '../Auth/AuthProvider';
 import { useSessionExpired } from '../Auth/useSessionExpired';
 import { WithCommunities } from '../Common/WithCommunities';
@@ -66,11 +67,7 @@ export function AdminPage() {
       sessionExpired(action);
       return;
     }
-    toast({
-      title: `Couldn't ${action}`,
-      description: err instanceof Error ? err.message : 'Unknown error',
-      duration: 3000,
-    });
+    toast(errorToast(`Couldn't ${action}`, err));
   }
 
   async function handleSubmit(values: CommunityFormValues) {

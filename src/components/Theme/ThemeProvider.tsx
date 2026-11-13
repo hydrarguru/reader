@@ -27,10 +27,11 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
+    const systemTheme: Theme = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : defaultTheme
     try {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme
+      return (localStorage.getItem(storageKey) as Theme) || systemTheme
     } catch {
-      return defaultTheme
+      return systemTheme
     }
   })
 

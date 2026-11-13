@@ -9,6 +9,7 @@ import { ApiError } from '@/api/client';
 import { createComment, deleteComment, getPostComments, updateComment } from '@/api/comments';
 import { Comment } from '@/types/CommentType';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
@@ -125,11 +126,7 @@ function CommentForm({ postId, onCreated }: { postId: string; onCreated: (commen
         sessionExpired('comment');
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error posting comment: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't post your comment", err));
     }
   };
 
@@ -190,11 +187,7 @@ function CommentItem({ comment, onDeleted, onUpdated }: { comment: Comment; onDe
         onDeleted();
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error deleting comment: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't delete the comment", err));
     }
   };
 
@@ -283,11 +276,7 @@ function EditCommentForm({ comment, onCancel, onSaved }: { comment: Comment; onC
         sessionExpired('edit your comment');
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error saving comment: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't save your comment", err));
     }
   };
 

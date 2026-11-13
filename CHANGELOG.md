@@ -3,6 +3,14 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.9] - 2026-11-13
+### Fixed
+- Error messages say what failed ("Couldn't save your vote") instead of "Error", and stay on screen until closed instead of vanishing after 2 seconds. The "Session expired" message also stays longer.
+- Older posts show weeks, months and years ("2 years ago") instead of "891 days ago".
+- On a first visit the theme follows the system's light or dark setting.
+- Going back to a feed returns to where you were, and opening a page starts at the top.
+- The privacy policy and error pages have their own tab titles.
+
 ## [1.12.8] - 2026-11-13
 ### Fixed
 - Profile vote stats use the soft upvote and downvote tints instead of solid coral, and the profile banner uses the paper well instead of cream, which is reserved for badges and highlights.

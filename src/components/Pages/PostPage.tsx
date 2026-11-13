@@ -6,6 +6,7 @@ import { Post } from '@/types/PostType';
 import { ApiError } from '@/api/client';
 import { deletePost, updatePost } from '@/api/posts';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -57,11 +58,7 @@ export function PostPage() {
         sessionExpired('edit your post');
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error saving post: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't save the post", err));
     }
   };
 
@@ -82,11 +79,7 @@ export function PostPage() {
         navigate(`/c/${communityName}`);
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error deleting post: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't delete the post", err));
     }
   };
 

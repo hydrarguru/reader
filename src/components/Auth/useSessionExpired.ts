@@ -7,7 +7,7 @@ export function useSessionExpired(): (action: string) => void {
   const navigate = useNavigate();
   const location = useLocation();
   return (action) => {
-    toast({ title: 'Session expired', description: `Please log in again to ${action}.`, duration: 2000 });
+    toast({ title: 'Session expired', description: `Please log in again to ${action}.` });
     navigate('/login', { state: { from: location.pathname } });
   };
 }

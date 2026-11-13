@@ -26,7 +26,7 @@ Reader is a calm, reading-first take on community discussion, organized around s
 - Live at https://reader-app.netlify.app (frontend on Netlify) with the API at https://reader-api.fly.dev (Express 5 + Drizzle ORM + MySQL, repo `../reader-backend`).
 - Anonymous visitors can browse communities and posts; posting, commenting and voting need an account (`POST /auth/login`, Bearer token, a 401 means "log in again").
 - Admins manage communities from the admin panel and can delete any post or comment.
-- Light theme is the default, with a dark theme toggle stored in the browser.
+- The theme follows the system's light or dark setting on a first visit (light when there is none); the toggle's choice is stored in the browser.
 
 ## Capabilities and Constraints
 

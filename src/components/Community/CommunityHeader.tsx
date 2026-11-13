@@ -4,6 +4,7 @@ import { Community } from '@/types/CommunityType';
 import { ApiError } from '@/api/client';
 import { createPost } from '@/api/posts';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { useAuth } from '../Auth/AuthProvider';
 import { useSessionExpired } from '../Auth/useSessionExpired';
 import { Button } from '../ui/button';
@@ -42,11 +43,7 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
         sessionExpired('post');
         return;
       }
-      toast({
-        title: 'Error',
-        description: `Error creating post: ${err instanceof Error ? err.message : 'unknown error'}`,
-        duration: 2000,
-      });
+      toast(errorToast("Couldn't create the post", err));
     }
   }
 

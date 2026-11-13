@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Vote } from '@/api/posts';
 import { ApiError } from '@/api/client';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { useAuth } from '../Auth/AuthProvider';
 import { useSessionExpired } from '../Auth/useSessionExpired';
 import { useVotes } from '../Votes/VotesProvider';
@@ -54,7 +55,7 @@ export function ButtonGroup({ id: postId, score, postPath, commentCount }: Butto
       if (err instanceof ApiError && err.status === 401) {
         sessionExpired('vote');
       } else {
-        toast({ title: 'Error', description: 'Could not save your vote.', duration: 2000 });
+        toast(errorToast("Couldn't save your vote"));
       }
     } finally {
       setIsSaving(false);

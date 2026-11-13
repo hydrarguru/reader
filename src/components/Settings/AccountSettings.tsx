@@ -9,6 +9,7 @@ import { invalidatePostsCache } from '@/api/posts';
 import { deleteUser, updateUser } from '@/api/users';
 import { Session, setSession } from '@/lib/session';
 import { useToast } from '@/hooks/use-toast';
+import { errorToast } from '@/lib/errorToast';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -50,10 +51,6 @@ const passwordFormSchema = z
     message: "Passwords don't match.",
     path: ['confirmPassword'],
   });
-
-function errorText(err: unknown): string {
-  return err instanceof Error ? err.message : 'unknown error';
-}
 
 /** Forms for changing the username, email and password, and for deleting the account. */
 export function AccountSettings({ session }: { session: Session }) {
@@ -102,7 +99,7 @@ function ProfileForm({ session }: { session: Session }) {
         form.setError(field, { message: field === 'email' ? 'That email is already in use.' : 'That username is taken.' });
         return;
       }
-      toast({ title: 'Error', description: `Error updating account: ${errorText(err)}`, duration: 2000 });
+      toast(errorToast("Couldn't update your account", err));
     }
   };
 
@@ -168,7 +165,7 @@ function PasswordForm({ session }: { session: Session }) {
         form.setError('current_password', { message: 'That password is incorrect.' });
         return;
       }
-      toast({ title: 'Error', description: `Error changing password: ${errorText(err)}`, duration: 2000 });
+      toast(errorToast("Couldn't change your password", err));
     }
   };
 
@@ -248,7 +245,7 @@ function DeleteAccount({ session }: { session: Session }) {
         sessionExpired('delete your account');
         return;
       }
-      toast({ title: 'Error', description: `Error deleting account: ${errorText(err)}`, duration: 2000 });
+      toast(errorToast("Couldn't delete your account", err));
     }
   };
 

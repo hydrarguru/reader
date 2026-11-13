@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router';
 import { Button } from '../ui/button';
 
@@ -6,6 +7,10 @@ export function ErrorPage() {
   const notFound = isRouteErrorResponse(error) && error.status === 404;
 
   if (!notFound) console.error(error);
+
+  useEffect(() => {
+    document.title = notFound ? 'Reader - Page not found' : 'Reader - Something went wrong';
+  }, [notFound]);
 
   return (
     <div className='flex flex-col items-center gap-4 my-16 text-center'>
