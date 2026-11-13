@@ -3,6 +3,12 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.2] - 2026-11-13
+### Added
+- `PRODUCT.md` and `DESIGN.md` describe the product and the Reader design system, with `.impeccable/design.json` alongside.
+### Fixed
+- Post titles in feeds are 20px and inputs, textareas and dialog close buttons have 6px corners, matching the design system.
+
 ## [1.12.1] - 2026-11-03
 ### Changed
 - README tech stack now lists the libraries actually in use (React Router, Radix UI, React Hook Form, Zod, Vitest and others), updates the backend to Express 5 + Drizzle, and adds setup commands.

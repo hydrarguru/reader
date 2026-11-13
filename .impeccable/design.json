@@ -1,0 +1,558 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T11:31:56.077Z",
+  "title": "Design System: Reader",
+  "extensions": {
+    "colorMeta": {
+      "surface-page": {
+        "role": "neutral",
+        "displayName": "Alabaster Paper",
+        "canonical": "hsl(var(--surface-page))",
+        "approxOklch": "oklch(93.3% 0.016 126.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 126.8)",
+          "oklch(26.4% 0.011 126.8)",
+          "oklch(37.9% 0.016 126.8)",
+          "oklch(49.3% 0.016 126.8)",
+          "oklch(60.7% 0.016 126.8)",
+          "oklch(72.1% 0.016 126.8)",
+          "oklch(83.6% 0.011 126.8)",
+          "oklch(95.0% 0.005 126.8)"
+        ]
+      },
+      "surface-card": {
+        "role": "neutral",
+        "displayName": "Card Stock",
+        "canonical": "hsl(var(--surface-card))",
+        "approxOklch": "oklch(98.6% 0.005 117.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 117.9)",
+          "oklch(26.4% 0.004 117.9)",
+          "oklch(37.9% 0.005 117.9)",
+          "oklch(49.3% 0.005 117.9)",
+          "oklch(60.7% 0.005 117.9)",
+          "oklch(72.1% 0.005 117.9)",
+          "oklch(83.6% 0.004 117.9)",
+          "oklch(95.0% 0.002 117.9)"
+        ]
+      },
+      "surface-sunken": {
+        "role": "neutral",
+        "displayName": "Paper Well",
+        "canonical": "hsl(var(--surface-sunken))",
+        "approxOklch": "oklch(90.5% 0.019 127.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 127.2)",
+          "oklch(26.4% 0.013 127.2)",
+          "oklch(37.9% 0.019 127.2)",
+          "oklch(49.3% 0.019 127.2)",
+          "oklch(60.7% 0.019 127.2)",
+          "oklch(72.1% 0.019 127.2)",
+          "oklch(83.6% 0.013 127.2)",
+          "oklch(95.0% 0.006 127.2)"
+        ]
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "displayName": "Paper Hover",
+        "canonical": "hsl(var(--surface-hover))",
+        "approxOklch": "oklch(96.1% 0.009 119.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 119.6)",
+          "oklch(26.4% 0.007 119.6)",
+          "oklch(37.9% 0.009 119.6)",
+          "oklch(49.3% 0.009 119.6)",
+          "oklch(60.7% 0.009 119.6)",
+          "oklch(72.1% 0.009 119.6)",
+          "oklch(83.6% 0.007 119.6)",
+          "oklch(95.0% 0.003 119.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Violet Ink",
+        "canonical": "hsl(var(--ink))",
+        "approxOklch": "oklch(26.2% 0.023 300.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 300.1)",
+          "oklch(26.4% 0.016 300.1)",
+          "oklch(37.9% 0.023 300.1)",
+          "oklch(49.3% 0.023 300.1)",
+          "oklch(60.7% 0.023 300.1)",
+          "oklch(72.1% 0.023 300.1)",
+          "oklch(83.6% 0.016 300.1)",
+          "oklch(95.0% 0.007 300.1)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Violet",
+        "canonical": "hsl(var(--ink-muted))",
+        "approxOklch": "oklch(47.0% 0.033 298.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 298.9)",
+          "oklch(26.4% 0.022 298.9)",
+          "oklch(37.9% 0.033 298.9)",
+          "oklch(49.3% 0.033 298.9)",
+          "oklch(60.7% 0.033 298.9)",
+          "oklch(72.1% 0.033 298.9)",
+          "oklch(83.6% 0.022 298.9)",
+          "oklch(95.0% 0.010 298.9)"
+        ]
+      },
+      "ink-inverse": {
+        "role": "neutral",
+        "displayName": "Inverse Ink",
+        "canonical": "hsl(var(--ink-inverse))",
+        "approxOklch": "oklch(98.6% 0.005 117.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 117.9)",
+          "oklch(26.4% 0.004 117.9)",
+          "oklch(37.9% 0.005 117.9)",
+          "oklch(49.3% 0.005 117.9)",
+          "oklch(60.7% 0.005 117.9)",
+          "oklch(72.1% 0.005 117.9)",
+          "oklch(83.6% 0.004 117.9)",
+          "oklch(95.0% 0.002 117.9)"
+        ]
+      },
+      "brand": {
+        "role": "primary",
+        "displayName": "Reader Coral",
+        "canonical": "hsl(var(--brand))",
+        "approxOklch": "oklch(68.1% 0.165 29.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.053 29.1)",
+          "oklch(26.4% 0.113 29.1)",
+          "oklch(37.9% 0.165 29.1)",
+          "oklch(49.3% 0.165 29.1)",
+          "oklch(60.7% 0.165 29.1)",
+          "oklch(72.1% 0.165 29.1)",
+          "oklch(83.6% 0.113 29.1)",
+          "oklch(95.0% 0.053 29.1)"
+        ]
+      },
+      "on-brand": {
+        "role": "primary",
+        "displayName": "On Coral Ink",
+        "canonical": "hsl(var(--on-brand))",
+        "approxOklch": "oklch(26.2% 0.023 300.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 300.1)",
+          "oklch(26.4% 0.016 300.1)",
+          "oklch(37.9% 0.023 300.1)",
+          "oklch(49.3% 0.023 300.1)",
+          "oklch(60.7% 0.023 300.1)",
+          "oklch(72.1% 0.023 300.1)",
+          "oklch(83.6% 0.016 300.1)",
+          "oklch(95.0% 0.007 300.1)"
+        ]
+      },
+      "brand-ink": {
+        "role": "primary",
+        "displayName": "Coral Ink",
+        "canonical": "hsl(var(--brand-ink))",
+        "approxOklch": "oklch(50.7% 0.147 30.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.047 30.2)",
+          "oklch(26.4% 0.101 30.2)",
+          "oklch(37.9% 0.147 30.2)",
+          "oklch(49.3% 0.147 30.2)",
+          "oklch(60.7% 0.147 30.2)",
+          "oklch(72.1% 0.147 30.2)",
+          "oklch(83.6% 0.101 30.2)",
+          "oklch(95.0% 0.047 30.2)"
+        ]
+      },
+      "brand-soft": {
+        "role": "primary",
+        "displayName": "Coral Blush",
+        "canonical": "hsl(var(--brand-soft))",
+        "approxOklch": "oklch(90.9% 0.036 30.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.011 30.8)",
+          "oklch(26.4% 0.024 30.8)",
+          "oklch(37.9% 0.036 30.8)",
+          "oklch(49.3% 0.036 30.8)",
+          "oklch(60.7% 0.036 30.8)",
+          "oklch(72.1% 0.036 30.8)",
+          "oklch(83.6% 0.024 30.8)",
+          "oklch(95.0% 0.011 30.8)"
+        ]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "Sage",
+        "canonical": "hsl(var(--accent-fill))",
+        "approxOklch": "oklch(78.2% 0.041 186.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 186.5)",
+          "oklch(26.4% 0.028 186.5)",
+          "oklch(37.9% 0.041 186.5)",
+          "oklch(49.3% 0.041 186.5)",
+          "oklch(60.7% 0.041 186.5)",
+          "oklch(72.1% 0.041 186.5)",
+          "oklch(83.6% 0.028 186.5)",
+          "oklch(95.0% 0.013 186.5)"
+        ]
+      },
+      "accent-ink": {
+        "role": "secondary",
+        "displayName": "Sage Ink",
+        "canonical": "hsl(var(--accent-ink))",
+        "approxOklch": "oklch(48.7% 0.050 186.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.016 186.5)",
+          "oklch(26.4% 0.034 186.5)",
+          "oklch(37.9% 0.050 186.5)",
+          "oklch(49.3% 0.050 186.5)",
+          "oklch(60.7% 0.050 186.5)",
+          "oklch(72.1% 0.050 186.5)",
+          "oklch(83.6% 0.034 186.5)",
+          "oklch(95.0% 0.016 186.5)"
+        ]
+      },
+      "accent-soft": {
+        "role": "secondary",
+        "displayName": "Sage Mist",
+        "canonical": "hsl(var(--accent-soft))",
+        "approxOklch": "oklch(90.3% 0.018 183.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 183.5)",
+          "oklch(26.4% 0.012 183.5)",
+          "oklch(37.9% 0.018 183.5)",
+          "oklch(49.3% 0.018 183.5)",
+          "oklch(60.7% 0.018 183.5)",
+          "oklch(72.1% 0.018 183.5)",
+          "oklch(83.6% 0.012 183.5)",
+          "oklch(95.0% 0.006 183.5)"
+        ]
+      },
+      "highlight": {
+        "role": "tertiary",
+        "displayName": "Cream",
+        "canonical": "hsl(var(--highlight))",
+        "approxOklch": "oklch(94.7% 0.070 105.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.022 105.0)",
+          "oklch(26.4% 0.048 105.0)",
+          "oklch(37.9% 0.070 105.0)",
+          "oklch(49.3% 0.070 105.0)",
+          "oklch(60.7% 0.070 105.0)",
+          "oklch(72.1% 0.070 105.0)",
+          "oklch(83.6% 0.048 105.0)",
+          "oklch(95.0% 0.022 105.0)"
+        ]
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Dusk Violet",
+        "canonical": "hsl(var(--secondary-fill))",
+        "approxOklch": "oklch(47.0% 0.033 298.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 298.9)",
+          "oklch(26.4% 0.022 298.9)",
+          "oklch(37.9% 0.033 298.9)",
+          "oklch(49.3% 0.033 298.9)",
+          "oklch(60.7% 0.033 298.9)",
+          "oklch(72.1% 0.033 298.9)",
+          "oklch(83.6% 0.022 298.9)",
+          "oklch(95.0% 0.010 298.9)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "hsl(var(--line))",
+        "approxOklch": "oklch(86.3% 0.022 127.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 127.4)",
+          "oklch(26.4% 0.015 127.4)",
+          "oklch(37.9% 0.022 127.4)",
+          "oklch(49.3% 0.022 127.4)",
+          "oklch(60.7% 0.022 127.4)",
+          "oklch(72.1% 0.022 127.4)",
+          "oklch(83.6% 0.015 127.4)",
+          "oklch(95.0% 0.007 127.4)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Control Line",
+        "canonical": "hsl(var(--line-strong))",
+        "approxOklch": "oklch(62.5% 0.029 300.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.009 300.0)",
+          "oklch(26.4% 0.020 300.0)",
+          "oklch(37.9% 0.029 300.0)",
+          "oklch(49.3% 0.029 300.0)",
+          "oklch(60.7% 0.029 300.0)",
+          "oklch(72.1% 0.029 300.0)",
+          "oklch(83.6% 0.020 300.0)",
+          "oklch(95.0% 0.009 300.0)"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "Focus Ink",
+        "canonical": "hsl(var(--focus))",
+        "approxOklch": "oklch(26.2% 0.023 300.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 300.1)",
+          "oklch(26.4% 0.016 300.1)",
+          "oklch(37.9% 0.023 300.1)",
+          "oklch(49.3% 0.023 300.1)",
+          "oklch(60.7% 0.023 300.1)",
+          "oklch(72.1% 0.023 300.1)",
+          "oklch(83.6% 0.016 300.1)",
+          "oklch(95.0% 0.007 300.1)"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger Red",
+        "canonical": "hsl(var(--danger))",
+        "approxOklch": "oklch(50.1% 0.178 28.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.057 28.7)",
+          "oklch(26.4% 0.122 28.7)",
+          "oklch(37.9% 0.178 28.7)",
+          "oklch(49.3% 0.178 28.7)",
+          "oklch(60.7% 0.178 28.7)",
+          "oklch(72.1% 0.178 28.7)",
+          "oklch(83.6% 0.122 28.7)",
+          "oklch(95.0% 0.057 28.7)"
+        ]
+      },
+      "on-danger": {
+        "role": "neutral",
+        "displayName": "On Danger",
+        "canonical": "hsl(var(--on-danger))",
+        "approxOklch": "oklch(98.6% 0.005 117.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 117.9)",
+          "oklch(26.4% 0.004 117.9)",
+          "oklch(37.9% 0.005 117.9)",
+          "oklch(49.3% 0.005 117.9)",
+          "oklch(60.7% 0.005 117.9)",
+          "oklch(72.1% 0.005 117.9)",
+          "oklch(83.6% 0.004 117.9)",
+          "oklch(95.0% 0.002 117.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing and sign-up heroes only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Community name in its header; page titles."
+      },
+      "headline-sm": {
+        "displayName": "Headline Small",
+        "purpose": "Post title on the post page; dialog titles."
+      },
+      "title": {
+        "displayName": "Post Title",
+        "purpose": "Post title in a feed card; community names on cards."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Post bodies and comments."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Descriptions, sidebars, helper text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, tabs, form labels."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Author, timestamp, counts; tabular figures."
+      },
+      "overline": {
+        "displayName": "Overline",
+        "purpose": "Uppercase section labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-card",
+        "value": "0 1px 2px rgba(38, 34, 46, 0.06), 0 6px 20px rgba(38, 34, 46, 0.05)",
+        "dark": "0 1px 2px rgba(0, 0, 0, 0.5)",
+        "purpose": "Resting post cards."
+      },
+      {
+        "name": "shadow-raised",
+        "value": "0 2px 4px rgba(38, 34, 46, 0.08), 0 16px 40px rgba(38, 34, 46, 0.12)",
+        "dark": "0 2px 6px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.45)",
+        "purpose": "Dialogs, menus, hovered cards."
+      }
+    ],
+    "motion": [
+      {
+        "name": "color-change",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Colour, background and border changes on controls."
+      },
+      {
+        "name": "shadow-lift",
+        "value": "200ms ease-out",
+        "purpose": "Card shadow lift on hover."
+      },
+      {
+        "name": "press",
+        "value": "translateY(1px)",
+        "purpose": "Button press on :active."
+      },
+      {
+        "name": "accordion",
+        "value": "200ms ease-out",
+        "purpose": "Accordion open and close."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one coral action per view.",
+      "html": "<button class=\"ds-btn-primary\">Create post</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 14px/20px \"Instrument Sans\",system-ui,sans-serif;border:1px solid transparent;cursor:pointer;transition:color 150ms,background-color 150ms,border-color 150ms,transform 150ms;background:hsl(var(--brand));color:hsl(var(--on-brand))}.ds-btn-primary:hover{background:hsl(var(--brand) / 0.9)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--surface-page)),0 0 0 4px hsl(var(--focus));}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "A quiet bordered pill for secondary actions.",
+      "html": "<button class=\"ds-btn-outline\">Edit</button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 14px/20px \"Instrument Sans\",system-ui,sans-serif;border:1px solid transparent;cursor:pointer;transition:color 150ms,background-color 150ms,border-color 150ms,transform 150ms;background:transparent;border-color:hsl(var(--line-strong));color:hsl(var(--ink))}.ds-btn-outline:hover{border-color:hsl(var(--ink));background:hsl(var(--surface-hover))}.ds-btn-outline:active{transform:translateY(1px)}.ds-btn-outline:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--surface-page)),0 0 0 4px hsl(var(--focus));}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Borderless pill for header actions like Log in.",
+      "html": "<button class=\"ds-btn-ghost\">Log in</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 14px/20px \"Instrument Sans\",system-ui,sans-serif;border:1px solid transparent;cursor:pointer;transition:color 150ms,background-color 150ms,border-color 150ms,transform 150ms;background:transparent;color:hsl(var(--ink-muted))}.ds-btn-ghost:hover{background:hsl(var(--surface-hover));color:hsl(var(--ink))}.ds-btn-ghost:active{transform:translateY(1px)}.ds-btn-ghost:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--surface-page)),0 0 0 4px hsl(var(--focus));}"
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Danger red, for delete actions only.",
+      "html": "<button class=\"ds-btn-danger\">Delete post</button>",
+      "css": ".ds-btn-danger{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 14px/20px \"Instrument Sans\",system-ui,sans-serif;border:1px solid transparent;cursor:pointer;transition:color 150ms,background-color 150ms,border-color 150ms,transform 150ms;background:hsl(var(--danger));color:hsl(var(--on-danger))}.ds-btn-danger:hover{background:hsl(var(--danger) / 0.9)}.ds-btn-danger:active{transform:translateY(1px)}.ds-btn-danger:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--surface-page)),0 0 0 4px hsl(var(--focus));}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Card-stock input with a control-line border.",
+      "html": "<input class=\"ds-input\" placeholder=\"Post title\" />",
+      "css": ".ds-input{width:280px;height:40px;padding:8px 12px;border:1px solid hsl(var(--line-strong));border-radius:6px;background:hsl(var(--surface-card));color:hsl(var(--ink));font:400 15px/22px \"Instrument Sans\",system-ui,sans-serif}.ds-input::placeholder{color:hsl(var(--ink-muted))}.ds-input:focus-visible{outline:none;box-shadow:0 0 0 1px hsl(var(--surface-page)),0 0 0 3px hsl(var(--focus))}"
+    },
+    {
+      "name": "Vote Control",
+      "kind": "custom",
+      "refersTo": "vote-control",
+      "description": "Up/down pill with the score between; the viewer’s vote tints the whole pill.",
+      "html": "<div class=\"ds-vote\" role=\"group\" aria-label=\"Vote\"><button aria-label=\"Upvote\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 7-7 7 7\"/><path d=\"M12 19V5\"/></svg></button><span>123</span><button aria-label=\"Downvote\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></button></div>",
+      "css": ".ds-vote{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:999px;background:hsl(var(--surface-sunken));font:600 13px/18px \"Instrument Sans\",system-ui,sans-serif;color:hsl(var(--ink-muted))}.ds-vote button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:999px;background:transparent;color:inherit;cursor:pointer;transition:color 150ms,background-color 150ms}.ds-vote button:hover{background:hsl(var(--surface-hover));color:hsl(var(--ink))}.ds-vote button:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--focus))}.ds-vote span{min-width:28px;text-align:center;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Post Card",
+      "kind": "card",
+      "refersTo": "post-card",
+      "description": "A post in a feed: meta row, serif title, excerpt, then actions.",
+      "html": "<article class=\"ds-post\"><div class=\"ds-post-meta\"><span class=\"ds-avatar\">H</span>henrik<span aria-hidden=\"true\">·</span><time>3 hours ago</time></div><a class=\"ds-post-title\" href=\"#\">Why serif type still wins on long reads</a><p class=\"ds-post-excerpt\">Share what you are into and find the people who care about it too.</p><div class=\"ds-post-actions\"><div class=\"ds-vote\" role=\"group\" aria-label=\"Vote\"><button aria-label=\"Upvote\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 7-7 7 7\"/><path d=\"M12 19V5\"/></svg></button><span>42</span><button aria-label=\"Downvote\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></button></div><a class=\"ds-comments\" href=\"#\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"/></svg>3 comments</a></div></article>",
+      "css": ".ds-post{max-width:560px;padding:20px 24px;border:1px solid hsl(var(--line));border-radius:12px;background:hsl(var(--surface-card));box-shadow:var(--shadow-card);transition:box-shadow 200ms}.ds-post:hover{box-shadow:var(--shadow-raised)}.ds-post-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;font:500 13px/18px \"Instrument Sans\",system-ui,sans-serif;color:hsl(var(--ink-muted))}.ds-avatar{display:grid;place-items:center;width:20px;height:20px;border-radius:999px;background:hsl(var(--accent-fill));color:#26222e;font:500 12px/1 \"EB Garamond\",Georgia,serif}.ds-post-title{display:block;margin-bottom:8px;font:500 20px/28px \"EB Garamond\",Garamond,Georgia,serif;color:hsl(var(--ink));text-decoration:none}.ds-post-title:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}.ds-post-excerpt{margin:0 0 16px;font:400 15px/24px \"Instrument Sans\",system-ui,sans-serif;color:hsl(var(--ink-muted))}.ds-post-actions{display:flex;align-items:center;gap:8px}.ds-comments{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;font:600 13px/18px \"Instrument Sans\",system-ui,sans-serif;color:hsl(var(--ink-muted));text-decoration:none}.ds-comments:hover{background:hsl(var(--surface-hover));color:hsl(var(--ink))}.ds-vote{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:999px;background:hsl(var(--surface-sunken));font:600 13px/18px \"Instrument Sans\",system-ui,sans-serif;color:hsl(var(--ink-muted))}.ds-vote button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:999px;background:transparent;color:inherit;cursor:pointer;transition:color 150ms,background-color 150ms}.ds-vote button:hover{background:hsl(var(--surface-hover));color:hsl(var(--ink))}.ds-vote button:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--focus))}.ds-vote span{min-width:28px;text-align:center;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Wordmark Nav",
+      "kind": "nav",
+      "description": "Header: serif wordmark with a coral dot, ghost Log in, primary Sign up.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Reader<span aria-hidden=\"true\"></span></a><div class=\"ds-nav-actions\"><a class=\"ds-nav-ghost\" href=\"#\">Log in</a><a class=\"ds-nav-primary\" href=\"#\">Sign up</a></div></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 24px;border-bottom:1px solid hsl(var(--line));background:hsl(var(--surface-page) / 0.85)}.ds-wordmark{display:flex;align-items:baseline;gap:4px;font:500 30px/36px \"EB Garamond\",Garamond,Georgia,serif;letter-spacing:-0.025em;color:hsl(var(--ink));text-decoration:none;transition:color 150ms}.ds-wordmark:hover{color:hsl(var(--brand-ink))}.ds-wordmark span{display:inline-block;width:8px;height:8px;border-radius:999px;background:hsl(var(--brand))}.ds-nav-actions{display:flex;gap:8px}.ds-nav-ghost,.ds-nav-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 14px/20px \"Instrument Sans\",system-ui,sans-serif;border:1px solid transparent;cursor:pointer;transition:color 150ms,background-color 150ms,border-color 150ms,transform 150ms;text-decoration:none}.ds-nav-ghost{color:hsl(var(--ink-muted))}.ds-nav-ghost:hover{background:hsl(var(--surface-hover));color:hsl(var(--ink))}.ds-nav-primary{background:hsl(var(--brand));color:hsl(var(--on-brand))}.ds-nav-primary:hover{background:hsl(var(--brand) / 0.9)}.ds-nav-ghost:focus-visible,.ds-nav-primary:focus-visible,.ds-wordmark:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--surface-page)),0 0 0 4px hsl(var(--focus));}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Reading Room",
+    "overview": "Reader is a quiet, well-lit room for reading. Cards rest on warm paper and the interface steps back so posts can speak. The look is modern and sleek with an editorial elegance: a Garamond serif for everything people write as a title, a calm sans for everything the interface says, and a five-colour palette (coral, cream, sage, violet, alabaster) in which each colour has exactly one job.\n\nDensity is relaxed but not sparse. Feeds are single columns of cards with generous padding, metadata stays small and muted, and one coral element per view tells you what to do next. Depth comes from hairlines first and soft violet-tinted shadows second. The dark theme swaps paper for a warm violet-black and keeps every hue.\n\nThe system rejects the grey-on-black prototype it replaced and the loud, badge-heavy chrome of large link aggregators. Nothing competes with the reading.",
+    "keyCharacteristics": [
+      "Warm paper (alabaster) instead of white or grey; cards one step lighter.",
+      "Serif titles, sans interface: the pairing is the identity.",
+      "One coral voice per view; sage and cream play supporting roles only.",
+      "Pill-shaped controls against softly rounded cards.",
+      "Hairlines over shadows; shadows tinted violet, never pure black in light mode."
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Coral marks at most one primary action per view. If two things on a screen are coral, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Coral Is a Fill Rule",
+        "body": "Coral never sets text on light grounds (3.1:1 fails body text) and never carries white. Text that must be coral uses brand-ink; coral fills carry on-brand.",
+        "section": "colors"
+      },
+      {
+        "name": "The Danger Is Not Brand Rule",
+        "body": "Destructive actions use danger, a deeper red, so a coral button never reads as \"delete\".",
+        "section": "colors"
+      },
+      {
+        "name": "The Who Wrote It Rule",
+        "body": "If a person wrote it and it is a title, set it in the serif. If the interface wrote it, set it in the sans. Post bodies stay sans for long-read comfort.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Buttons are verbs in sentence case (\"Create post\", \"Sign up\"), never all caps. Uppercase belongs to the overline only.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Step Rule",
+        "body": "A card lifts from Card to Raised on hover and never further. There is no third shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep one coral action per view (The One Voice Rule).",
+      "Do use brand-ink when coral has to be text, and on-brand on every coral fill.",
+      "Do set titles people wrote in EB Garamond 500 and everything the interface says in Instrument Sans.",
+      "Do put cards on paper with a 1px hairline and the Card shadow, lifting to Raised on hover.",
+      "Do check every new pairing for WCAG 2.2 AA in both themes: 4.5:1 for text, 3:1 for control borders, focus rings and icons.",
+      "Do use lucide-react icons at 16px with a 1.8 stroke in currentColor: muted at rest, ink on hover.",
+      "Do keep motion short and quiet: 150ms colour and border changes, 200ms shadow lift, a 1px press. No bounces."
+    ],
+    "donts": [
+      "Don't put white text on coral, or coral text on light grounds.",
+      "Don't use coral for destructive actions; use danger.",
+      "Don't fall back to a sans for the display serif.",
+      "Don't add a third shadow level or pure-black shadows in the light theme.",
+      "Don't set buttons in all caps or use \"Submit\"; buttons are verbs in sentence case.",
+      "Don't use grey-on-black or plain white surfaces; Reader lives on warm paper."
+    ]
+  }
+}

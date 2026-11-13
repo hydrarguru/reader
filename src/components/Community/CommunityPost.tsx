@@ -70,7 +70,7 @@ export function CommunityPost(CommunityPostProps: CommunityPostProps) {
 
       <Link
         to={postPath}
-        className='mb-2 block font-display text-[22px] font-medium leading-7 text-foreground [text-wrap:pretty] hover:underline hover:decoration-1 hover:underline-offset-4'
+        className='mb-2 block font-display text-[20px] font-medium leading-7 text-foreground [text-wrap:pretty] hover:underline hover:decoration-1 hover:underline-offset-4'
       >
         {CommunityPostProps.title}
       </Link>
