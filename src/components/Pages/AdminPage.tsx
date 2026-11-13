@@ -10,7 +10,7 @@ import { useAuth } from '../Auth/AuthProvider';
 import { useSessionExpired } from '../Auth/useSessionExpired';
 import { WithCommunities } from '../Common/WithCommunities';
 import { CommunityFormDialog, CommunityFormValues } from '../Admin/CommunityFormDialog';
-import { Button } from '../ui/button';
+import { Button, buttonVariants } from '../ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,10 +38,10 @@ function CommunityRow({ community, onEdit, onDelete }: { community: Community; o
       </div>
       <div className='flex flex-none gap-1'>
         <Button variant='ghost' size='icon' aria-label={`Edit c/${community.community_name}`} onClick={onEdit}>
-          <Pencil size={16} />
+          <Pencil size={16} strokeWidth={1.8} />
         </Button>
         <Button variant='ghost' size='icon' aria-label={`Delete c/${community.community_name}`} onClick={onDelete}>
-          <Trash2 size={16} />
+          <Trash2 size={16} strokeWidth={1.8} />
         </Button>
       </div>
     </li>
@@ -128,7 +128,7 @@ export function AdminPage() {
           <p className='mt-2 text-muted-foreground'>Create, edit and delete communities.</p>
         </div>
         <Button onClick={() => setFormState({ open: true, community: null })}>
-          <Plus size={16} className='mr-1' />
+          <Plus size={16} strokeWidth={1.8} />
           New community
         </Button>
       </div>
@@ -175,7 +175,7 @@ export function AdminPage() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
+              className={buttonVariants({ variant: 'destructive' })}
               onClick={() => pendingDelete && handleDelete(pendingDelete)}
             >
               Delete

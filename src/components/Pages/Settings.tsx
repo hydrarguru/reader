@@ -56,7 +56,7 @@ export function Settings() {
                 onClick={() => setTheme(option.value)}
                 className={cn(
                   'group flex flex-col gap-3 rounded-lg border-2 p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card',
-                  selected ? 'border-brand' : 'border-border hover:border-line-strong'
+                  selected ? 'border-foreground' : 'border-border hover:border-line-strong'
                 )}
               >
                 {/* A miniature feed in the theme's own colours. */}
@@ -72,7 +72,7 @@ export function Settings() {
                 <span className='flex items-center justify-between text-sm font-semibold'>
                   {option.label}
                   {selected && (
-                    <span className='grid h-5 w-5 place-items-center rounded-full bg-brand text-brand-on'>
+                    <span className='grid h-5 w-5 place-items-center rounded-full bg-foreground text-background'>
                       <Check size={12} strokeWidth={3} />
                     </span>
                   )}

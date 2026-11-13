@@ -16,8 +16,8 @@ function StatTile({ icon, label, value, tone }: { icon: React.ReactNode; label: 
         aria-hidden
         className={
           tone === 'brand'
-            ? 'grid h-10 w-10 place-items-center rounded-full bg-brand text-brand-on'
-            : 'grid h-10 w-10 place-items-center rounded-full bg-sage text-[#26222E]'
+            ? 'grid h-10 w-10 place-items-center rounded-full bg-brand-soft text-brand-ink'
+            : 'grid h-10 w-10 place-items-center rounded-full bg-sage-soft text-sage-ink'
         }
       >
         {icon}
@@ -44,7 +44,7 @@ export function Profile() {
   return (
     <div className='flex flex-col gap-10'>
       <header className='overflow-hidden rounded-xl border border-border bg-card'>
-        <div className='h-28 bg-highlight sm:h-36' />
+        <div className='h-28 bg-surface-sunken sm:h-36' />
         <div className='flex flex-wrap items-end justify-between gap-4 px-6 pb-6'>
           <div className='flex items-end gap-5'>
             <UserAvatar

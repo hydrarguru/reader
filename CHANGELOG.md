@@ -3,6 +3,12 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.8] - 2026-11-13
+### Fixed
+- Profile vote stats use the soft upvote and downvote tints instead of solid coral, and the profile banner uses the paper well instead of cream, which is reserved for badges and highlights.
+- The selected theme in settings is marked in ink instead of coral, so coral stays for the page's one main action.
+- Admin icons use the standard 1.8 stroke, and deleting a community uses the shared destructive button style.
+
 ## [1.12.7] - 2026-11-13
 ### Fixed
 - The home page and profile no longer put a small uppercase label above the page title.
