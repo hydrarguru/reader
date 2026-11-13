@@ -3,6 +3,10 @@
 All notable changes to this project. Follows [Semantic Versioning](https://semver.org/).
 Versions before 1.11.0 were assigned retroactively from the commit history: new features are a minor bump, fixes and dependency updates a patch bump.
 
+## [1.12.11] - 2026-11-13
+### Fixed
+- Post bodies, comments and the privacy policy now actually stay at about 70 characters per line. 1.12.6 used a `ch`-based width that still allowed about 90.
+
 ## [1.12.10] - 2026-11-13
 ### Fixed
 - Sign-up shows the username and password rules up front instead of only after a failed attempt, and links to the privacy policy.

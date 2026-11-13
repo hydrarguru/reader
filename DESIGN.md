@@ -257,7 +257,7 @@ A warm, low-saturation palette on paper, where every colour has one job and ever
 - **Headline** (EB Garamond 500, 36px/42px, -0.015em): the community name in its header and page titles.
 - **Headline Small** (EB Garamond 500, 26px/32px, -0.01em): the post title on the post page and dialog titles.
 - **Title** (EB Garamond 500, 20px/28px): the post title inside a feed card and community names on cards.
-- **Body** (Instrument Sans 400, 16px/26px): post bodies and comments. Keep long text at 65 to 75 characters per line.
+- **Body** (Instrument Sans 400, 16px/26px): post bodies and comments. Keep long text at 65 to 75 characters per line with `max-w-measure` (32rem); `ch`-based widths such as `max-w-prose` run to about 90 characters in this face.
 - **Body Small** (Instrument Sans 400, 14px/22px): descriptions, sidebars and helper text.
 - **Label** (Instrument Sans 600, 14px/20px): buttons, tabs and form labels, in sentence case.
 - **Input** (Instrument Sans 400, 15px): text typed into inputs and textareas.

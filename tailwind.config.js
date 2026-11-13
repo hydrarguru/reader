@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
   	extend: {
+  		maxWidth: {
+  			// About 70 characters of Instrument Sans at 16px; `ch` units measure the wider digit 0.
+  			measure: '32rem'
+  		},
   		fontFamily: {
   			display: ['"EB Garamond"', 'Garamond', '"Iowan Old Style"', 'Georgia', 'serif'],
   			sans: ['"Instrument Sans"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],

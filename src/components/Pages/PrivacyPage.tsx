@@ -18,7 +18,7 @@ export function PrivacyPage() {
   }, []);
 
   return (
-    <article className='max-w-prose mx-auto flex flex-col gap-8 leading-relaxed [text-wrap:pretty]'>
+    <article className='max-w-measure mx-auto flex flex-col gap-8 leading-relaxed [text-wrap:pretty]'>
       <header className='flex flex-col gap-2'>
         <h1 className='font-display text-4xl font-medium tracking-tight text-foreground'>Privacy policy</h1>
         <p className='text-sm text-muted-foreground'>Last updated {LAST_UPDATED}</p>

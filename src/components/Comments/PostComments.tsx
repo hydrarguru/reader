@@ -252,7 +252,7 @@ function CommentItem({ comment, onDeleted, onUpdated }: { comment: Comment; onDe
           }}
         />
       ) : (
-        <p className='max-w-prose whitespace-pre-wrap text-base leading-[26px]'>{comment.comment_content}</p>
+        <p className='max-w-measure whitespace-pre-wrap text-base leading-[26px]'>{comment.comment_content}</p>
       )}
     </article>
   );
